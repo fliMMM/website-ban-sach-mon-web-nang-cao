@@ -17,15 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [FileController::class, 'getFileList'])->middleware('auth');
+Route::get('/', [HomeController::class, 'show']);
 
 
 //show login form
-Route::get('/login', [UserController::class, 'showLogin'])->name('login')->middleware('guest');
+// Route::get('/login', [UserController::class, 'showLogin'])->name('login');
 
 
-//show register form
-Route::get('/register', [UserController::class, 'showRegister'])->middleware('guest');
+// // //show register form
+// Route::get('/', [UserController::class, 'showRegister'])->name('register');
 
 //create users
 Route::post('/users', [UserController::class, 'createUser']);
