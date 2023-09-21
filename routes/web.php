@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'show']);
+Route::get('/', function () {
+  return view('home');
+});
 
 
 //show login form

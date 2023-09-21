@@ -1,7 +1,8 @@
 @extends('layout')
 
 @section('body')
-    <div>
-        hehe
+    <div class="flex flex-col items-center">
+        <x-banner />
+        <x-sectiontitle />
     </div>
 @endsection
