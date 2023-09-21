@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [FileController::class, 'getFileList'])->middleware('auth');
+Route::get('/', function(){
+    return view('home');
+});
 
 
 //show login form
