@@ -95,6 +95,11 @@
             quantityValue += 1;
             quantity.val(quantityValue);
         });
+        quantity.on('keydown', (e) => {
+            if (e.key === '-') {
+                e.preventDefault();
+            }
+        });
     </script>
 </body>
 
