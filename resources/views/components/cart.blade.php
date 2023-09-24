@@ -84,17 +84,22 @@
     <script>
         var quantity = $("#quantity");
         var quantityValue = Number(quantity.val());
-
+        quantityValue == 0 ? $('.btn_minus').attr('disabled', true) : 0;
         $(".btn_minus").click(() => {
             quantityValue -= 1;
             quantity.val(quantityValue);
+            quantityValue == 0 ? $('.btn_minus').attr('disabled', true) : 0;
         });
         $(".btn_plus").click(() => {
             $('.btn_minus').attr('disabled', false);
             quantityValue += 1;
             quantity.val(quantityValue);
         });
-        quantityValue == 0 ? $('.btn_minus').attr('disabled', true) : 0;
+        quantity.on('keydown', (e) => {
+            if (e.key === '-') {
+                e.preventDefault();
+            }
+        });
     </script>
 </body>
 
