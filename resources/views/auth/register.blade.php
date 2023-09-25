@@ -2,8 +2,6 @@
 
 @section('body')
     <div class=" w-screen h-screen pt-2 flex justify-center">
-
-
         <form method="POST" action="/users">
             @csrf
             <label class="w-20 inline-block" for="email">Email: </label>
