@@ -11,6 +11,7 @@
 </head>
 
 <body>
+
     <div class="container">
         <h1>Giỏ hàng</h1>
         <form action="" method="post" class="form-desk cart table-wrap medium--hide small--hide">
@@ -51,7 +52,7 @@
                         <td class="quantity" data-label="Số lượng">
                             <div class="input-group">
                                 <button type="button" class="btn btn-icon btn-secondary btn_minus">-</button>
-                                <input type="number" class="form-control text-center" id="quantity" value="0">
+                                <input type="number" class="form-control text-center" id="quantity" value="1">
                                 <button type="button" class="btn btn-icon btn-secondary btn_plus">+ </button>
                             </div>
                         </td>
@@ -80,24 +81,38 @@
                 </div>
             </div>
         </form>
+
     </div>
     <script>
         var quantity = $("#quantity");
         var quantityValue = Number(quantity.val());
-        quantityValue == 0 ? $('.btn_minus').attr('disabled', true) : 0;
+        var inputString = "";
+        quantityValue == 1 ? $('.btn_minus').attr('disabled', true) : null;
         $(".btn_minus").click(() => {
             quantityValue -= 1;
             quantity.val(quantityValue);
-            quantityValue == 0 ? $('.btn_minus').attr('disabled', true) : 0;
+            quantityValue == 1 ? $('.btn_minus').attr('disabled', true) : null;
         });
         $(".btn_plus").click(() => {
             $('.btn_minus').attr('disabled', false);
             quantityValue += 1;
             quantity.val(quantityValue);
         });
-        quantity.on('keydown', (e) => {
+        quantity.keydown((e) => {
             if (e.key === '-') {
                 e.preventDefault();
+            }
+        });
+        quantity.on('keyup', function(e) {
+            if (e.key == 1) {
+                $('.btn_minus').attr('disabled', true)
+            } else if (e.key > 1) {
+                let keyPressed = $(this).val().slice(-1);
+                inputString += keyPressed;
+                // $(this).val(inputString);
+                quantityValue = Number(inputString);
+                console.log(quantityValue);
+                $('.btn_minus').attr('disabled', false);
             }
         });
     </script>
