@@ -3,6 +3,6 @@
 @section('body')
 <div class="flex flex-col items-center">
     <x-banner/>
-    <x-sectiontitle/>
+    <x-sectiontitle :$listProducts/>
 </div>
 @endsection
