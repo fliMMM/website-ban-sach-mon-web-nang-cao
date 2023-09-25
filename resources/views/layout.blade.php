@@ -25,7 +25,7 @@
                
             </marquee>
         </div>
-        <div class="flex w-100vw justify-around items-center mb-2">
+        <div class="flex w-100vw justify-around items-center pb-3 mt-3 border-b">
                <div>
                 <div class="input-group" >
                     <input type="text" class="form-control h-6" >
@@ -61,8 +61,19 @@
     </head>
     <main>
         @yield('body')
+        <x-register />
+        <x-login />
+
     </main>
     <script src="{{asset('assets/clients/js/bootstrap.min.js')}}"></script>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+</script>
+
+<script>
+    // var myModal = new bootstrap.Modal(document.getElementById('loginModal'), {})
+    // myModal.toggle()
+</script>
 
 </html>

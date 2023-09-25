@@ -16,7 +16,7 @@ class ProductSeeder extends Seeder
   {
 
     $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-    $spreadSheet = $reader->load(__DIR__ . '\data.xlsx');
+    $spreadSheet = $reader->load(__DIR__ . '/data.xlsx');
     $sheet = $spreadSheet->getSheet($spreadSheet->getFirstSheetIndex());
     $data = $sheet->toArray();
 
