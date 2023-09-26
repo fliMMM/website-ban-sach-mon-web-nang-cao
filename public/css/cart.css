@@ -29,9 +29,19 @@ h6,
     margin: 0 0 0.5em;
     line-height: 1.4;
 }
+.h4,
+h4 {
+    font-size: 1.4rem;
+}
+.table-responsive {
+    overflow: hidden;
+}
 .cart-table th {
     font-weight: normal;
     font-size: 18px;
+}
+#quantity {
+    width: 40%;
 }
 .cart_row {
     position: relative;
@@ -79,9 +89,7 @@ textarea {
 .total {
     text-align: right;
 }
-.quantity {
-    width: 150px;
-}
+
 .input-group button {
     background-color: #fff;
     color: #000;
@@ -114,4 +122,63 @@ input::-webkit-inner-spin-button {
     border-radius: 0px;
     background-color: #d51c24;
     color: #fff;
+}
+@media only screen and (min-width: 769px) {
+    .large--hide {
+        display: none !important;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    .medium--hide {
+        display: none !important;
+    }
+}
+@media (max-width: 768px) {
+    .cart .cart-item {
+        margin-bottom: 15px;
+        border-bottom: 1px solid #e6e6e6;
+    }
+
+    .cart .cart-item .h4 {
+        font-size: 16px !important;
+        margin-bottom: 0px;
+    }
+    .cart .cart-item .price .h3 {
+        font-size: 16px !important;
+        color: #d51c24;
+    }
+    .quantity {
+        width: 50%;
+    }
+    textarea {
+        height: 95%;
+    }
+    .container {
+        max-width: 90%;
+    }
+}
+
+@media only screen and (min-width: 990px) and (max-width: 1200px) {
+    .h4,
+    h4 {
+        font-size: 1rem;
+    }
+    h3,
+    .h3 {
+        font-size: 1.2em;
+    }
+}
+@media only screen and (min-width: 769px) and (max-width: 990px) {
+    .h4,
+    h4 {
+        font-size: 1rem;
+    }
+    h3,
+    .h3 {
+        font-size: 1.2em;
+    }
+    button[name="checkout"] {
+        margin-top: 3px;
+    }
 }
