@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -19,14 +21,19 @@ class UserController extends Controller
     return view('auth.register');
   }
 
-  public function createUser(Request $request)
+  public function handleRegister(Request $request)
   {
     $formData = $request->validate(
       [
         'email' => ['required', 'email'],
-        'password' => ['required']
+        'password' => ['required', "min:8"],
+        'confirmPassword' => ['required', "min:8", "same:password"],
       ]
     );
+
+    array_pop($formData);
+
+    $formData['password'] = Hash::make($formData['password']);
 
     $user = User::create($formData);
 
@@ -38,22 +45,27 @@ class UserController extends Controller
     return redirect('/')->with('message', "dang ky thanh cong");
   }
 
-  public function login(Request $request)
+  public function handleLogin(Request $request)
   {
     $formData = $request->validate(
       [
         'email' => ['required', 'email'],
-        'password' => ['required']
+        'password' => ['required', 'min:8']
       ]
     );
 
-    if (auth()->attempt($formData)) {
-      $request->session()->regenerate();
+    $user = DB::table('users')->where('email', '=', $formData['email'])->get();
+
+    if (Hash::check($formData['password'], $user[0]->password)) {
+      $request->session()->put('user', $user[0]);
 
       return redirect('/');
     }
 
-    return back();
+
+
+
+    return redirect()->back()->with('status', "Email hoặc mật khẩu không đúng");
   }
 
 

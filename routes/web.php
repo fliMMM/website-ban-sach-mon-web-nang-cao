@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\FileController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Models\File;
 use Illuminate\Support\Facades\Route;
@@ -27,27 +24,25 @@ Route::get('/cart', function () {
 });
 
 //show login form
-Route::get('/login', [UserController::class, 'showLogin'])->name('login')->middleware('guest');
+// Route::get('/login', [UserController::class, 'showLogin'])->name('login');
 
 
-//show register form
-Route::get('/register', [UserController::class, 'showRegister'])->middleware('guest');
+// // //show register form
+// Route::get('/', [UserController::class, 'showRegister'])->name('register');
 
 //create users
-Route::post('/users', [UserController::class, 'createUser']);
+// Route::post('/users', [UserController::class, 'createUser']);
 
 
 //logout
 Route::post('/logout', [UserController::class, 'logout']);
 
-//login
-Route::post('/users/login', [UserController::class, 'login']);
+//show login page
+Route::get('/login', [UserController::class, 'showLogin']);
+Route::get('/register', [UserController::class, 'showregister']);
 
-//uploadFile
-Route::post('/uploadfile', [FileController::class, 'upload']);
+//handle login
+Route::post('/handler/login', [UserController::class, 'handleLogin']);
 
-//delete file
-Route::post('/file/delete/{id}', [FileController::class, 'delete']);
-
-//update file
-Route::post('/file/edit/{id}', [FileController::class, 'update']);
+//handle register
+Route::post('/handler/register', [UserController::class, 'handleRegister']);
