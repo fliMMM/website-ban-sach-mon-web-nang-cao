@@ -27,6 +27,9 @@ Route::get('/', function () {
 Route::get('/cart', function () {
   return view('cart');
 });
+Route::get('/collection', function () {
+  return view('collection');
+});
 
 //show login form
 Route::get('/login', [UserController::class, 'showLogin'])->name('login')->middleware('guest');
