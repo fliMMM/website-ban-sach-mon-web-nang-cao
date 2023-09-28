@@ -73,6 +73,7 @@ label {
     position: relative;
     display: block;
 }
+
 .collection-sidebar-wrapper .collection-filter-price button.accordion:after,
 .collection-sidebar-wrapper .collection-filter-vendor button.accordion:after,
 .collection-sidebar-wrapper .collection-filter-type button.accordion:after {
@@ -83,6 +84,32 @@ label {
     top: calc(50%-10px);
     right: 10px;
     height: 10px;
+}
+.collection-sidebar-wrapper
+    .collection-filter-price
+    button.active_accordion:after,
+.collection-sidebar-wrapper
+    .collection-filter-vendor
+    button.active_accordion:after,
+.collection-sidebar-wrapper
+    .collection-filter-type
+    button.active_accordion:after {
+    content: "\f067";
+    font-family: FontAwesome;
+    color: #fff;
+    position: absolute;
+    top: calc(50%-10px);
+    right: 10px;
+    height: 10px;
+}
+.panel {
+    max-height: 300px;
+    overflow: hidden;
+    transition: max-height 0.8s ease-out;
+}
+
+.panel.active {
+    max-height: 0px;
 }
 label > span {
     padding-left: 6px;
@@ -198,6 +225,7 @@ iframe {
     width: 40px;
     line-height: 40px;
     margin: 10px;
+    text-align: center;
 }
 ul {
     list-style-type: none;
@@ -213,15 +241,15 @@ ul {
 .page-item > a {
     display: inline-block;
     text-align: center;
-    height: 45px;
-    line-height: 45px;
-    width: 45px;
+    height: 42px;
+    line-height: 42px;
+    width: 42px;
     padding: 0px;
     color: #333333;
     background: #fff;
     border: 1px solid #333333;
     border-radius: 3px;
-    font-size: 23px;
+    font-size: 20px;
 }
 @media only screen and (max-width: 990px) {
     .medium_hide {
