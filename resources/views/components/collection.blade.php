@@ -13,6 +13,8 @@
 </head>
 
 <body>
+
+
     <div class="container">
         <div class="row">
             <div class="col-lg-3 order-lg-1 order-md-2 order-sm-2">
@@ -20,57 +22,57 @@
                     <div class="grid">
                         <div class="grid__item medium--one-half ">
                             <div class="collection-filter-price">
-                                <button class="accordion active">
+                                <button class="accordion ">
                                     <span>khoảng giá</span>
                                 </button>
                                 <div class="panel sidebar-sort">
                                     <ul class="no-bullets filter-price clearfix">
                                         <li>
                                             <label>
-                                                <input type="checkbox" name="price-filter" data-price="0:max"
-                                                    value="">
+                                                <input type="checkbox" name="price_filter" data-price="0:max"
+                                                    value="((price:product>=0))">
                                                 <span>Tất cả</span>
                                             </label>
                                         </li>
                                         <li>
                                             <label>
-                                                <input type="checkbox" name="price-filter" data-price="0:100000"
-                                                    value="">
+                                                <input type="checkbox" name="price_filter" data-price="0:100000"
+                                                    value="((price:product<100000))">
                                                 <span>Nhỏ hơn 100,000₫</span>
                                             </label>
                                         </li>
                                         <li>
                                             <label>
-                                                <input type="checkbox" name="price-filter" data-price="100000:200000"
-                                                    value="">
+                                                <input type="checkbox" name="price_filter" data-price="100000:200000"
+                                                    value="((price:product>=100000)&&(price:product<200000))">
                                                 <span>Từ 100,000₫ - 200,000₫</span>
                                             </label>
                                         </li>
                                         <li>
                                             <label>
-                                                <input type="checkbox" name="price-filter" data-price="200000:300000"
-                                                    value="">
+                                                <input type="checkbox" name="price_filter" data-price="200000:300000"
+                                                    value="((price:product>=200000)&&(price:product<300000))">
                                                 <span>Từ 200,000₫ - 300,000₫</span>
                                             </label>
                                         </li>
                                         <li>
                                             <label>
-                                                <input type="checkbox" name="price-filter" data-price="300000:400000"
-                                                    value="">
+                                                <input type="checkbox" name="price_filter" data-price="300000:400000"
+                                                    value="((price:product>=300000)&&(price:product<400000))">
                                                 <span>Từ 300,000₫ - 400,000₫</span>
                                             </label>
                                         </li>
                                         <li>
                                             <label>
-                                                <input type="checkbox" name="price-filter" data-price="400000:500000"
-                                                    value="">
+                                                <input type="checkbox" name="price_filter" data-price="400000:500000"
+                                                    value="((price:product>=400000)&&(price:product<500000))">
                                                 <span>Từ 400,000₫ - 500,000₫</span>
                                             </label>
                                         </li>
                                         <li>
                                             <label>
-                                                <input type="checkbox" name="price-filter" data-price="500000:max"
-                                                    value="">
+                                                <input type="checkbox" name="price_filter" data-price="500000:max"
+                                                    value="((price:product>=500000))">
                                                 <span>Lớn hơn 500,000₫</span>
                                             </label>
                                         </li>
@@ -81,7 +83,7 @@
 
                         <div class="grid__item medium--one-half ">
                             <div class="collection-filter-vendor">
-                                <button class="accordion active">
+                                <button class="accordion">
                                     <span>Tác giả</span>
                                 </button>
                                 <div class="panel sidebar-sort">
@@ -100,7 +102,7 @@
 
                         <div class="grid__item medium--one-half ">
                             <div class="collection-filter-type">
-                                <button class="accordion  active">
+                                <button class="accordion  ">
                                     <span>Thể loại</span>
                                 </button>
                                 <div class="panel sidebar-sort">
@@ -367,6 +369,8 @@
                                 <li class="page-item"><a class="page-link current" href="#">1</a></li>
                                 <li class="page-item"><a class="page-link" href="#">2</a></li>
                                 <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">...</li>
+                                <li class="page-item"><a class="page-link" href="#">32</a></li>
                                 <li class="page-item">
                                     <a class="page-link" href="#" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
@@ -380,7 +384,16 @@
             </div>
         </div>
     </div>
-    <script></script>
+    <script>
+        $('input[name="price_filter"]').click(function() {
+            $('input[name="price_filter"]').not(this).prop('checked', false);
+        });
+        $('.accordion').click(function() {
+            $(this).toggleClass("active_accordion");
+            $(this).siblings(".panel").toggleClass("active");
+
+        });
+    </script>
 </body>
 
 </html>
