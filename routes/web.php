@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
   return view('home');
-});
+})->name('home');
 
 
 
@@ -43,11 +43,12 @@ Route::get('/collection', function () {
 Route::post('/logout', [UserController::class, 'logout']);
 
 //show login page
-Route::get('/login', [UserController::class, 'showLogin']);
-Route::get('/register', [UserController::class, 'showregister']);
-
+Route::get('/login', [UserController::class, 'showLogin'])->name('login');
 //handle login
 Route::post('/handler/login', [UserController::class, 'handleLogin']);
 
+
+//show register page
+Route::get('/register', [UserController::class, 'showregister'])->name('register');
 //handle register
 Route::post('/handler/register', [UserController::class, 'handleRegister']);
