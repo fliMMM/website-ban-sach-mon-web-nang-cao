@@ -20,6 +20,7 @@
                         <li class="text-danger"> {{ session('status') }}</li>
                     </ul>
                 @endif
+
                 <p class="text-2xl font-bold mb-0">Xin chào,</p>
 
                 <form class=" space-y-2" method="POST" action="/handler/login">
