@@ -15,12 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'show']);
 
+Route::get('/', [HomeController::class, 'show']);
+Route::get('/', function () {
+  return view('home');
+})->name('home');
 
 
 Route::get('/cart', function () {
   return view('cart');
+});
+Route::get('/collection', function () {
+  return view('collection');
 });
 
 //show login form
@@ -38,11 +44,12 @@ Route::get('/cart', function () {
 Route::post('/logout', [UserController::class, 'logout']);
 
 //show login page
-Route::get('/login', [UserController::class, 'showLogin']);
-Route::get('/register', [UserController::class, 'showregister']);
-
+Route::get('/login', [UserController::class, 'showLogin'])->name('login');
 //handle login
 Route::post('/handler/login', [UserController::class, 'handleLogin']);
 
+
+//show register page
+Route::get('/register', [UserController::class, 'showregister'])->name('register');
 //handle register
 Route::post('/handler/register', [UserController::class, 'handleRegister']);

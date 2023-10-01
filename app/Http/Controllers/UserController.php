@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\View\Components\login;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -11,18 +12,30 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-  public function showLogin(): View
+  public function showLogin()
   {
+    if (Auth::check()) return redirect('/');
     return view('auth.login');
   }
 
-  public function showRegister(): View
+  public function showRegister()
   {
+    if (Auth::check()) return redirect('/');
     return view('auth.register');
   }
 
   public function handleRegister(Request $request)
   {
+    unset($_SESSION['duplicateEmail']);
+
+    $existUserCout = DB::table('users')
+      ->where('email', $request->email)
+      ->count();
+
+    if ($existUserCout > 0) {
+      return redirect('/register')->with('duplicateEmail', "Email đã tồn tại!");
+    }
+
     $formData = $request->validate(
       [
         'email' => ['required', 'email'],
@@ -30,6 +43,8 @@ class UserController extends Controller
         'confirmPassword' => ['required', "min:8", "same:password"],
       ]
     );
+
+
 
     array_pop($formData);
 
@@ -57,13 +72,9 @@ class UserController extends Controller
     $user = DB::table('users')->where('email', '=', $formData['email'])->get();
 
     if (Hash::check($formData['password'], $user[0]->password)) {
-      $request->session()->put('user', $user[0]);
-
+      auth()->loginUsingId($user[0]->id);
       return redirect('/');
     }
-
-
-
 
     return redirect()->back()->with('status', "Email hoặc mật khẩu không đúng");
   }

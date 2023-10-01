@@ -4,6 +4,11 @@
     <div class="px-10 pb-10 flex items-center space-x-10 justify-center">
 
         <div class="space-y-4 shadow p-5 rounded-sm mt-32">
+            @if (session('duplicateEmail'))
+                <ul>
+                    <li class="text-danger"> {{ session('duplicateEmail') }}</li>
+                </ul>
+            @endif
             <p class="text-2xl font-bold mb-0">Xin chào,</p>
 
             <form class=" space-y-3" method="POST" action="/handler/register">
