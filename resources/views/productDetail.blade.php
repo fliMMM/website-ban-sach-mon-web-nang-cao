@@ -5,8 +5,8 @@
     <a href="{{route('home')}}" class = "no-underline text-sm text-slate-900" >Trang chủ</a>
     <div class = "flex justify-center mt-6 w-4/5">
     <img src="https://product.hstatic.net/200000343865/product/me-viet-day-con-kieu-bac-au_f0818b5e988e4b96bc0314a8c41aad80_bea2c59e3a56485e9f77c53123b18177_large.jpg" alt="">
-        <div class ="ml-10">  
-        <div class = "border-b pd-2 width-[320px]">
+        <div class ="ml-10 w-2/5">  
+        <div class = "border-b pd-10 ">
         <h4 class = "">Mẹ Việt Dạy Con Kiểu Bắc Âu</h4>
         </div>
         <div class = "border-b pd-2">

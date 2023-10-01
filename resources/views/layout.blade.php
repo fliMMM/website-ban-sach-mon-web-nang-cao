@@ -61,9 +61,7 @@
     </head>
     <main>
         @yield('body')
-        <x-register />
-        <x-login />
-
+    
     </main>
     <script src="{{asset('assets/clients/js/bootstrap.min.js')}}"></script>
 </body>
