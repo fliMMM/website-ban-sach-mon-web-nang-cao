@@ -23,6 +23,9 @@ Route::get('/', [HomeController::class, 'show'])->name('home');
 Route::get('/cart', function () {
   return view('cart');
 });
+Route::get('/collection', function () {
+  return view('collection');
+});
 
 //show login form
 // Route::get('/login', [UserController::class, 'showLogin'])->name('login');
@@ -39,11 +42,10 @@ Route::get('/cart', function () {
 Route::post('/logout', [UserController::class, 'logout']);
 
 //show login page
-Route::get('/login', [UserController::class, 'showLogin']);
-Route::get('/register', [UserController::class, 'showregister']);
-
+Route::get('/login', [UserController::class, 'showLogin'])->name('login');
 //handle login
 Route::post('/handler/login', [UserController::class, 'handleLogin']);
+
 
 
 //delete file
@@ -54,6 +56,10 @@ Route::post('/file/edit/{id}', [FileController::class, 'update']);
 
 //product Detail 
 Route::get('/productDetail', [ProductDetailController::class, 'index'])->name('productDetail');
+
+
+//show register page
+Route::get('/register', [UserController::class, 'showregister'])->name('register');
 
 //handle register
 Route::post('/handler/register', [UserController::class, 'handleRegister']);

@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
   public function show()
   {
-    $list = DB::table('products')->limit(5)->get();
+    $list = DB::table('products')->limit(7)->get();
     return view('home', ['listProducts' => $list]);
   }
 }

@@ -4,7 +4,17 @@
 
 <div class="flex flex-col items-center">
     <x-banner/>
-    <x-sectiontitle :$listProducts/>
-</div>
+    <div class="w-8/12">
+        <x-sectiontitle :$listProducts/>
+    </div>
 
+</div>
+<script type="text/javascript">
+    $('.multiple-items').slick({
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        arrow:true,
+        focusOnSelect: true
+    });
+</script>
 @endsection
