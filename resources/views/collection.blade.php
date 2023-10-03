@@ -1,9 +1,3 @@
-{{-- @extends('layout')
-
-@section('body')
-    <x-collection />
-@endsection --}}
-
 @extends('layout')
 @section('body')
     <!DOCTYPE html>
@@ -21,7 +15,13 @@
     </head>
 
     <body>
-
+        {{-- @foreach ($collection as $collection)
+            <div class=" w-[120px]">
+                <img src="{{ $collection->image }}" alt="" class="cursor-pointer w-48 h-72 ml-4 mt-4 mr-4 ">
+                <p class="cursor-pointer w-48 ml-4 mr-4 text-sm font-semibold">{{ $collection->name }}</p>
+                <p class="ml-4" style="color: #d51c24">{{ $collection->price }}đ</p>
+            </div>
+        @endforeach --}}
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 order-lg-1 order-md-2 order-sm-2">
@@ -165,228 +165,47 @@
                         <h1 class="col-lg-6">Đón trung thu tới - Khuyến mãi 70%</h1>
                         <div class="text-right col-lg-6 sortBy">
                             <label for="SortBy">Sắp xếp</label>
-                            <select name="SortBy" id="SortBy">
-                                <option value="manual">Tùy chọn</option>
-                                <option value="best-selling">Bán chạy nhất</option>
-                                <option value="title-ascending">Tên A-Z</option>
-                                <option value="title-descending">Tên Z-A</option>
-                                <option value="price-ascending">Giá tăng dần</option>
-                                <option value="price-descending">Giá giảm dần</option>
-                                <option value="created-descending">Mới nhất</option>
-                                <option value="created-ascending">Cũ nhất</option>
-                            </select>
+                            <form action="/filter-products" method="GET">
+                                <select name="SortBy" id="SortBy">
+                                    <option value="manual">Tùy chọn</option>
+                                    <option value="title-ascending">Tên A-Z</option>
+                                    <option value="title-descending">Tên Z-A</option>
+                                    <option value="price-ascending">Giá tăng dần</option>
+                                    <option value="price-descending">Giá giảm dần</option>
+                                </select>
+                            </form>
                         </div>
                     </div>
                     <div class="collection-body">
                         <div class="product-list row">
-                            <div class="product-item col-lg-3 col-md-4 col-sm-4">
-                                <div class="product-img">
-                                    <a href="" class="text-center">
-                                        <img id="1045175926"
-                                            src="//product.hstatic.net/200000343865/product/susu-gogo-di-singapore_bia_7e8c3f9e58e34d05bfb9ab22b367bbc0_large.jpg"
-                                            alt="Susu và Gogo đi Singapore">
-                                    </a>
-                                    <div class="product-tags">
-                                        <div class="tag-saleoff text-center">
-                                            -70%
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-title">
-                                        <a href="">Susu và Gogo đi Singapore</a>
-                                    </div>
-                                    <div class="product-price">
-                                        <span class="current-price">16,800₫</span>
-                                        <span class="original-price"><s>56,000₫</s></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-item col-lg-3 col-md-4 col-sm-4">
-                                <div class="product-img">
-                                    <a href="" class="text-center">
-                                        <img id="1045175926"
-                                            src="https://product.hstatic.net/200000343865/product/alphabet-in-the-kitchen_273f188e91864ce6947b798a08b93147_large.jpg"
-                                            alt="Susu và Gogo đi Singapore">
-                                    </a>
-                                    <div class="product-tags">
-                                        <div class="tag-saleoff text-center">
-                                            -70%
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-title">
-                                        <a href="">Susu và Gogo đi Singapore</a>
-                                    </div>
-                                    <div class="product-price">
-                                        <span class="current-price">16,800₫</span>
-                                        <span class="original-price"><s>56,000₫</s></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-item col-lg-3 col-md-4 col-sm-4">
-                                <div class="product-img">
-                                    <a href="" class="text-center">
-                                        <img id="1045175926"
-                                            src="//product.hstatic.net/200000343865/product/susu-gogo-di-singapore_bia_7e8c3f9e58e34d05bfb9ab22b367bbc0_large.jpg"
-                                            alt="Susu và Gogo đi Singapore">
-                                    </a>
-                                    <div class="product-tags">
-                                        <div class="tag-saleoff text-center">
-                                            -70%
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-title">
-                                        <a href="">Susu và Gogo đi Singapore</a>
-                                    </div>
-                                    <div class="product-price">
-                                        <span class="current-price">16,800₫</span>
-                                        <span class="original-price"><s>56,000₫</s></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-item col-lg-3 col-md-4 col-sm-4">
-                                <div class="product-img">
-                                    <a href="" class="text-center">
-                                        <img id="1045175926"
-                                            src="//product.hstatic.net/200000343865/product/susu-gogo-di-singapore_bia_7e8c3f9e58e34d05bfb9ab22b367bbc0_large.jpg"
-                                            alt="Susu và Gogo đi Singapore">
-                                    </a>
-                                    <div class="product-tags">
-                                        <div class="tag-saleoff text-center">
-                                            -70%
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-title">
-                                        <a href="">Susu và Gogo đi Singapore</a>
-                                    </div>
-                                    <div class="product-price">
-                                        <span class="current-price">16,800₫</span>
-                                        <span class="original-price"><s>56,000₫</s></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-item col-lg-3 col-md-4 col-sm-4">
-                                <div class="product-img">
-                                    <a href="" class="text-center">
-                                        <img id="1045175926"
-                                            src="https://product.hstatic.net/200000343865/product/khung-long-lung-gai_bd1a30b7fec6489582790d753b422182_large.jpg"
-                                            alt="Susu và Gogo đi Singapore">
-                                    </a>
-                                    <div class="product-tags">
-                                        <div class="tag-saleoff text-center">
-                                            -70%
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-title">
-                                        <a href="">Susu và Gogo đi Singapore</a>
-                                    </div>
-                                    <div class="product-price">
-                                        <span class="current-price">16,800₫</span>
-                                        <span class="original-price"><s>56,000₫</s></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-item col-lg-3 col-md-4 col-sm-4">
-                                <div class="product-img">
-                                    <a href="" class="text-center">
-                                        <img id="1045175926"
-                                            src="//product.hstatic.net/200000343865/product/susu-gogo-di-singapore_bia_7e8c3f9e58e34d05bfb9ab22b367bbc0_large.jpg"
-                                            alt="Susu và Gogo đi Singapore">
-                                    </a>
-                                    <div class="product-tags">
-                                        <div class="tag-saleoff text-center">
-                                            -70%
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-title">
-                                        <a href="">Susu và Gogo đi Singapore</a>
-                                    </div>
-                                    <div class="product-price">
-                                        <span class="current-price">16,800₫</span>
-                                        <span class="original-price"><s>56,000₫</s></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-item col-lg-3 col-md-4 col-sm-4">
-                                <div class="product-img">
-                                    <a href="" class="text-center">
-                                        <img id="1045175926"
-                                            src="https://product.hstatic.net/200000343865/product/rung_mua_ff7e9c9a54c147be9fc66a08ce67588d_large.jpg"
-                                            alt="Susu và Gogo đi Singapore">
-                                    </a>
-                                    <div class="product-tags">
-                                        <div class="tag-saleoff text-center">
-                                            -70%
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-title">
-                                        <a href="">Susu và Gogo đi Singapore</a>
-                                    </div>
-                                    <div class="product-price">
-                                        <span class="current-price">16,800₫</span>
-                                        <span class="original-price"><s>56,000₫</s></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-item col-lg-3 col-md-4 col-sm-4">
-                                <div class="product-img">
-                                    <a href="" class="text-center">
-                                        <img id="1045175926"
-                                            src="//product.hstatic.net/200000343865/product/susu-gogo-di-singapore_bia_7e8c3f9e58e34d05bfb9ab22b367bbc0_large.jpg"
-                                            alt="Susu và Gogo đi Singapore">
-                                    </a>
-                                    <div class="product-tags">
-                                        <div class="tag-saleoff text-center">
-                                            -70%
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-title">
-                                        <a href="">Susu và Gogo đi Singapore</a>
-                                    </div>
-                                    <div class="product-price">
-                                        <span class="current-price">16,800₫</span>
-                                        <span class="original-price"><s>56,000₫</s></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="paginationList d-flex justify-content-center">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    <li class="page-item invisible">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                            <span class="sr-only">Previous</span>
+                            @foreach ($collections as $collection)
+                                <div class="product-item col-lg-3 col-md-4 col-sm-4">
+                                    <div class="product-img">
+                                        <a href="" class="text-center">
+                                            <img id="1045175926" src="{{ $collection->image }}">
                                         </a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link current" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">...</li>
-                                    <li class="page-item"><a class="page-link" href="#">32</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
+                                        {{-- <div class="product-tags">
+                                            <div class="tag-saleoff text-center">
+                                                -70%
+                                            </div>
+                                        </div> --}}
+                                    </div>
+                                    <div class="product-info">
+                                        <div class="product-title">
+                                            <a href="">{{ $collection->name }}</a>
+                                        </div>
+                                        <div class="product-price">
+                                            <span class="current-price">{{ $collection->price }}₫</span>
+                                            {{-- <span class="original-price"><s>56,000₫</s></span> --}}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
+                        {{ $collections->links() }}
+
+
+
                     </div>
                 </div>
             </div>
@@ -398,8 +217,66 @@
             $('.accordion').click(function() {
                 $(this).toggleClass("active_accordion");
                 $(this).siblings(".panel").toggleClass("active");
-
             });
+            $('#SortBy').on('change', function() {
+                var selectedOption = $(this).val();
+                updateUrl(selectedOption);
+
+                filterProducts(selectedOption);
+            });
+
+            function updateUrl(selectedOption) {
+                var newUrl = window.location.pathname + '?sortBy=' + selectedOption;
+                window.history.pushState({
+                    path: newUrl
+                }, '', newUrl);
+            }
+
+            function filterProducts(sortBy) {
+                $.ajax({
+                    url: '/filter-collection',
+                    type: 'GET',
+                    data: {
+                        SortBy: sortBy
+                    },
+                    success: function(data) {
+                        let filteredProducts = $('.product-list');
+                        filteredProducts.empty();
+                        $.each(data.data, function(index, product) {
+                            filteredProducts.append(
+                                `
+                        <div class="product-item col-lg-3 col-md-4 col-sm-4">
+                            <div class="product-img">
+                                <a href="" class="text-center">
+                                    <img id="1045175926" src="${product.image}">    
+                                </a>
+                                {{-- <div class="product-tags">
+                                            <div class="tag-saleoff text-center">
+                                                -70%
+                                            </div>
+                                        </div> --}}
+                            </div>
+                            <div class="product-info">
+                                <div class="product-title">
+                                    <a href="">${product.name}</a>
+                                </div>
+                                <div class="product-price">
+                                    <span class="current-price">${product.price}₫</span>
+                                    {{-- <span class="original-price"><s>56,000₫</s></span> --}}
+                                </div>
+                            </div>
+                        </div>
+
+                        `
+                            );
+
+                        });
+                    },
+                    error: function() {
+                        console.error('An error occurred while fetching filtered products.');
+                    }
+                });
+            }
         </script>
     </body>
 

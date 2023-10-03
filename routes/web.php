@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use App\Models\File;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CollectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +25,19 @@ Route::get('/', function () {
 Route::get('/cart', function () {
   return view('cart');
 });
-Route::get('/collection', function () {
-  return view('collection');
+
+
+Route::get('/collection', [CollectionController::class, 'show'])->name('collection');
+Route::get('/filter-collection', [CollectionController::class, 'filter']);
+
+
+Route::prefix('admin')->group(function () {
+  Route::get('/dashboard', function () {
+    return view('admin.dashboard');
+  });
+  Route::get('/products', function () {
+    return view('admin.product');
+  });
 });
 
 //show login form
