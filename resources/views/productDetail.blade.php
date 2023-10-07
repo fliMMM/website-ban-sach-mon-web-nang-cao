@@ -93,7 +93,8 @@
                     <p class="mt-2 font-bold text-3xl ">SÁCH CÙNG THỂ LOẠI</p>
                 </div>
                 <div class="">
-                    <x-sectiontitle :$listProducts />
+                    <?php $list = $listProducts?>
+                    <x-sectiontitle :$list /> 
                 </div>
             </div>
             <div>
@@ -101,7 +102,8 @@
                     <p class="mt-2 font-bold text-3xl ">SẢN PHẨM ĐÃ XEM</p>
                 </div>
                 <div class="">
-                    <x-sectiontitle :$listProducts />
+                    <?php $list = $listProducts?>
+                 <x-sectiontitle :$list /> 
                 </div>
             </div>
             @endforeach
