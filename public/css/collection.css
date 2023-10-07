@@ -219,38 +219,42 @@ iframe {
     color: #bebebe;
     float: right;
 }
-.pagination > li {
-    display: inline-block;
-    height: 40px;
-    width: 40px;
-    line-height: 40px;
-    margin: 10px;
-    text-align: center;
-}
-ul {
-    list-style-type: none;
-    margin: 0;
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
     padding: 0;
 }
-.page-item > a.current {
-    color: #fff;
-    background: #d51c24;
-    border: 1px solid #d51c24;
-    border-radius: 3px;
+
+.pagination li {
+    margin: 0 5px;
 }
-.page-item > a {
+
+.pagination .page-item {
     display: inline-block;
-    text-align: center;
-    height: 42px;
-    line-height: 42px;
-    width: 42px;
-    padding: 0px;
-    color: #333333;
-    background: #fff;
-    border: 1px solid #333333;
-    border-radius: 3px;
-    font-size: 20px;
 }
+
+.pagination .page-link {
+    color: #333333;
+    text-decoration: none;
+    padding: 3px 15px;
+    font-size: 25px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.pagination .page-link:hover {
+    background-color: #d51c24;
+    color: #fff;
+}
+
+.pagination .active .page-link {
+    background-color: #d51c24;
+    color: #fff;
+    border: 1px solid #d51c24;
+}
+
 @media only screen and (max-width: 990px) {
     .medium_hide {
         display: none !important;
