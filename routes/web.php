@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductDetailController;
+use App\Http\Controllers\HomeController;
 use App\Models\File;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CollectionController;
@@ -16,12 +18,9 @@ use App\Http\Controllers\CollectionController;
 |
 */
 
-Route::get('/', function () {
-  return view('home');
-})->name('home');
 
-
-
+Route::get('/', [HomeController::class, 'show'])->name('home');
+Route::get('/search',[HomeController::class,'search']);
 Route::get('/cart', function () {
   return view('cart');
 });
@@ -60,7 +59,20 @@ Route::get('/login', [UserController::class, 'showLogin'])->name('login');
 Route::post('/handler/login', [UserController::class, 'handleLogin']);
 
 
+
+//delete file
+Route::post('/file/delete/{id}', [FileController::class, 'delete']);
+
+//update file
+Route::post('/file/edit/{id}', [FileController::class, 'update']);
+
+//product Detail 
+Route::get('/productDetail/{name}', [ProductDetailController::class, 'index'])->name('productDetail');
+
+
 //show register page
 Route::get('/register', [UserController::class, 'showregister'])->name('register');
+
 //handle register
 Route::post('/handler/register', [UserController::class, 'handleRegister']);
+

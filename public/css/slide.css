@@ -1,0 +1,16 @@
+.slick-arrow {
+    margin: 0;
+    background-color: #fff;
+}
+.slick-prev:hover,
+.slick-prev:focus,
+.slick-next:hover,
+.slick-next:focus {
+    color: red;
+    outline: none;
+    background-color: #fff;
+}
+.slick-prev:before,
+.slick-next:before {
+    color: rgb(216, 108, 108);
+}

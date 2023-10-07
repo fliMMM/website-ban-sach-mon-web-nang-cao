@@ -1,20 +1,20 @@
-<?php
-$books = array(
-        array('id' => '1', 'img' => 'https://product.hstatic.net/200000343865/product/33_c41b6baaa61d479f9846d9f65d09e717_large.jpg' ),
-        array('id' => '2','img' => 'https://product.hstatic.net/200000343865/product/33_c41b6baaa61d479f9846d9f65d09e717_large.jpg'),
-        array('id' => '3','img' => 'https://product.hstatic.net/200000343865/product/33_c41b6baaa61d479f9846d9f65d09e717_large.jpg'),
-        array('id' => '4', 'img' => 'https://product.hstatic.net/200000343865/product/33_c41b6baaa61d479f9846d9f65d09e717_large.jpg'),
-        array('id' => '5', 'img' => 'https://product.hstatic.net/200000343865/product/33_c41b6baaa61d479f9846d9f65d09e717_large.jpg'),
-    );
-?>
-<div>
-    <div class="flex justify-center">
-        <h3 class="mt-16 ">Sách mới</h3>
-    </div>
-    <div class="flex justify-center">
-        @foreach ($books as $book)
-                 <img src="{{$book['img']}}" alt="" class="w-48 h-72 m-4 "> 
+
+ <div class="w-full ">
+    <div class="flex justify-between multiple-items w-full mx-auto my-0s">
+        @foreach ($list as $listProduct)
+            <div class="ml-6 mr-6">
+             <a href="/productDetail/{{$listProduct->name}}"><img src="{{ $listProduct->image }}" alt="" class="w-48 h-72 "></a> 
+             <a href="/productDetail/{{$listProduct->name}} " class="no-underline text-black"><p class="w-48 mr-4 text-sm font-semibold line-clamp-2 mb-1">{{ $listProduct->name }}</p></a>           
+             <?php 
+             $price = number_format($listProduct->price, 0, '', ',');
+             ?>
+             <p class=" " style="color: #d51c24">{{ $price }}đ</p>
+            </div>
         @endforeach
     </div>
     <a href="" class="flex justify-end text-red-600 no-underline">Xem thêm >>></a>
 </div>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> 
+
