@@ -7,9 +7,16 @@ use Illuminate\Support\Facades\DB;
 class ProductDetailController extends Controller
 {
     //
-    public function index(){
-        $list = DB::table('products')->limit(7)->get();
-        $lists = DB::table('products')->limit(7)->get();
-        return view('productDetail', ['listProducts' => $list]);
+    public function index($name){
+        // get product detail = name
+        $productDetails =  DB::table('products')->where('name', '=' , $name)->get();
+        // get category product detail 
+        $categories =  DB::table('products')->where('name', '=' , $name)->pluck('categories');
+        $stringCategories = explode(",", $categories[0]);
+        foreach ($stringCategories as $key => $stringCategory) {
+            $category = DB::table('products')-> where('categories', 'like', '%'.$stringCategory.'%') ->get();
+        }
+        return view('productDetail', ['listProducts' => $category, 'productDetails' => $productDetails], compact('name'));
     }
+    
 }

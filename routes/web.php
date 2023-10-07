@@ -19,13 +19,13 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomeController::class, 'show'])->name('home');
-
+Route::get('/search',[HomeController::class,'search']);
 Route::get('/cart', function () {
   return view('cart');
 });
 Route::get('/collection', function () {
   return view('collection');
-});
+}) -> name('collection');
 
 //show login form
 // Route::get('/login', [UserController::class, 'showLogin'])->name('login');
@@ -55,7 +55,7 @@ Route::post('/file/delete/{id}', [FileController::class, 'delete']);
 Route::post('/file/edit/{id}', [FileController::class, 'update']);
 
 //product Detail 
-Route::get('/productDetail', [ProductDetailController::class, 'index'])->name('productDetail');
+Route::get('/productDetail/{name}', [ProductDetailController::class, 'index'])->name('productDetail');
 
 
 //show register page
