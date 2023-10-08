@@ -1,0 +1,48 @@
+.dashboard {
+    background-color: #a9171d;
+    height: 100vh;
+    padding: 30px 25px !important;
+}
+.dashboard h1 {
+    color: #fff;
+    font-size: 25px;
+    text-transform: uppercase;
+}
+
+.dashboard ul {
+    list-style: none;
+    padding-left: 0;
+}
+.majorList {
+    margin-top: 20px;
+}
+.majorItem {
+    padding: 10px 0;
+}
+
+.majorItem a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 20px;
+}
+.majorItem i {
+    padding-right: 10px;
+}
+.majorItem a:hover {
+    color: #ff2e2e;
+}
+.active {
+    color: #ff2e2e !important;
+}
+
+.overviewItem {
+    height: 300px;
+    border-radius: 20px;
+    border: 1px solid #fff;
+    margin: 30px;
+    background-color: #31b72d;
+    text-align: left;
+    padding-top: 5%;
+    font-size: 40px;
+    color: #f5e9e9;
+}

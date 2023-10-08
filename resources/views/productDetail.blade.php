@@ -94,7 +94,7 @@
                 </div>
                 <div class="">
                     <?php $list = $listProducts?>
-                    <x-sectiontitle :$list />
+                    <x-sectiontitle :$list /> 
                 </div>
             </div>
             <div>
@@ -103,7 +103,8 @@
                 </div>
                 <div class="">
                     <?php $list = $listProducts?>
-                    <x-sectiontitle :$list />
+                 <x-sectiontitle :$list /> 
+
                 </div>
             </div>
             @endforeach

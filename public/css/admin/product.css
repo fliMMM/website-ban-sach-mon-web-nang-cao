@@ -1,0 +1,81 @@
+.dashboard {
+    background-color: #a9171d;
+    height: 100vh;
+    padding: 30px 25px !important;
+}
+.dashboard h1 {
+    color: #fff;
+    font-size: 25px;
+    text-transform: uppercase;
+}
+
+.dashboard ul {
+    list-style: none;
+    padding-left: 0;
+}
+.majorList {
+    margin-top: 20px;
+}
+.majorItem {
+    padding: 10px 0;
+}
+
+.majorItem a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 20px;
+}
+.majorItem i {
+    padding-right: 10px;
+}
+.majorItem a:hover {
+    color: #ff2e2e;
+}
+.active {
+    color: #ff2e2e !important;
+}
+
+.products {
+    background-color: #e7e7e7;
+}
+
+tr > td {
+    font-size: 20px;
+}
+
+.productImage {
+    width: 150px;
+    height: 150px;
+}
+.productName {
+    width: 30%;
+}
+.productDescription {
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#editProduct .modal-content {
+    width: 700px;
+    height: 80vh;
+}
+.modal-body {
+    padding: 50px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: row;
+    margin: 10px 0px;
+}
+.form-group label {
+    width: 30%;
+}
+.form-group input {
+    width: 70%;
+}
+.form-group img {
+    width: 100px;
+    height: 100px;
+}

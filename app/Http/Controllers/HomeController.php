@@ -39,13 +39,14 @@ class HomeController extends Controller
           <a href="" class="no-underline text-black mr-1 mt-1"><p class="mr-5 text-sm">Xem thêm (' . $countProducts .')</p></a>
           </div>';
                 foreach ($products as $row) {
+                    $price = number_format($row->price, 0, '', ',');
                     $output .=
                         '
                         <div class="flex justify-start bg-white ">
-                        <a href="" class="h-14  mr-1"> <img src="'.$row->image.'" alt="" class="h-14 w-12 m-2"></a>
+                        <a href="" class="h-14  mr-1"> <img src="'.$row->image.'" alt="" style = "width: 48px; height: 56px; margin: 8px"></a>
                          <div class="bg-white " style = "width:230px">
                             <a href="/productDetail/'.$row->name.'" class=" no-underline text-black"><p class="mb-0 mt-2 text-sm font-semibold line-clamp-2">'.$row->name.'</p></a> 
-                             <p class="text-orange-600 font-bold">'.$row->price.'</p>
+                             <p style = "color: #d51c24; font-weight: bold">'.$price.'</p>
                              </div>
                             </div>
                   ';

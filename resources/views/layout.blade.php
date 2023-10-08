@@ -20,10 +20,10 @@
 <body>
     <head>
         <div class="flex justify-content items-center h-5 bg-red-700">
-            <i class="fa-brands fa-facebook-f ml-32 mr-6" style="color: #ffffff;"></i>
+            <i class="fa-brands fa-facebook-f ml-52 mr-6" style="color: #ffffff;"></i>
             <i class="fa-brands fa-instagram mr-6" style="color: #ffffff;"></i>
             <i class="fa-brands fa-youtube mr-6" style="color: #ffffff;"></i>
-            <i class="fa fa-rss ml-20 mr-2" style="color: #ffffff;"></i>
+            <i class="fa fa-rss ml-40 mr-2" style="color: #ffffff;"></i>
             <marquee behavior="scroll" direction="left" class="w-96 text-white">
                 Chào mừng bạn đến với NXB KIM ĐỒNG. Nếu bạn cần giúp đỡ, hãy liên hệ với chúng tôi qua hotline: (+84)
                 1900571595 hoặc email: cskh_online@nxbkimdong.com.vn.
@@ -32,7 +32,7 @@
         <div class="flex w-100vw justify-around items-center pb-3 mt-3 border-b">
             <div>
                 <div class="form-group w-[300px] flex">
-                    <input type="text" name = "search" id = "search" class="form-control h-6 " placeholder="Tìm kiếm..." onfocus="this.value=''">
+                    <input type="text" name = "search" id = "search" class="form-control h-6 rounded-0 " placeholder="Tìm kiếm..." onfocus="this.value">
                     <button class="border-1  bg-red-600 text-white w-7  h-6" type="button">
                         <i class="fa fa-search "></i>
                     </button>
@@ -67,7 +67,7 @@
                     <i class="fa-regular fa-heart fa-xl ml-3 "></i>
                 </button>
                 <button>
-                    <i class="fa-solid fa-bag-shopping fa-xl ml-3"></i>
+                   <a href="/cart"><i class="fa-solid fa-bag-shopping fa-xl ml-3"></i></a> 
                 </button>
             </div>
         </div>

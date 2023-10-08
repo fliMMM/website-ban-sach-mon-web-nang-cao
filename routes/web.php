@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductDetailController;
 use App\Http\Controllers\HomeController;
 use App\Models\File;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CollectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,9 +24,20 @@ Route::get('/search',[HomeController::class,'search']);
 Route::get('/cart', function () {
   return view('cart');
 });
-Route::get('/collection', function () {
-  return view('collection');
-}) -> name('collection');
+
+
+Route::get('/collection', [CollectionController::class, 'show'])->name('collection');
+Route::get('/filter-collection', [CollectionController::class, 'filter']);
+
+
+Route::prefix('admin')->group(function () {
+  Route::get('/dashboard', function () {
+    return view('admin.dashboard');
+  });
+  Route::get('/products', function () {
+    return view('admin.product');
+  });
+});
 
 //show login form
 // Route::get('/login', [UserController::class, 'showLogin'])->name('login');
