@@ -43,9 +43,13 @@
                         </div>
                         <div class="mt-28">
                             <div class="bg-red-700">
-                                <button class="text-white px-5 py-1">
-                                    THÊM VÀO GIỎ HÀNG
-                                </button>
+                                <form action="" method="post">
+                                    @csrf
+                                    <button type="submit" class="text-white px-5 py-1">
+                                        THÊM VÀO GIỎ HÀNG
+                                    </button>
+                                </form>
+                                
                             </div>
                             <div class="bg-red-700 w-24 mt-2">
                                 <button class="text-white py-2 px-1">MUA NGAY

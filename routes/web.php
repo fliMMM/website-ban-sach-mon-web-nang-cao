@@ -24,7 +24,7 @@ Route::get('/', [HomeController::class, 'show'])->name('home');
 Route::get('/search',[HomeController::class,'search']);
 Route::get('/cart', function () {
   return view('cart');
-});
+})->name('cart');
 
 
 Route::get('/collection', [CollectionController::class, 'show'])->name('collection');
@@ -70,8 +70,8 @@ Route::post('/file/delete/{id}', [FileController::class, 'delete']);
 Route::post('/file/edit/{id}', [FileController::class, 'update']);
 
 //product Detail 
-Route::get('/productDetail/{name}', [ProductDetailController::class, 'index'])->name('productDetail');
-
+Route::get('/productDetail/{name}', [ProductDetailController::class, 'index'])->name('/productDetail/{name}');
+Route::post('/productDetail/{name}', [ProductDetailController::class, 'addCart']);
 
 //show register page
 Route::get('/register', [UserController::class, 'showregister'])->name('register');

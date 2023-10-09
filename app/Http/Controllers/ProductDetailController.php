@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class ProductDetailController extends Controller
 {
     //
     public function index($name){
+   
         // get product detail = name
         $productDetails =  DB::table('products')->where('name', '=' , $name)->get();
         // get category product detail 
@@ -18,5 +19,27 @@ class ProductDetailController extends Controller
         }
         return view('productDetail', ['listProducts' => $category, 'productDetails' => $productDetails], compact('name'));
     }
-    
+    public function addCart($name){
+        $id = Auth::id();
+        $productDetails =  DB::table('products')->where('name', '=' , $name)->get();
+        $carts = DB::table('carts')->where('userId', '=' ,$id)->pluck('id');    
+        foreach($productDetails as $products){
+                $quantity = 1;
+                $isProductIdExists = DB::table('cart_items')->where('productId' , '=', $products->id)->exists();
+                 if($isProductIdExists){
+                    $quantity += 1;
+                    DB::table('cart_items') ->update(['quantity'=>$quantity, 'updated_at'=> date('Y-m-d H:i:s')]);
+                 }
+                 else{
+                    DB::table('cart_items') -> insert([  
+                        'created_at' => date('Y-m-d H:i:s'),              
+                        'productId' => $products->id,
+                        'price' => $products->price,
+                        'quantity'=> $quantity,
+                        'cartId' => $carts[0],
+                    ]);
+                 }
+        }
+        return redirect()->route('cart');
+    }
 }
