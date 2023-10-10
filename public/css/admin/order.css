@@ -35,17 +35,28 @@
     color: #ff2e2e !important;
 }
 
-.overviewItem {
-    height: 300px;
-    border-radius: 20px;
-    border: 1px solid #fff;
-    margin: 30px;
-    background-color: #31b72d;
-    text-align: left;
-    padding-top: 5%;
-    font-size: 40px;
-    color: #f5e9e9;
+.products {
+    background-color: #e7e7e7;
 }
+
+tr > td {
+    font-size: 20px;
+}
+
+.productImage {
+    width: 100px;
+    height: 100px;
+}
+.productName {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.modal-footer {
+    border-top: 3px solid #a9171d !important;
+}
+
 @media only screen and (max-width: 990px) {
     .dashboard {
         height: 100% !important;
