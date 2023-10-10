@@ -14,20 +14,17 @@ class CollectionController extends Controller
         $collections = Product::paginate(16);
         return view('collection', compact('collections'));
     }
-    public function filter(Request $request)
+    public function sortProduct(Request $request)
     {
         $sortBy = $request->input('SortBy');
-
-
         switch ($sortBy) {
-
             case 'manual':
                 $query = Product::inRandomOrder();
                 break;
-            case 'title-ascending':
+            case 'name-ascending':
                 $query = Product::orderBy('name', 'asc');
                 break;
-            case 'title-descending':
+            case 'name-descending':
                 $query = Product::orderBy('name', 'desc');
                 break;
             case 'price-ascending':
@@ -42,7 +39,16 @@ class CollectionController extends Controller
         }
 
         $collections = $query->paginate(16);
-
         return response()->json($collections);
+    }
+
+
+    public function filterByType(Request $request)
+    {
+        $selectedCategory = $request->input('categories');
+
+        $products = Product::where('categories', 'LIKE', "%$selectedCategory%")->get();
+
+        return response()->json($products);
     }
 }

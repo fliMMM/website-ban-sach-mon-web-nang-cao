@@ -22,12 +22,15 @@
         <div class="col-lg-2 dashboard">
             <h1>Welcome, Admin</h1>
             <ul class="majorList">
-                <li class="majorItem"><a href="" class="active"><i class="fas fa-home"></i>Overview</a></li>
-                <li class="majorItem"><a href=""><i class="fas fa-list"></i>Danh sách sản phẩm</a>
+                <li class="majorItem"><a href="" class="active"><i class="fas fa-chart-simple"></i>Tổng quan</a>
                 </li>
-                <li class="majorItem"><a href=""><i class="fa-solid fa-cart-shopping"></i>Danh sách đặt hàng</a>
+                <li class="majorItem"><a href="/admin/products"><i class="fas fa-list"></i>Danh sách sản phẩm</a>
+                </li>
+                <li class="majorItem"><a href="/admin/order"><i class="fa-solid fa-cart-shopping"></i>Danh sách đặt
+                        hàng</a>
                 </li>
                 <li class="majorItem"><a href=""><i class="fas fa-comment-alt"></i>Phản hồi</a></li>
+                <li class="majorItem"><a href="../"><i class="fas fa-home"></i>Trang chủ</a></li>
                 <li class="majorItem"><a href=""><i class="fas fa-sign-out-alt"></i>Đăng xuất</a></li>
 
             </ul>
