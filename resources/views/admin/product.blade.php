@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -23,14 +25,16 @@
         <div class="col-lg-2 dashboard">
             <h1>Welcome, Admin</h1>
             <ul class="majorList">
-                <li class="majorItem"><a href=""><i class="fas fa-home"></i>Overview</a></li>
+                <li class="majorItem"><a href="/admin"><i class="fas fa-chart-simple"></i>Tổng quan</a>
+                </li>
                 <li class="majorItem"><a href="" class="active"><i class="fas fa-list"></i>Danh sách sản phẩm</a>
                 </li>
-                <li class="majorItem"><a href=""><i class="fa-solid fa-cart-shopping"></i>Danh sách đặt hàng</a>
+                <li class="majorItem"><a href="/admin/orders"><i class="fa-solid fa-cart-shopping"></i>Danh sách đặt
+                        hàng</a>
                 </li>
                 <li class="majorItem"><a href=""><i class="fas fa-comment-alt"></i>Phản hồi</a></li>
+                <li class="majorItem"><a href="../"><i class="fas fa-home"></i>Trang chủ</a></li>
                 <li class="majorItem"><a href=""><i class="fas fa-sign-out-alt"></i>Đăng xuất</a></li>
-
             </ul>
         </div>
         <div class="col-lg-10 products">
@@ -88,10 +92,12 @@
                                                     <input type="text" class="form-control" id="productName">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="productName">Ảnh:</label>
+                                                    <label for="productImage">Ảnh:</label>
                                                     <img src="https://firebasestorage.googleapis.com/v0/b/wibu-image.appspot.com/o/images%2F1652758019517THA%CC%81M%20TU%CC%9B%CC%89%20LU%CC%9B%CC%80NG%20DANH%20CONAN%20-%20TIE%CC%82%CC%89U%20THUYE%CC%82%CC%81T%20-%20HOA%20HU%CC%9BO%CC%9B%CC%81NG%20DU%CC%9BO%CC%9BNG%20TRONG%20BIE%CC%82%CC%89N%20LU%CC%9B%CC%89A.png?alt=media&token=3c9c29cc-80b4-468a-b127-1627f43f1974"
                                                         alt="">
-                                                    <input type="file" class="form-control" id="productName">
+                                                    <input type="file" onchange="readURL(this);" class="form-control"
+                                                        id="productImage">
+                                                    <img class="changingImage" src="#" alt="ảnh muốn thay thế" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="productPrice">Giá tiền:</label>
@@ -144,6 +150,19 @@
             </table>
         </div>
     </div>
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('.changingImage').attr('src', e.target.result).width(150).height(200);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 </body>
 
 </html>

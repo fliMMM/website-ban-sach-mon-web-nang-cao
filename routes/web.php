@@ -21,7 +21,7 @@ use App\Http\Controllers\CollectionController;
 
 
 Route::get('/', [HomeController::class, 'show'])->name('home');
-Route::get('/search',[HomeController::class,'search']);
+Route::get('/search', [HomeController::class, 'search']);
 Route::get('/cart', function () {
   return view('cart');
 })->name('cart');
@@ -31,15 +31,18 @@ Route::get('/bookRegistration', function () {
 })->name('bookRegistration');
 
 Route::get('/collection', [CollectionController::class, 'show'])->name('collection');
-Route::get('/filter-collection', [CollectionController::class, 'filter']);
-
+Route::get('/sort-products', [CollectionController::class, 'sortProduct']);
+Route::get('/filter-products',  [CollectionController::class, 'filterByType']);
 
 Route::prefix('admin')->group(function () {
-  Route::get('/dashboard', function () {
+  Route::get('/', function () {
     return view('admin.dashboard');
   });
   Route::get('/products', function () {
     return view('admin.product');
+  });
+  Route::get('/orders', function () {
+    return view('admin.order');
   });
 });
 
@@ -81,4 +84,3 @@ Route::get('/register', [UserController::class, 'showregister'])->name('register
 
 //handle register
 Route::post('/handler/register', [UserController::class, 'handleRegister']);
-
