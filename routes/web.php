@@ -26,6 +26,9 @@ Route::get('/cart', function () {
   return view('cart');
 })->name('cart');
 
+Route::get('/bookRegistration', function () {
+  return view('bookRegistration');
+})->name('bookRegistration');
 
 Route::get('/collection', [CollectionController::class, 'show'])->name('collection');
 Route::get('/filter-collection', [CollectionController::class, 'filter']);
