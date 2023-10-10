@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductDetailController;
 use App\Http\Controllers\HomeController;
@@ -41,6 +42,8 @@ Route::prefix('admin')->group(function () {
     return view('admin.order');
   });
 });
+
+Route::get('/checkout', [CheckoutController::class, 'show']);
 
 //show login form
 // Route::get('/login', [UserController::class, 'showLogin'])->name('login');

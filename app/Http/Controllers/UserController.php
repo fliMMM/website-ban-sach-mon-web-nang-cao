@@ -71,7 +71,8 @@ class UserController extends Controller
 
     $user = DB::table('users')->where('email', '=', $formData['email'])->get();
 
-    if (Hash::check($formData['password'], $user[0]->password)) {
+
+    if (count($user) >0 && Hash::check($formData['password'], $user[0]->password)) {
       auth()->loginUsingId($user[0]->id);
       return redirect('/');
     }
