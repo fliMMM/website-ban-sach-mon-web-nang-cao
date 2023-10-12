@@ -35,7 +35,7 @@ class ProductDetailController extends Controller
                         'created_at' => date('Y-m-d H:i:s'),              
                         'productId' => $products->id,
                         'price' => $products->price,
-                        'quantity'=> $quantity[0],
+                        'quantity'=> '1',
                         'cartId' => $carts[0],
                     ]);
                  }
