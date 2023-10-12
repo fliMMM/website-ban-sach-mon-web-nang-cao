@@ -24,18 +24,18 @@ class ProductDetailController extends Controller
         $productDetails =  DB::table('products')->where('name', '=' , $name)->get();
         $carts = DB::table('carts')->where('userId', '=' ,$id)->pluck('id');    
         foreach($productDetails as $products){
-                $quantity = 1;
+                $quantity = DB::table('cart_items')->where('productId' , '=', $products->id)->pluck('quantity');
                 $isProductIdExists = DB::table('cart_items')->where('productId' , '=', $products->id)->exists();
                  if($isProductIdExists){
-                    $quantity += 1;
-                    DB::table('cart_items') ->update(['quantity'=>$quantity, 'updated_at'=> date('Y-m-d H:i:s')]);
+                    $quantity[0] += 1;
+                    DB::table('cart_items')->where('productId', '=',$products->id )->update(['quantity'=>$quantity[0], 'updated_at'=> date('Y-m-d H:i:s')]);
                  }
                  else{
                     DB::table('cart_items') -> insert([  
                         'created_at' => date('Y-m-d H:i:s'),              
                         'productId' => $products->id,
                         'price' => $products->price,
-                        'quantity'=> $quantity,
+                        'quantity'=> $quantity[0],
                         'cartId' => $carts[0],
                     ]);
                  }
