@@ -51,6 +51,13 @@ class UserController extends Controller
     $formData['password'] = Hash::make($formData['password']);
 
     $user = User::create($formData);
+    
+    $newCart = [
+      'userId'=>$user['id'],
+      'status'=>'test',
+      'note'=>'test'
+    ];
+    DB::table('carts')->insert([$newCart]);
 
     //login
 
