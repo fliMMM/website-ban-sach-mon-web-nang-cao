@@ -1,3 +1,6 @@
+@extends('layout')
+
+@section('body')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -161,3 +164,5 @@
     })
 </script>
 </html>
+@endsection
+
