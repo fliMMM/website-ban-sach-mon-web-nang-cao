@@ -21,6 +21,7 @@ return new class extends Migration
       $table->string('phoneNumber');
       $table->longText('address');
       $table->string('fullname');
+      $table->string('deleted_at')->nullable();
     });
   }
 
