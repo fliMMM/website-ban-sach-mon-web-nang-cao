@@ -65,7 +65,7 @@
                                 </div>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item text-black" href="#">Trang cá nhân</a></li>
+                                <li><a class="dropdown-item text-black" href="/account">Trang cá nhân</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>

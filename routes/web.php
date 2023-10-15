@@ -25,7 +25,14 @@ Route::get('/search', [HomeController::class, 'search']);
 Route::get('/cart', function () {
   return view('cart');
 })->name('cart');
-
+Route::prefix('/account')->group(function(){
+    Route::get('/', function() {
+      return view('manageAccount.account');
+    });
+    Route::get('/setting', function(){
+      return view('manageAccount.accountSetting');
+    });
+});
 Route::get('/bookRegistration', function () {
   return view('bookRegistration');
 })->name('bookRegistration');
