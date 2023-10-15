@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Models\File;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,7 @@ use App\Http\Controllers\CollectionController;
 
 
 Route::get('/', [HomeController::class, 'show'])->name('home');
+
 Route::get('/search', [HomeController::class, 'search']);
 Route::get('/cart', function () {
   return view('cart');
@@ -35,12 +37,12 @@ Route::get('/sort-products', [CollectionController::class, 'sortProduct']);
 Route::get('/filter-products',  [CollectionController::class, 'filterByType']);
 
 Route::prefix('admin')->group(function () {
-  Route::get('/', function () {
-    return view('admin.dashboard');
-  });
-  Route::get('/products', function () {
-    return view('admin.product');
-  });
+  Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+  Route::get('/products', [AdminController::class, 'manageProducts'])->name('product');
+  Route::get('/editProduct/{id}', [AdminController::class, 'editProduct']);
+
+
+
   Route::get('/orders', function () {
     return view('admin.order');
   });

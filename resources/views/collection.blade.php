@@ -113,10 +113,6 @@
             </div>
         </div>
         <script>
-            $('input[name="typeFilter"]').click(function() {
-                $('input[name="typeFilter"]').not(this).prop('checked', false);
-            });
-
             $('#SortBy').on('change', function() {
                 var selectedOption = $(this).val();
                 updateUrlWhenSorted(selectedOption);
@@ -180,49 +176,58 @@
                 updateProductList();
             });
 
-            function updateUrlWhenFiltered(categorySelected) {
-                var newUrl1 = window.location.pathname + '?category=' + categorySelected;
-                window.history.pushState({
-                    path: newUrl1
-                }, '', newUrl1);
+
+            function updateUrlWhenFiltered() {
+                var selectedCategories = $('input[type="checkbox"]:checked').map(function() {
+                    return $(this).val();
+                }).get();
+
+                var newURL = '/collection/category?' + $.param({
+                    categories: selectedCategories
+                });
+                history.pushState({}, '', newURL);
             }
 
             function updateProductList() {
-                var selectedCategory = $('input[type="checkbox"]:checked').val();
-
+                var selectedCategories = $('input[type="checkbox"]:checked').map(function() {
+                    return $(this).val();
+                }).get();
+                // console.log();
+                console.log(selectedCategories);
                 $.ajax({
                     url: '/filter-products',
                     method: 'GET',
                     data: {
-                        categories: selectedCategory
+                        categories: selectedCategories
                     },
                     success: function(data) {
+                        console.log(data);
                         let filteredProducts = $('.product-list');
                         filteredProducts.empty();
                         $.each(data, function(index, product) {
-                            filteredProducts.append(`
-                <div class="product-item col-lg-3 col-md-4 col-sm-4">
-                    <div class="product-img">
-                        <a href="" class="text-center">
-                            <img id="1045175926" src="${product.image}">    
-                        </a>
-                        {{-- <div class="product-tags">
-                                            <div class="tag-saleoff text-center">
-                                                -70%
-                                            </div>
-                                        </div> --}}
-                    </div>
-                    <div class="product-info">
-                        <div class="product-title">
-                            <a href=""><span class="truncate-text">${product.name}</span></a>
-                        </div>
-                        <div class="product-price">
-                            <span class="current-price">${product.price}₫</span>
-                            {{-- <span class="original-price"><s>56,000₫</s></span> --}}
-                        </div>
-                    </div>
-                </div>
-                `);
+                            filteredProducts.append(`                      
+                            <div class="product-item col-lg-3 col-md-4 col-sm-4">
+                                <div class="product-img">
+                                    <a href="" class="text-center">
+                                        <img id="1045175926" src="${product.image}">    
+                                    </a>
+                                    {{-- <div class="product-tags">
+                                                        <div class="tag-saleoff text-center">
+                                                            -70%
+                                                        </div>
+                                                    </div> --}}
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-title">
+                                        <a href=""><span class="truncate-text">${product.name}</span></a>
+                                    </div>
+                                    <div class="product-price">
+                                        <span class="current-price">${product.price}₫</span>
+                                        {{-- <span class="original-price"><s>56,000₫</s></span> --}}
+                                    </div>
+                                </div>
+                            </div>
+                            `);
                         });
                     },
                     error: function(error) {

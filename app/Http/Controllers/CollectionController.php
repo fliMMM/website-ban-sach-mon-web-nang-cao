@@ -45,9 +45,13 @@ class CollectionController extends Controller
 
     public function filterByType(Request $request)
     {
-        $selectedCategory = $request->input('categories');
+        $selectedCategories = $request->input('categories');
 
-        $products = Product::where('categories', 'LIKE', "%$selectedCategory%")->get();
+        $products = Product::where(function ($query) use ($selectedCategories) {
+            foreach ($selectedCategories as $category) {
+                $query->where('categories', 'like', '%' . $category . '%');
+            }
+        })->get();
 
         return response()->json($products);
     }
