@@ -14,7 +14,8 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -41,17 +42,17 @@
                     <div class="col-lg-5 overviewItem align-middle">
                         <i class="fa-solid fa-users"></i>
                         <p>Số lượng người dùng</p>
-                        <p>1</p>
+                        <p>{{ $userCount }}</p>
                     </div>
                     <div class="col-lg-5 overviewItem">
                         <i class="fa-solid fa-list"></i>
                         <p>Số lượng sản phẩm</p>
-                        <p>1</p>
+                        <p>{{ $productCount }}</p>
                     </div>
                     <div class="col-lg-5 overviewItem">
                         <i class="fa-brands fa-microsoft"></i>
                         <p>Số lượng danh mục</p>
-                        <p>1</p>
+                        <p>{{ $categoryCount }}</p>
                     </div>
                     <div class="col-lg-5 overviewItem">
                         <i class="fa-solid fa-cart-shopping"></i>

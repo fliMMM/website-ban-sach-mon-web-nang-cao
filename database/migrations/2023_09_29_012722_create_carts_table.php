@@ -17,6 +17,7 @@ return new class extends Migration
       $table->integer('userId');
       $table->string('status');
       $table->longText('note');
+      $table->string('deleted_at')->nullable();
     });
   }
 

@@ -31,6 +31,7 @@ return new class extends Migration
       $table->string('combo');
       $table->string('ngayPhatHanh');
       $table->integer('rating');
+      $table->string('deleted_at')->nullable();
     });
   }
 
