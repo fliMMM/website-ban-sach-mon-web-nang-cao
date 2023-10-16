@@ -92,22 +92,12 @@
                         </div>
                     </div>
                     <div>
-                        <div class="flex justify-center mt-10 items-center">
-                            <p class="mt-2 font-bold text-3xl ">SÁCH CÙNG THỂ LOẠI</p>
-                        </div>
-                        <div class="">
                             <?php $list = $listProducts; ?>
-                            <x-sectiontitle :$list />
-                        </div>
+                            <x-sectiontitle :$list title="SÁCH CÙNG THỂ LOẠI"/>
                     </div>
-                    <div>
-                        <div class="flex justify-center mt-10 items-center">
-                            <p class="mt-2 font-bold text-3xl ">SẢN PHẨM ĐÃ XEM</p>
-                        </div>
-                        <div class="">
+                    <div>         
                             <?php $list = $listProducts; ?>
-                            <x-sectiontitle :$list />
-                        </div>
+                            <x-sectiontitle :$list title="SẢN PHẨM ĐÃ XEM"/>
                     </div>
                 @endforeach
             @endif
