@@ -12,7 +12,7 @@
             </div>
         @endforeach
     </div>
-    <a href="" class="flex justify-end text-red-600 no-underline">Xem thêm >>></a>
+    <a href="/collection" class="flex justify-end text-red-600 no-underline">Xem thêm >>></a>
 </div>
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
