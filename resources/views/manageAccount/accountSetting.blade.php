@@ -42,7 +42,8 @@
                     <div class="border-b pb-8">
                         <form action="" method="post">
                             <div class="form-group">
-                                <label for="exampleInputEmail1" style= "font-size: 30px; font-weight: 500;">Update Your Name</label>
+                                <label for="exampleInputEmail1" style= "font-size: 30px; font-weight: 500;">Update Your
+                                    Name</label>
                                 <input type="first name" class="form-control mb-3 mt-3"
                                     style="width: 320px; height: 48px; border-radius: 0" id="exampleInputEmail1"
                                     aria-describedby="emailHelp" placeholder="Enter first name">
@@ -57,10 +58,30 @@
                             </div>
                         </form>
                     </div>
-                    <div class="mt-5 border-b pb-8">
+                    <div class="mt-3 border-b pb-8">
                         <form action="" method="post">
                             <div class="form-group">
-                                <label for="exampleInputEmail1" style= "font-size: 30px; font-weight: 500;">Update Your Email</label>
+                                <label for="exampleInputEmail1" style= "font-size: 30px; font-weight: 500;">Update Your
+                                    Email</label>
+                                <p class="text-sm mt-2">Current Email Address: abcd@gmail.com</p>
+                                <input type="first name" class="form-control mb-3 mt-3"
+                                    style="width: 320px; height: 48px; border-radius: 0" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" placeholder="New Email Address">
+                                <input type="email" class="form-control"
+                                    style="width: 320px; height: 48px; border-radius: 0" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" placeholder="Confirm New Email Address">
+                            </div>
+                            <div class="flex items-center">
+                                <button type="submit" class="btn btn-primary mt-2"
+                                    style="border-radius: 0; width: 140px; height:46px">Submit</button>
+                                <a href="" class="ml-20 no-underline">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="mt-3 border-b pb-8">
+                        <form action="" method="post">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" style= "font-size: 30px; font-weight: 500;">Update Your Phone Number</label>
                                 <p class="text-sm mt-2">Current Email Address: abcd@gmail.com</p>
                                 <input type="first name" class="form-control mb-3 mt-3"
                                     style="width: 320px; height: 48px; border-radius: 0" id="exampleInputEmail1"

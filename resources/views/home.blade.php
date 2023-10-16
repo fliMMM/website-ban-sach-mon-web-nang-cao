@@ -4,15 +4,14 @@
 
 <div class="flex flex-col items-center">
     <x-banner/>
-    <p class="mt-20 font-bold text-3xl mb-10">SÁCH MỚI</p>
+    
     <div class="w-8/12">
       <?php $list = $newbooks?>
-        <x-sectiontitle :$list />      
+        <x-sectiontitle :$list title="SÁCH MỚI"/>      
     </div>
-    <p class="mt-20 font-bold text-3xl mb-10">SÁCH BÁN CHẠY</p>
     <div class="w-8/12">
       <?php $list = $sellingbooks?>
-        <x-sectiontitle :$list />      
+        <x-sectiontitle :$list title="SÁCH BÁN CHẠY" />      
     </div>
 </div>
 <script type="text/javascript">

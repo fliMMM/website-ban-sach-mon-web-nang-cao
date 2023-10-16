@@ -34,10 +34,14 @@ Route::prefix('/account')->group(function(){
     Route::get('/setting', function(){
       return view('manageAccount.accountSetting');
     });
+    Route::get('/address', function(){
+      return view('manageAccount.address');
+    });
+    Route::get('/bookRegistration', function () {
+      return view('manageAccount.bookRegistration');
+    });
 });
-Route::get('/bookRegistration', function () {
-  return view('bookRegistration');
-})->name('bookRegistration');
+
 
 Route::get('/collection', [CollectionController::class, 'show'])->name('collection');
 Route::get('/sort-products', [CollectionController::class, 'sortProduct']);

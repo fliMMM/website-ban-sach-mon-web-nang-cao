@@ -69,7 +69,7 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item text-black" href="/bookRegistration">Đăng kí sách</a></li>
+                                <li><a class="dropdown-item text-black" href="/account/bookRegistration">Đăng kí sách</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
