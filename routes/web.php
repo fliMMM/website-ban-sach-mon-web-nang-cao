@@ -8,6 +8,7 @@ use App\Models\File;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +25,13 @@ use App\Http\Controllers\AdminController;
 Route::get('/', [HomeController::class, 'show'])->name('home');
 
 Route::get('/search', [HomeController::class, 'search']);
-Route::get('/cart', function () {
-  return view('cart');
-})->name('cart');
+
+Route::get('/cart', [CartController::class, 'show'])->name('cart');
+Route::delete('/delete-cart-item/{id}', [CartController::class, 'deleteCartItem'])->name('cart.delete');
+// routes/web.php
+
+Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
+
 
 Route::get('/bookRegistration', function () {
   return view('bookRegistration');
