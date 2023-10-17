@@ -43,6 +43,6 @@ class ProductDetailController extends Controller
                 ]);
             }
         }
-        return redirect()->route('cart');
+        return back()->with('message', 'Thêm thành công');
     }
 }

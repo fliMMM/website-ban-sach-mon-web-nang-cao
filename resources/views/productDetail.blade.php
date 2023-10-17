@@ -1,7 +1,28 @@
 @extends('layout')
 
 @section('body')
+    <script type="text/javascript">
+        window.onload = () => {
+            const myModal = new bootstrap.Modal('#onload');
+            myModal.show();
+            setTimeout(function() {
+                myModal.hide();
+            }, 5000);
+        }
+    </script>
     <div class="flex justify-center items-center">
+        @if (session('message'))
+            <div class="modal" style="display:flex" tabindex="-1" id="onload">
+                <div class="modal-dialog" style="top: 40% ">
+                    <div class="modal-content">
+                        <div class="modal-body text-center">
+                            <i class="mt-2 fa-regular fa-circle-check " style="font-size:50px; color:#79D220"></i>
+                            <p class="text-xl mt-3">{{ session('message') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
         <div class="w-8/12 mx-auto my-0">
             @if (count($productDetails) > 0)
                 @foreach ($productDetails as $productDetail)
@@ -53,11 +74,9 @@
                                     <div class="bg-red-700 w-24 mt-2">
                                         <button class="text-white py-2 px-1">MUA NGAY
                                         </button>
-
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="mt-10">
@@ -92,22 +111,12 @@
                         </div>
                     </div>
                     <div>
-                        <div class="flex justify-center mt-10 items-center">
-                            <p class="mt-2 font-bold text-3xl ">SÁCH CÙNG THỂ LOẠI</p>
-                        </div>
-                        <div class="">
-                            <?php $list = $listProducts; ?>
-                            <x-sectiontitle :$list />
-                        </div>
+                        <?php $list = $listProducts; ?>
+                        <x-sectiontitle :$list title="SÁCH CÙNG THỂ LOẠI" />
                     </div>
                     <div>
-                        <div class="flex justify-center mt-10 items-center">
-                            <p class="mt-2 font-bold text-3xl ">SẢN PHẨM ĐÃ XEM</p>
-                        </div>
-                        <div class="">
-                            <?php $list = $listProducts; ?>
-                            <x-sectiontitle :$list />
-                        </div>
+                        <?php $list = $listProducts; ?>
+                        <x-sectiontitle :$list title="SẢN PHẨM ĐÃ XEM" />
                     </div>
                 @endforeach
             @endif

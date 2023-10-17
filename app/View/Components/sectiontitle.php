@@ -14,6 +14,7 @@ class sectiontitle extends Component
    
     public function __construct(
         public $list,
+        public string $title,
     )
     {
         //
