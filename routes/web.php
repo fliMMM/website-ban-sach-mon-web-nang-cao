@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductDetailController;
@@ -28,9 +29,8 @@ Route::get('/cart', function () {
   return view('cart');
 })->name('cart');
 Route::prefix('/account')->group(function(){
-    Route::get('/', function() {
-      return view('manageAccount.account');
-    });
+    Route::get('/', [AccountController::class, 'profile']);
+    Route::post('/', [AccountController::class,'updateProfile']);
     Route::get('/setting', function(){
       return view('manageAccount.accountSetting');
     });

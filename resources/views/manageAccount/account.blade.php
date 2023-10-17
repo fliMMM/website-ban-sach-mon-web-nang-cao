@@ -1,5 +1,14 @@
 @extends('layout')
 @section('body')
+    <script type="text/javascript">
+        window.onload = () => {
+            const myModal = new bootstrap.Modal('#onload');
+            myModal.show();
+            setTimeout(function() {
+                myModal.hide();
+            }, 5000);
+        }     
+    </script>
     <div class="">
         <div class="m-4">
             <h3 class="text-center">Hồ sơ cá nhân</h3>
@@ -43,51 +52,88 @@
                         <p class="text-2xl mb-2">Hồ sơ của tôi</p>
                         <p class="">Quản lí thông tin hồ sơ để bảo mật tài khoản</p>
                     </div>
+                    @if (session('message'))
+                            <div class="modal" style="display:flex" tabindex="-1" id="onload">
+                                <div class="modal-dialog" style="top: 40% ">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-center">
+                                            <i class="mt-2 fa-regular fa-circle-check "
+                                                style="font-size:50px; color:#79D220"></i>
+                                            <p class="text-xl mt-3">{{ session('message') }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                       
+                    @endif
                     <div class="border-b pb-4">
                         <div class="ml-24 mt-6 w-3/5">
-                            <div class="input-group mb-3" style="display: flex; align-items: center">
-                                <div class="mr-4 w-24 flex justify-end">
-                                    <span id="basic-addon1">Họ Tên</span>
+                            <form action="" method="post">
+                                <div class="input-group" style="display: flex; align-items: center">
+                                    <div class="mr-4 w-24 flex justify-end">
+                                        <span id="basic-addon1">Họ Tên</span>
+                                    </div>
+                                    <input type="text" class="form-control" style="border-radius:0" name="username"
+                                        placeholder="Username" value="{{ $user[0]->name }}">
                                 </div>
-                                <input type="text" class="form-control" style="border-radius:0" placeholder="Username"
-                                    aria-label="Username" aria-describedby="basic-addon1">
-                            </div>
-                            <div class="input-group mb-3" style="display: flex; align-items: center">
-                                <div class="mr-4 w-24 flex justify-end">
-                                    <span id="basic-addon1">Email</span>
+                                @error('username')
+                                    <p class="mb-0 text-red-400 ml-28">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                                <div class="input-group mt-3" style="display: flex; align-items: center">
+                                    <div class="mr-4 w-24 flex justify-end">
+                                        <span id="basic-addon1">Email</span>
+                                    </div>
+                                    <input type="text" class="form-control" style="border-radius:0" placeholder="email"
+                                        name="email" value="{{ $user[0]->email }}">
                                 </div>
-                                <input type="text" class="form-control" style="border-radius:0" placeholder="email"
-                                    aria-label="Username" aria-describedby="basic-addon1">
-                            </div>
-                            <div class="input-group mb-3" style="display: flex; align-items: center">
-                                <div class="mr-4 w-24 flex justify-end">
-                                    <span id="basic-addon1">Số điện thoại</span>
+                                @error('email')
+                                    <p class="mb-0 text-red-400 ml-28">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                                <div class="input-group mt-3" style="display: flex; align-items: center">
+                                    <div class="mr-4 w-24 flex justify-end">
+                                        <span id="basic-addon1">Số điện thoại</span>
+                                    </div>
+                                    <input type="text" class="form-control" style="border-radius:0"
+                                        placeholder="Số điện thoại" name="phone" value="{{ $user[0]->phone }}">
                                 </div>
-                                <input type="text" class="form-control" style="border-radius:0"
-                                    placeholder="Số điện thoại" aria-label="Username" aria-describedby="basic-addon1">
-                            </div>
-                            <div class="flex">
-
-                                <div class="mr-4 w-24 flex justify-end">
-                                    <span id="basic-addon1">Giới tính</span>
+                                @error('phone')
+                                    <p class="text-red-400 ml-28">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                                <div class="flex mt-3">
+                                    <div class="mr-4  w-24 flex justify-end">
+                                        <span>Giới tính</span>
+                                    </div>
+                                    <div class="form-check mr-3">
+                                        <input class="form-check-input" type="radio" name="gender" id="genderM"
+                                            value="Nam" {{ $user[0]->gender == 'Nam' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="genderM"> Nam </label>
+                                    </div>
+                                    <div class="form-check mr-3">
+                                        <input class="form-check-input" type="radio" name="gender" id="genderF"
+                                            value="Nữ" {{ $user[0]->gender == 'Nữ' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="genderF"> Nữ </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="gender" id="genderI"
+                                            value="Khác" {{ $user[0]->gender == 'Khác' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="genderI"> Khác </label>
+                                    </div>
                                 </div>
-                                <div class="form-check mr-3">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1"> Nam </label>
-                                </div>
-                                <div class="form-check mr-3">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1"> Nữ </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1"> Khác </label>
-                                </div>
-                            </div>
-                            <button class="ml-10 mt-8 w-[70px] h-[40px] bg-red-700 text-white" type="submit">Lưu</button>
+                                @error('gender')
+                                <p class="mb-0 text-red-400 ml-28 ">
+                                    {{ $message }}
+                                </p>
+                            @enderror
+                                <button class="ml-10 mt-8 w-[70px] h-[40px] bg-red-700 text-white"
+                                    type="submit">Lưu</button>
+                                @csrf
+                            </form>
                         </div>
                     </div>
                 </div>
