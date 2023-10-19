@@ -18,6 +18,7 @@ class CartController extends Controller
             ->join('carts', 'cart_items.cartId', '=', 'carts.id')
             ->select('products.*', 'cart_items.quantity', 'cart_items.price as unit_price')
             ->where('carts.userId', $id)
+            ->whereNull('cart_items.deleted_at')
             ->get();
 
 
@@ -35,7 +36,7 @@ class CartController extends Controller
 
     public function deleteCartItem($id)
     {
-        DB::table('cart_items')->where('productId', $id)->delete();
+        DB::table('cart_items')->where('productId', $id)->update(['deleted_at' => now()]);
         return response()->json(['message' => 'Cart item deleted successfully']);
     }
     public function updateCart(Request $request)
@@ -49,7 +50,7 @@ class CartController extends Controller
             if ($quantity == 0) {
                 DB::table('cart_items')->where('productId', $productId)->delete();
             } else {
-                DB::table('cart_items')->where('productId', $productId)->update(['quantity' => $quantity]);
+                DB::table('cart_items')->where('productId', $productId)->update(['quantity' => $quantity, 'updated_at' => now()]);
             }
         }
         return redirect()->route('cart');
