@@ -1,6 +1,6 @@
 .dashboard {
     background-color: #a9171d;
-    height: 100vh;
+
     padding: 30px 25px !important;
 }
 .dashboard h1 {
@@ -44,8 +44,8 @@ tr > td {
 }
 
 .productImage {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 130px;
 }
 .productName {
     max-width: 300px;

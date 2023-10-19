@@ -46,7 +46,7 @@
                         <th scope="col">Mã sản phẩm</th>
                         <th scope="col">Ảnh</th>
                         <th scope="col">Tên sản phẩm</th>
-                        <th scope="col">Mô tả</th>
+                        <th scope="col">Số lượng sản phẩm còn lại</th>
                         <th scope="col">Giá tiền</th>
                         <th scope="col">Hành động</th>
                     </tr>
@@ -65,10 +65,9 @@
                             <td class="truncate-text">
                                 <div>{{ $product->name }}</div>
                             </td>
-                            <td class="truncate-text">
-                                <div>
-                                    {{ $product->description }}
-                                </div>
+                            <td>
+                                {{ $product->inStock }} sản phẩm
+
                             </td>
                             <td>{{ $formattedPrice }}</td>
                             <td colspan="2">
@@ -166,6 +165,10 @@
                         <div class="form-group">
                             <label for="productPrice">Giá tiền:</label>
                             <input type="text" value="${data.price}"  class="form-control" id="productPrice">
+                        </div>
+                        <div class="form-group">
+                            <label for="productPrice">Số lượng sản phẩm còn lại:</label>
+                            <input type="text" value="${data.inStock}"  class="form-control" id="productPrice">
                         </div>
                         <div class="form-group">
                             <label for="productDescription">Mô tả:</label>

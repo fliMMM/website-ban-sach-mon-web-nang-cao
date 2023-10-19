@@ -9,6 +9,7 @@ use App\Models\File;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,24 +26,31 @@ use App\Http\Controllers\AdminController;
 Route::get('/', [HomeController::class, 'show'])->name('home');
 
 Route::get('/search', [HomeController::class, 'search']);
-Route::get('/cart', function () {
-  return view('cart');
-})->name('cart');
-Route::prefix('/account')->group(function(){
-    Route::get('/', [AccountController::class, 'profile']);
-    Route::post('/', [AccountController::class,'updateProfile']);
-    Route::get('/setting', function(){
-      return view('manageAccount.accountSetting');
-    });
-    Route::get('/address', function(){
-      return view('manageAccount.address');
-    });
-    Route::get('/bookRegistration', function () {
-      return view('manageAccount.bookRegistration');
-    });
+
+Route::get('/cart', [CartController::class, 'show'])->name('cart');
+Route::delete('/delete-cart-item/{id}', [CartController::class, 'deleteCartItem'])->name('cart.delete');
+
+
+Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
+
+
+Route::prefix('/account')->group(function () {
+  Route::get('/', [AccountController::class, 'profile']);
+  Route::post('/', [AccountController::class, 'updateProfile']);
+  Route::get('/setting', function () {
+    return view('manageAccount.accountSetting');
+  });
+  Route::get('/address', function () {
+    return view('manageAccount.address');
+  });
+  Route::get('/bookRegistration', function () {
+    return view('manageAccount.bookRegistration');
+  });
 });
 
 
+
+Route::get('/collection/{title}', [CollectionController::class, 'showNewBooks'])->name('collection');
 Route::get('/collection', [CollectionController::class, 'show'])->name('collection');
 Route::get('/sort-products', [CollectionController::class, 'sortProduct']);
 Route::get('/filter-products',  [CollectionController::class, 'filterByType']);

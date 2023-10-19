@@ -1,6 +1,5 @@
 .dashboard {
     background-color: #a9171d;
-    /* height: 100%; */
     padding: 30px 25px !important;
 }
 .dashboard h1 {
@@ -44,8 +43,8 @@ tr > td {
 }
 
 .productImage {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 130px;
 }
 
 td.truncate-text {
