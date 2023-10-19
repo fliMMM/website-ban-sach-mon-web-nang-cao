@@ -17,10 +17,7 @@
     <body>
 
         <div class="container">
-            <?php
-            echo $totalCartPrice;
-            echo $id;
-            ?>
+
             <h1>Giỏ hàng</h1>
             <?php ?>
             <form action="/cart/update" method="POST" class=" cart table-wrap medium--hide ">

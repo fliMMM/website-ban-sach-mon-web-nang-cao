@@ -55,4 +55,13 @@ class CollectionController extends Controller
 
         return response()->json($products);
     }
+    public function showNewBooks($title)
+    {
+        if ($title == "SÁCH MỚI") {
+            $collections = Product::orderBy('ngayPhatHanh', 'desc')->paginate(16);
+        } elseif ($title == "SÁCH BÁN CHẠY") {
+            $collections = Product::orderBy('inStock', 'asc')->paginate(16);
+        }
+        return view('collection', compact('collections'));
+    }
 }
