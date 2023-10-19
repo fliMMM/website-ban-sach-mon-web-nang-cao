@@ -57,10 +57,10 @@ Route::get('/filter-products',  [CollectionController::class, 'filterByType']);
 
 Route::prefix('admin')->group(function () {
   Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
-  Route::get('/products', [AdminController::class, 'manageProducts'])->name('product');
+  Route::get('/products', [AdminController::class, 'getProducts'])->name('product');
+  Route::get('/products/search',  [AdminController::class, 'searchProduct'])->name('products.search');
+
   Route::get('/editProduct/{id}', [AdminController::class, 'editProduct']);
-
-
 
   Route::get('/orders', function () {
     return view('admin.order');

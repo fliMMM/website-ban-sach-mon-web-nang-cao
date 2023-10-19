@@ -141,18 +141,14 @@
                                 `
                 <div class="product-item col-lg-3 col-md-4 col-sm-4">
                     <div class="product-img">
-                        <a href="" class="text-center">
+                        <a href="/productDetail/${product.name}" class="text-center">
                             <img id="1045175926" src="${product.image}">    
                         </a>
-                        {{-- <div class="product-tags">
-                                            <div class="tag-saleoff text-center">
-                                                -70%
-                                            </div>
-                                        </div> --}}
+                      
                     </div>
                     <div class="product-info">
                         <div class="product-title">
-                            <a href=""><span class="truncate-text">${product.name}</span></a>
+                            <a href="/productDetail/${product.name}"><span class="truncate-text">${product.name}</span></a>
                         </div>
                         <div class="product-price">
                             <span class="current-price">${product.price}₫</span>
@@ -192,7 +188,6 @@
                 var selectedCategories = $('input[type="checkbox"]:checked').map(function() {
                     return $(this).val();
                 }).get();
-                // console.log();
                 console.log(selectedCategories);
                 $.ajax({
                     url: '/filter-products',
@@ -211,11 +206,7 @@
                                     <a href="" class="text-center">
                                         <img id="1045175926" src="${product.image}">    
                                     </a>
-                                    {{-- <div class="product-tags">
-                                                        <div class="tag-saleoff text-center">
-                                                            -70%
-                                                        </div>
-                                                    </div> --}}
+                                   
                                 </div>
                                 <div class="product-info">
                                     <div class="product-title">
@@ -240,3 +231,4 @@
 
     </html>
 @endsection
+

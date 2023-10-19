@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\Product;
@@ -21,11 +22,22 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('userCount', 'productCount', 'categoryCount',));
     }
 
-    public function manageProducts()
+    public function getProducts()
     {
         $products =  Product::paginate(10);
         return view('admin.product', compact('products'));
     }
+
+    public function searchProduct(Request $request)
+    {
+        $searchTerm = $request->input('searchTerm');
+
+        $products = Product::where('name', 'like', "%$searchTerm%")
+            ->paginate(10);
+
+        return response()->json($products);
+    }
+
     public function editProduct($id)
     {
         $product = Product::find($id);
