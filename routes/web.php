@@ -31,15 +31,12 @@ Route::get('/cart', function () {
 Route::prefix('/account')->group(function(){
     Route::get('/', [AccountController::class, 'profile']);
     Route::post('/', [AccountController::class,'updateProfile']);
-    Route::get('/setting', function(){
-      return view('manageAccount.accountSetting');
-    });
-    Route::get('/address', function(){
-      return view('manageAccount.address');
-    });
+    Route::get('/address', [AccountController::class, 'address']);
+    Route::post('/address', [AccountController::class, 'addAddress']);
     Route::get('/bookRegistration', function () {
       return view('manageAccount.bookRegistration');
     });
+
 });
 
 

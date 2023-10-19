@@ -1,5 +1,6 @@
 @extends('layout')
 @section('body')
+
     <script type="text/javascript">
         window.onload = () => {
             const myModal = new bootstrap.Modal('#onload');
@@ -89,7 +90,7 @@
                                         name="email" value="{{ $user[0]->email }}">
                                 </div>
                                 @error('email')
-                                    <p class="mb-0 text-red-400 ml-28">
+                                    <p class="mb-0 text-red-400 ml-28 ">
                                         {{ $message }}
                                     </p>
                                 @enderror

@@ -14,9 +14,10 @@
         href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('/css/slide.css') }}">
-   
+    @stack('css')
 </head>
 
 <body>
@@ -52,11 +53,12 @@
 
             <div class="flex justify-center ">
                 <ul class="flex w-100vw justify-between items-center space-x-4 mt-2 mb-2">
-                    <a href="{{route('cart')}}" class="text-black flex items-center"><i class="fa-solid fa-bag-shopping fa-xl ml-3"></i></a>
+                    <a href="{{ route('cart') }}" class="text-black flex items-center"><i
+                            class="fa-solid fa-bag-shopping fa-xl ml-3"></i></a>
                     @auth
                         <div class="dropdown ">
-                            <a class="btn d-flex border-0 items-center bg-white " href="#" role="button" id="dropdownMenuLink"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="btn d-flex border-0 items-center bg-white " href="#" role="button"
+                                id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="flex items-center ">
                                     <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
                                         alt="" class="w-10 h-10 rounded-circle">
@@ -70,7 +72,8 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item text-black" href="/account/bookRegistration">Đăng kí sách</a></li>
+                                <li><a class="dropdown-item text-black" href="/account/bookRegistration">Đăng kí sách</a>
+                                </li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -95,13 +98,14 @@
                                     class="fa-solid fa-right-to-bracket fa-xs"></i>Đăng nhập</a></li>
                     @endauth
                 </ul>
-               
+
             </div>
         </div>
     </head>
     <main>
         @yield('body')
     </main>
+   
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
     </script>

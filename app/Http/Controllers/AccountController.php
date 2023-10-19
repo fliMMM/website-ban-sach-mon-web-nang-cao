@@ -24,7 +24,7 @@ class AccountController extends Controller
             'username.min' => 'Trường Họ tên phải từ :min ký tự trở lên',
             'email.required' => 'Vui lòng nhập email',
             'email.email' => 'Email không đúng định dạng',
-            'phone.requỉred' => 'Vui lòng nhập số điện thoại',
+            'phone.required' => 'Vui lòng nhập số điện thoại',
             'gender.required' => 'Vui lòng chọn giới tính'
         ]);
         $dataUpdate = [
@@ -37,5 +37,14 @@ class AccountController extends Controller
         $update = DB::table('users')->where('id','=',$id)->update($dataUpdate);
         // $update = DB::table('users')->where('id','=',$id)->get();
         return back()->with('message','Cập nhật thành công');
+    }
+    public function address(){
+        // $id = Auth::id();
+        // $user = DB::table('users')->where('id','=',$id)->get();
+        return view('/manageAccount/address');
+    }
+    public function addAddress(Request $request){
+        // dd($request->all());
+        return back();
     }
 }
