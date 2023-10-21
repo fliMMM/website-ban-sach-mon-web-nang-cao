@@ -28,18 +28,18 @@ Route::get('/', [HomeController::class, 'show'])->name('home');
 Route::get('/search', [HomeController::class, 'search']);
 
 
-Route::prefix('/account')->group(function(){
-    Route::get('/', [AccountController::class, 'profile']);
-    Route::post('/', [AccountController::class,'updateProfile']);
-    Route::get('/address', [AccountController::class, 'address']);
-    Route::post('/address/addAddress', [AccountController::class, 'addAddress']);
-    Route::get('/editAddress/{id}',[AccountController::class, 'editAddress']);
-    Route::post('address/updateAddress',[AccountController::class, 'updateAddress']);
-    Route::get('/bookRegistration',[AccountController::class,'registerBook']);
-    Route::post('/bookRegistration/addBookRegistration',[AccountController::class,'addRegistrationBook']);
-    Route::get('/listBookReg', [AccountController::class,'listBookReg']);
-    Route::get('/deleteAddress/{id}', [AccountController::class,'deleteAddress']);
-  });
+Route::prefix('/account')->group(function () {
+  Route::get('/', [AccountController::class, 'profile']);
+  Route::post('/', [AccountController::class, 'updateProfile']);
+  Route::get('/address', [AccountController::class, 'address']);
+  Route::post('/address/addAddress', [AccountController::class, 'addAddress']);
+  Route::get('/editAddress/{id}', [AccountController::class, 'editAddress']);
+  Route::post('address/updateAddress', [AccountController::class, 'updateAddress']);
+  Route::get('/bookRegistration', [AccountController::class, 'registerBook']);
+  Route::post('/bookRegistration/addBookRegistration', [AccountController::class, 'addRegistrationBook']);
+  Route::get('/listBookReg', [AccountController::class, 'listBookReg']);
+  Route::get('/deleteAddress/{id}', [AccountController::class, 'deleteAddress']);
+});
 
 
 Route::get('/cart', [CartController::class, 'show'])->name('cart');
@@ -64,6 +64,12 @@ Route::prefix('admin')->group(function () {
   Route::get('/orders', function () {
     return view('admin.order');
   });
+
+  Route::get('/editProd/{id}', [AdminController::class, 'showEditProd']);
+  Route::get('/addProd', [AdminController::class, 'showAddProd']);
+
+  Route::post('/handler/editProduct/{id}', [AdminController::class, 'editProduct']);
+  Route::post('/handler/addProduct', [AdminController::class, 'addProduct']);
 });
 
 Route::get('/checkout', [CheckoutController::class, 'show']);

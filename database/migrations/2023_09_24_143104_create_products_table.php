@@ -24,7 +24,6 @@ return new class extends Migration
       $table->integer('price');
       $table->integer('inStock');
       $table->string('target');
-      $table->boolean('isDelete');
       $table->string('khuonKho');
       $table->string('soTrang');
       $table->string('weight');
