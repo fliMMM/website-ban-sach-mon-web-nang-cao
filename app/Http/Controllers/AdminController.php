@@ -32,4 +32,11 @@ class AdminController extends Controller
 
         return response()->json($product);
     }
+    public function manageBookReg(){
+       
+        $bookRegistrations = DB::table('registration_book')->get();
+        $users = DB::table('users')->get();
+        // dd($user);
+        return view('admin.bookreg', ['bookRegs'=> $bookRegistrations, 'users'=> $users]);
+    }
 }

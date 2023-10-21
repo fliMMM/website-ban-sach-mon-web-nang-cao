@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('district')->nullable();
             $table->string('village')->nullable();
             $table->string('locationSpecific')->nullable();
+            $table->boolean('isDefault')->default(false);
             $table->string('deleted_at')->nullable();
         });
     }

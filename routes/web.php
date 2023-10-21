@@ -22,48 +22,46 @@ use App\Http\Controllers\CartController;
 |
 */
 
-
 Route::get('/', [HomeController::class, 'show'])->name('home');
 
 Route::get('/search', [HomeController::class, 'search']);
 
-
-Route::prefix('/account')->group(function(){
+Route::prefix('/account')->group(function () {
     Route::get('/', [AccountController::class, 'profile']);
-    Route::post('/', [AccountController::class,'updateProfile']);
-    Route::get('/address', [AccountController::class, 'address']);
-    Route::post('/address/addAddress', [AccountController::class, 'addAddress']);
-    Route::get('/editAddress/{id}',[AccountController::class, 'editAddress']);
-    Route::post('address/updateAddress',[AccountController::class, 'updateAddress']);
-    Route::get('/bookRegistration',[AccountController::class,'registerBook']);
-    Route::post('/bookRegistration/addBookRegistration',[AccountController::class,'addRegistrationBook']);
-    Route::get('/listBookReg', [AccountController::class,'listBookReg']);
-    Route::get('/deleteAddress/{id}', [AccountController::class,'deleteAddress']);
-  });
-
+    Route::post('/', [AccountController::class, 'updateProfile']);
+    Route::prefix('/address')->group(function () {
+        Route::get('/', [AccountController::class, 'address']);
+        Route::post('/addAddress', [AccountController::class, 'addAddress']);
+        Route::get('/checkDefault/{id}', [AccountController::class, 'checkDefaultAddress']);
+        Route::get('/editAddress/{id}', [AccountController::class, 'editAddress']);
+        Route::post('/updateAddress', [AccountController::class, 'updateAddress']);
+        Route::get('/deleteAddress/{id}', [AccountController::class, 'deleteAddress']);
+    });
+    Route::prefix('/bookRegistration')->group(function () {
+        Route::get('/', [AccountController::class, 'registerBook']);
+        Route::post('/addBookRegistration', [AccountController::class, 'addRegistrationBook']);
+    });
+    Route::get('/listBookReg', [AccountController::class, 'listBookReg']);
+});
 
 Route::get('/cart', [CartController::class, 'show'])->name('cart');
 Route::delete('/delete-cart-item/{id}', [CartController::class, 'deleteCartItem'])->name('cart.delete');
 
-
 Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
-
 
 Route::get('/collection/{title}', [CollectionController::class, 'showNewBooks'])->name('collection');
 Route::get('/collection', [CollectionController::class, 'show'])->name('collection');
 Route::get('/sort-products', [CollectionController::class, 'sortProduct']);
-Route::get('/filter-products',  [CollectionController::class, 'filterByType']);
+Route::get('/filter-products', [CollectionController::class, 'filterByType']);
 
 Route::prefix('admin')->group(function () {
-  Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
-  Route::get('/products', [AdminController::class, 'manageProducts'])->name('product');
-  Route::get('/editProduct/{id}', [AdminController::class, 'editProduct']);
-
-
-
-  Route::get('/orders', function () {
-    return view('admin.order');
-  });
+    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/products', [AdminController::class, 'manageProducts'])->name('product');
+    Route::get('/editProduct/{id}', [AdminController::class, 'editProduct']);
+    Route::get('/orders', function () {
+        return view('admin.order');
+    });
+    Route::get('/bookReg', [AdminController::class, 'manageBookReg'] );
 });
 
 Route::get('/checkout', [CheckoutController::class, 'show']);
@@ -71,13 +69,11 @@ Route::get('/checkout', [CheckoutController::class, 'show']);
 //show login form
 // Route::get('/login', [UserController::class, 'showLogin'])->name('login');
 
-
 // // //show register form
 // Route::get('/', [UserController::class, 'showRegister'])->name('register');
 
 //create users
 // Route::post('/users', [UserController::class, 'createUser']);
-
 
 //logout
 Route::post('/logout', [UserController::class, 'logout']);
@@ -87,15 +83,13 @@ Route::get('/login', [UserController::class, 'showLogin'])->name('login');
 //handle login
 Route::post('/handler/login', [UserController::class, 'handleLogin']);
 
-
-
 //delete file
 Route::post('/file/delete/{id}', [FileController::class, 'delete']);
 
 //update file
 Route::post('/file/edit/{id}', [FileController::class, 'update']);
 
-//product Detail 
+//product Detail
 Route::get('/productDetail/{name}', [ProductDetailController::class, 'index'])->name('/productDetail/{name}');
 Route::post('/productDetail/{name}', [ProductDetailController::class, 'addCart']);
 

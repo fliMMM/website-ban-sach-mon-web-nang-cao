@@ -20,7 +20,7 @@
                     <div>
                         <p class="text-lg font-semibold mt-2 ">Địa chỉ</p>
                         @foreach ($address as $adr)
-                            <div class="flex justify-between border-b mt-3">
+                            <div class="flex justify-between border-b mt-3 items-center">
                                 <div class="mt-3">
                                     <div class="flex h-[30px]">
                                         <p class="border-r h-[20px] pr-2 border-black">{{ $adr->name }}</p>
@@ -34,15 +34,25 @@
                                         <p class="text-[#757575] mr-1.5">{{ $adr->district }}</p>
                                         <p class="text-[#757575]">{{ $adr->village }}</p>
                                     </div>
+                                    @if ($adr ->isDefault == 1)
+                                    <p class="text-center border text-red-500 w-[80px]" style="border-color: red !important">Mặc định</p>
+                                @endif
                                 </div>
                                 <div class="columns-1">
                                     <button type="button" class="ml-10 mb-3 text-[#84D0FF]" id="editAddress"
                                         value="{{ $adr->id }}">Cập nhật</button>
                                     <button class="text-[#84D0FF]" value="{{ $adr->id }}"
                                         id="deleteAddress">Xoá</button>
-                                    <div class="border border-black pl-2 pr-2">
-                                        <button>Thiết lập mặc định</button>
-                                    </div>
+                                        @if ($adr ->isDefault == 1)
+                                        <div class="border border-black pl-2 pr-2 bg-white">
+                                            <button class="mb-0 text-[#A2A2A2]" disabled>Thiết lập mặc định</button>
+                                        </div>
+                                        @else
+                                        <div class="border border-black pl-2 pr-2">
+                                            <a href="address/checkDefault/{{$adr->id}}" class= "no-underline text-black" id ="setDefault" value="{{$adr->id}}">Thiết lập mặc định</a>
+                                        </div>
+                                        @endif
+                                  
                                 </div>
 
                             </div>
@@ -63,12 +73,18 @@
                                                         placeholder="name@example.com" style="border-radius: 0">
                                                     <label for="floatingInput">Họ và tên</label>
                                                 </div>
+                                             
                                                 <div class="form-floating mb-3">
                                                     <input type="text" class="form-control" name="phone"
                                                         placeholder="name@example.com" style="border-radius: 0">
                                                     <label for="floatingInput">Số điện thoại</label>
                                                 </div>
                                             </div>
+                                            @error('name')
+                                            <p class="text-red-400 ml-28 mb-0">
+                                                {{ $message }}
+                                            </p>
+                                             @enderror
                                             <div>
                                                 <div class="flex justify-between items-center">
                                                     <select class="form-select form-select-base mb-3" id="city"
@@ -109,7 +125,6 @@
                     {{-- Edit Modal --}}
                     <div>
                         <form action="{{ url('/account/address/updateAddress') }}" method="post">
-
                             <div class="modal fade" id="edit-address" tabindex="-1" aria-hidden="true"
                                 style="top: 20%" data-bs-backdrop="static">
                                 <div class="modal-dialog modal-fullscreen-sm-down">
@@ -240,6 +255,22 @@
             };
         }
     </script>
+    {{-- <script>
+        $(document).ready(function() {
+            $(document).on('click', '#setDefault', function() {
+                $idAddress = $(this).val();
+                console.log($idAddress);
+                $.ajax({
+                    url: "address/checkDefault/" + $idAddress,
+                    type: "GET",
+                    success: function(response) {
+                        console.log('hehe')
+                    }
+                });
+                console.log($value)
+            });
+        });
+    </script> --}}
     <script>
         $(document).ready(function() {
             $(document).on('click', '#editAddress', function() {
@@ -247,7 +278,7 @@
                 console.log($idAddress)
                 $('#edit-address').modal('show');
                 $.ajax({
-                    url: "editAddress/" + $idAddress,
+                    url: "address/editAddress/" + $idAddress,
                     type: "GET",
                     success: function(response) {
                         $('#name').val(response.address.name)
@@ -280,7 +311,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "deleteAddress/" + $idAddress,
+                            url: "address/deleteAddress/" + $idAddress,
                             success: function(response) {
                                 Swal.fire({
                                     position: 'center',

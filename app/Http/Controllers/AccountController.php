@@ -55,22 +55,37 @@ class AccountController extends Controller
             ->get();
         return view('/manageAccount/address', ['address' => $address]);
     }
+    public function checkDefaultAddress($id){
+        $idAuth = Auth::id();
+        DB::table('address')
+        ->where('userId',  $idAuth)
+        ->update(['isDefault'=> 0]);
+         DB::table('address')
+        ->where('id', '=', $id)
+        ->update(['isDefault'=> 1]);
+        return back();
+    }
     public function addAddress(Request $request)
     {
         $id = Auth::id();
         $request->validate(
             [
                 'name' => 'required|min:5',
-                'phone' => 'required',
+                'phone' => 'required|numeric',
                 'city' => 'required',
                 'district' => 'required',
                 'village' => 'required',
                 'locationSpecific' => 'required',
             ],
             [
-                'username.required' => 'Vui lòng nhập Họ Tên',
-                'username.min' => 'Trường Họ tên phải từ :min ký tự trở lên',
+                'name.required' => 'Vui lòng nhập Họ Tên',
+                'name.min' => 'Trường Họ tên phải từ :min ký tự trở lên',
                 'phone.required' => 'Vui lòng nhập số điện thoại',
+                'phone.numeric'=> 'Vui lòng nhập chính xác số điện thoại',
+                'city.required'=> 'Vui lòng chọn tỉnh thành',
+                'district.required'=> 'Vui lòng chọn quận huyện',
+                'village.required'=> 'Vui lòng chọn phường xã',
+                'locationSpecific'=> 'Vui lòng nhập địa chỉ cụ thể',
             ],
         );
         $dataAdd = [
@@ -99,16 +114,21 @@ class AccountController extends Controller
         $request->validate(
             [
                 'name' => 'required|min:5',
-                'phone' => 'required',
+                'phone' => 'required|numeric',
                 'city' => 'required',
                 'district' => 'required',
                 'village' => 'required',
                 'locationSpecific' => 'required',
             ],
             [
-                'username.required' => 'Vui lòng nhập Họ Tên',
-                'username.min' => 'Trường Họ tên phải từ :min ký tự trở lên',
+                'name.required' => 'Vui lòng nhập Họ Tên',
+                'name.min' => 'Trường Họ tên phải từ :min ký tự trở lên',
                 'phone.required' => 'Vui lòng nhập số điện thoại',
+                'phone.numeric'=> 'Vui lòng nhập chính xác số điện thoại',
+                'city.required'=> 'Vui lòng chọn tỉnh thành',
+                'district.required'=> 'Vui lòng chọn quận huyện',
+                'village.required'=> 'Vui lòng chọn phường xã',
+                'locationSpecific'=> 'Vui lòng nhập địa chỉ cụ thể',
             ],
         );
         $dataUpdate = [
