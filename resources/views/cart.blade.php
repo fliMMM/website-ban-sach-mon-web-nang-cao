@@ -91,8 +91,10 @@
                                 <span class="h3"> {{ $totalCartPrice }}
                                 </span>
                             </p>
-                            <button type="submit" name="update" class="btn update-cart">Cập nhật</button>
-                            <button type="submit" name="checkout" class="btn">Thanh toán</button>
+                            <div class="flex justify-end space-x-2 ">
+                                <button type="submit" name="update" class="btn update-cart">Cập nhật</button>
+                                <a id="checkoutBtn" class=" bg-red-600 py-1  px-2 font-bold" href="/checkout">Thanh toán</a>
+                            </div>
                         </div>
                     </div>
                 </div>

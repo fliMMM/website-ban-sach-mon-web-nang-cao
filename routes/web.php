@@ -72,17 +72,13 @@ Route::prefix('admin')->group(function () {
   Route::post('/handler/addProduct', [AdminController::class, 'addProduct']);
 });
 
+
+
+
+
 Route::get('/checkout', [CheckoutController::class, 'show']);
-
-//show login form
-// Route::get('/login', [UserController::class, 'showLogin'])->name('login');
-
-
-// // //show register form
-// Route::get('/', [UserController::class, 'showRegister'])->name('register');
-
-//create users
-// Route::post('/users', [UserController::class, 'createUser']);
+//handle checkout
+Route::post('/handle/checkout', [CheckoutController::class, 'handleCheckout']);
 
 
 //logout
@@ -95,11 +91,7 @@ Route::post('/handler/login', [UserController::class, 'handleLogin']);
 
 
 
-//delete file
-Route::post('/file/delete/{id}', [FileController::class, 'delete']);
 
-//update file
-Route::post('/file/edit/{id}', [FileController::class, 'update']);
 
 //product Detail 
 Route::get('/productDetail/{name}', [ProductDetailController::class, 'index'])->name('/productDetail/{name}');

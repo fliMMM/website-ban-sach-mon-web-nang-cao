@@ -51,11 +51,11 @@ class UserController extends Controller
     $formData['password'] = Hash::make($formData['password']);
 
     $user = User::create($formData);
-    
+
     $newCart = [
-      'userId'=>$user['id'],
-      'status'=>'test',
-      'note'=>'test'
+      'userId' => $user['id'],
+      'status' => 'test',
+      'note' => 'test'
     ];
     DB::table('carts')->insert([$newCart]);
 
@@ -79,7 +79,7 @@ class UserController extends Controller
     $user = DB::table('users')->where('email', '=', $formData['email'])->get();
 
 
-    if (count($user) >0 && Hash::check($formData['password'], $user[0]->password)) {
+    if (count($user) > 0 && Hash::check($formData['password'], $user[0]->password)) {
       auth()->loginUsingId($user[0]->id);
       return redirect('/');
     }

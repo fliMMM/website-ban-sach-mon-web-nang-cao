@@ -18,6 +18,7 @@ class CartController extends Controller
             ->join('carts', 'cart_items.cartId', '=', 'carts.id')
             ->select('products.*', 'cart_items.quantity', 'cart_items.price as unit_price')
             ->where('carts.userId', $id)
+            ->where('cart_items.isCheckout', '=', false)
             ->whereNull('cart_items.deleted_at')
             ->get();
 
