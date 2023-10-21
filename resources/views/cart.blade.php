@@ -37,12 +37,13 @@
                             @foreach ($products as $product)
                                 <tr class="cart_row table__section">
                                     <td data-label="Sản phẩm">
-                                        <a href="" class="cart__image">
+                                        <a href="/productDetail/{{ $product->name }}" class="cart__image">
                                             <img src="{{ $product->image }}" alt="{{ $product->name }}">
                                         </a>
                                     </td>
+
                                     <td>
-                                        <a href="" class="h4">
+                                        <a href="/productDetail/{{ $product->name }}" class="h4">
                                             {{ $product->name }}
                                         </a>
                                     </td>

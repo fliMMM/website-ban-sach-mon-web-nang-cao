@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="{{ asset('/css/admin/order.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/admin/dashboard.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -14,24 +14,21 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-
     <div class="row">
         <div class="col-lg-2 dashboard">
             <h1>Welcome, Admin</h1>
             <ul class="majorList">
-                <li class="majorItem"><a href="/admin"><i class="fas fa-chart-simple"></i>Tổng quan</a>
+                <li class="majorItem"><a href=""><i class="fas fa-chart-simple"></i>Tổng quan</a>
                 </li>
                 <li class="majorItem"><a href="/admin/products"><i class="fas fa-list"></i>Danh sách sản phẩm</a>
                 </li>
-                <li class="majorItem"><a href="" class="active"><i class="fa-solid fa-cart-shopping"></i>Danh
-                        sách đặt hàng</a>
+                <li class="majorItem"><a href="/admin/orders" class="active"><i
+                            class="fa-solid fa-cart-shopping"></i>Danh sách đặt
+                        hàng</a>
                 </li>
                 <li class="majorItem"><a href=""><i class="fas fa-comment-alt"></i>Phản hồi</a></li>
                 <li class="majorItem"><a href="../"><i class="fas fa-home"></i>Trang chủ</a></li>
@@ -65,7 +62,7 @@
                         </td>
                         <td>
                             <button type="button" class="btn btn-warning orderStatus" data-bs-toggle="modal"
-                                data-bs-target="#orderStatus">Chưa giải quyết</button>
+                                data-bs-target="#orderStatus">Chờ xác nhận</button>
                             <div class="modal fade" id="orderStatus" tabindex="-1" aria-labelledby="orderStatusLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog">
@@ -159,7 +156,6 @@
                                         </div>
                                         <div class="modal-footer">
                                             Tổng tiền: 40000 đ
-
                                         </div>
                                     </div>
                                 </div>
