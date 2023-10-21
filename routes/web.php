@@ -27,27 +27,26 @@ Route::get('/', [HomeController::class, 'show'])->name('home');
 
 Route::get('/search', [HomeController::class, 'search']);
 
+
+Route::prefix('/account')->group(function(){
+    Route::get('/', [AccountController::class, 'profile']);
+    Route::post('/', [AccountController::class,'updateProfile']);
+    Route::get('/address', [AccountController::class, 'address']);
+    Route::post('/address/addAddress', [AccountController::class, 'addAddress']);
+    Route::get('/editAddress/{id}',[AccountController::class, 'editAddress']);
+    Route::post('address/updateAddress',[AccountController::class, 'updateAddress']);
+    Route::get('/bookRegistration',[AccountController::class,'registerBook']);
+    Route::post('/bookRegistration/addBookRegistration',[AccountController::class,'addRegistrationBook']);
+    Route::get('/listBookReg', [AccountController::class,'listBookReg']);
+    Route::get('/deleteAddress/{id}', [AccountController::class,'deleteAddress']);
+  });
+
+
 Route::get('/cart', [CartController::class, 'show'])->name('cart');
 Route::delete('/delete-cart-item/{id}', [CartController::class, 'deleteCartItem'])->name('cart.delete');
 
 
 Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
-
-
-Route::prefix('/account')->group(function () {
-  Route::get('/', [AccountController::class, 'profile']);
-  Route::post('/', [AccountController::class, 'updateProfile']);
-  Route::get('/setting', function () {
-    return view('manageAccount.accountSetting');
-  });
-  Route::get('/address', function () {
-    return view('manageAccount.address');
-  });
-  Route::get('/bookRegistration', function () {
-    return view('manageAccount.bookRegistration');
-  });
-});
-
 
 
 Route::get('/collection/{title}', [CollectionController::class, 'showNewBooks'])->name('collection');

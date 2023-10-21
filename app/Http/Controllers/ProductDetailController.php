@@ -11,22 +11,31 @@ class ProductDetailController extends Controller
     //
     public function index($name)
     {
-
         // get product detail = name
-        $productDetails =  DB::table('products')->where('name', '=', $name)->get();
-        // get category product detail 
-        $categories =  DB::table('products')->where('name', '=', $name)->pluck('categories');
-        $stringCategories = explode(",", $categories[0]);
+        $productDetails = DB::table('products')
+            ->where('name', '=', $name)
+            ->get();
+        // get category product detail
+        $categories = DB::table('products')
+            ->where('name', '=', $name)
+            ->pluck('categories');
+        $stringCategories = explode(',', $categories[0]);
         foreach ($stringCategories as $key => $stringCategory) {
-            $category = DB::table('products')->where('categories', 'like', '%' . $stringCategory . '%')->get();
+            $category = DB::table('products')
+                ->where('categories', 'like', '%' . $stringCategory . '%')
+                ->get();
         }
         return view('productDetail', ['listProducts' => $category, 'productDetails' => $productDetails], compact('name'));
     }
     public function addCart($name)
     {
         $id = Auth::id();
-        $productDetails =  DB::table('products')->where('name', '=', $name)->get();
-        $carts = DB::table('carts')->where('userId', '=', $id)->pluck('id');
+        $productDetails = DB::table('products')
+            ->where('name', '=', $name)
+            ->get();
+        $carts = DB::table('carts')
+            ->where('userId', '=', $id)
+            ->pluck('id');
         foreach ($productDetails as $products) {
             $quantity = DB::table('cart_items')->where('productId', '=', $products->id)->pluck('quantity');
             $isProductIdExists = DB::table('cart_items')->where('productId', '=', $products->id)->exists();
@@ -43,6 +52,7 @@ class ProductDetailController extends Controller
                 ]);
             }
         }
-        return back()->with('message', 'Thêm thành công');
+        return back()->with('message', 'Sản phẩm đã được thêm vào giỏ hàng');
     }
 }
+

@@ -1,27 +1,17 @@
 @extends('layout')
 
 @section('body')
-    <script type="text/javascript">
-        window.onload = () => {
-            const myModal = new bootstrap.Modal('#onload');
-            myModal.show();
-            setTimeout(function() {
-                myModal.hide();
-            }, 5000);
-        }
-    </script>
     <div class="flex justify-center items-center">
-        @if (session('message'))
-            <div class="modal" style="display:flex" tabindex="-1" id="onload">
-                <div class="modal-dialog" style="top: 40% ">
-                    <div class="modal-content">
-                        <div class="modal-body text-center">
-                            <i class="mt-2 fa-regular fa-circle-check " style="font-size:50px; color:#79D220"></i>
-                            <p class="text-xl mt-3">{{ session('message') }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        @if (Session::has('message'))
+            <script>
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: '{{ Session::get('message') }}',
+                    showConfirmButton: true,
+                    timer: 2000
+                })
+            </script>
         @endif
         <div class="w-8/12 mx-auto my-0">
             @if (count($productDetails) > 0)
