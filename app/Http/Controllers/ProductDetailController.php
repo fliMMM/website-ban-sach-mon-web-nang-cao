@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 class ProductDetailController extends Controller
 {
     //
@@ -35,21 +37,11 @@ class ProductDetailController extends Controller
             ->where('userId', '=', $id)
             ->pluck('id');
         foreach ($productDetails as $products) {
-            $isProductIdExists = DB::table('cart_items')
-                ->where('productId', '=', $products->id)
-                ->where('cartId', '=', $carts[0])
-                ->exists();
-            // dd($cartId);
+            $quantity = DB::table('cart_items')->where('productId', '=', $products->id)->pluck('quantity');
+            $isProductIdExists = DB::table('cart_items')->where('productId', '=', $products->id)->exists();
             if ($isProductIdExists) {
-                $quantity = DB::table('cart_items')
-                    ->where('productId', '=', $products->id)
-                    ->where('cartId', '=', $carts[0])
-                    ->pluck('quantity');
                 $quantity[0] += 1;
-                DB::table('cart_items')
-                    ->where('productId', '=', $products->id)
-                    ->where('cartId', '=', $carts[0])
-                    ->update(['quantity' => $quantity[0], 'updated_at' => date('Y-m-d H:i:s')]);
+                DB::table('cart_items')->where('productId', '=', $products->id)->update(['quantity' => $quantity[0], 'updated_at' => date('Y-m-d H:i:s')]);
             } else {
                 DB::table('cart_items')->insert([
                     'created_at' => date('Y-m-d H:i:s'),
@@ -63,3 +55,4 @@ class ProductDetailController extends Controller
         return back()->with('message', 'Sản phẩm đã được thêm vào giỏ hàng');
     }
 }
+

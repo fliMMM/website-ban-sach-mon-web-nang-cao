@@ -102,10 +102,8 @@
             </div>
         </div>
     </head>
-    <main>
-        @yield('body')
-    </main>
-   
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
     </script>
@@ -132,7 +130,9 @@
             });
         });
     </script>
-
+<main>
+    @yield('body')
+</main>
 </body>
 
 </html>
