@@ -187,4 +187,15 @@ class AdminController extends Controller
         }
         return back()->with('message', 'Yêu cầu đã được duyệt ');
     }
+
+    public function showOrderList()
+    {
+        $orders =  DB::table('orders')
+            ->where('status', '=', 0)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+
+        return view('admin.order', compact('orders'));
+    }
 }

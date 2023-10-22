@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
+use Illuminate\Support\Facades\Gate;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ use App\Http\Controllers\CartController;
 Route::get('/', [HomeController::class, 'show'])->name('home');
 
 Route::get('/search', [HomeController::class, 'search']);
+
 
 
 Route::prefix('/account')->group(function () {
@@ -43,7 +45,12 @@ Route::prefix('/account')->group(function () {
         Route::post('/addBookRegistration', [AccountController::class, 'addRegistrationBook']);
     });
     Route::get('/listBookReg', [AccountController::class, 'listBookReg']);
-});
+    Route::get('/change-password', [AccountController::class, 'showChangePassword']);
+    Route::post('/handler/change-password', [AccountController::class, 'handleChangePassword']);
+  });
+
+
+
 
 
 Route::get('/cart', [CartController::class, 'show'])->name('cart');
@@ -55,6 +62,7 @@ Route::get('/collection/{title}', [CollectionController::class, 'showNewBooks'])
 Route::get('/collection', [CollectionController::class, 'show'])->name('collection');
 Route::get('/sort-products', [CollectionController::class, 'sortProduct']);
 Route::get('/filter-products', [CollectionController::class, 'filterByType']);
+
 
 Route::prefix('admin')->group(function () {
 
@@ -96,7 +104,6 @@ Route::get('/checkout', [CheckoutController::class, 'show']);
 //handle checkout
 Route::post('/handle/checkout', [CheckoutController::class, 'handleCheckout']);
 
-
 //logout
 Route::post('/logout', [UserController::class, 'logout']);
 
@@ -106,9 +113,16 @@ Route::get('/login', [UserController::class, 'showLogin'])->name('login');
 Route::post('/handler/login', [UserController::class, 'handleLogin']);
 
 
+
 //delete file
 Route::post('/file/delete/{id}', [FileController::class, 'delete']);
 
+Route::post('/handler/reset-password', [UserController::class, 'handleResetPassword'])->middleware('guest')->name('password.update');
+Route::post('/handler/forgot-password', [UserController::class, 'handleForgotPassword'])->middleware('guest')->name('password.email');
+Route::get("/forgot-password", [UserController::class, 'showResetPasswordForm'])->name('showResetPasswordForm')->middleware('guest')->name('password.request');
+Route::get('/reset-password/{token}', function (string $token) {
+  return view('auth.reset_password', ['token' => $token]);
+})->middleware('guest')->name('password.reset');
 
 //product Detail
 Route::get('/productDetail/{name}', [ProductDetailController::class, 'index'])->name('/productDetail/{name}');
