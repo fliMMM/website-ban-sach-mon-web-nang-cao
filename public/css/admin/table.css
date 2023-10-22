@@ -1,0 +1,39 @@
+#tableUser_length {
+    display: none;
+}
+#tableUser_info {
+    margin-left: 100px;
+}
+#tableUser_filter {
+    margin-right: 100px;
+    margin-bottom: 20px;
+}
+#tableUser_paginate {
+    margin-right: 100px;
+}
+#tablebookreg_length {
+    display: none;
+}
+#tablebookreg_info {
+    margin-left: 100px;
+}
+#tablebookreg_filter {
+    margin-right: 100px;
+    margin-bottom: 20px;
+}
+#tablebookreg_paginate {
+    margin-right: 100px;
+}
+#tablebookregcf_length {
+    display: none;
+}
+#tablebookregcf_info {
+    margin-left: 20px;
+}
+#tablebookregcf_filter {
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+#tablebookregcf_paginate {
+    margin-right: 20px;
+}

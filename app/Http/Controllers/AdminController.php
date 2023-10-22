@@ -170,6 +170,7 @@ class AdminController extends Controller
                         ]);
                 }
             }
+            return back()->with('message', 'Đã xoá yêu cầu');
         }
         if ($request->action == 'confirm') {
             if (!$request->checkboxConfirm) {
@@ -184,18 +185,90 @@ class AdminController extends Controller
                         ]);
                 }
             }
+            return back()->with('message', 'Yêu cầu đã được duyệt ');
         }
-        return back()->with('message', 'Yêu cầu đã được duyệt ');
     }
 
     public function showOrderList()
     {
-        $orders =  DB::table('orders')
+        $orders = DB::table('orders')
             ->where('status', '=', 0)
             ->orderBy('created_at', 'desc')
             ->get();
 
-
         return view('admin.order', compact('orders'));
+    }
+    public function userManage()
+    {
+        $users = DB::table('users')
+            ->where('isAdmin', '=', 0)
+            ->get();
+        $userCount = DB::table('users')
+            ->where('isAdmin', '=', 0)
+            ->count();
+        return view('admin.userManage', ['users' => $users, 'userCount' => $userCount]);
+    }
+    public function userDelete(Request $request)
+    {
+        // dd($request->all());
+        if ($request->action == 'delete') {
+            if (!$request->checkboxConfirm) {
+                return back();
+            } else {
+                foreach ($request->checkboxConfirm as $key => $value) {
+                    $delete = DB::table('users')
+                        ->where('id', $key)
+                        ->update([
+                            'status' => 'Đã xoá',
+                            'deleted_at' => date('Y-m-d H:i:s'),
+                        ]);
+                    if ($delete == true) {
+                        return back()->with('message', 'Tài khoản đã bị xoá');
+                    } else {
+                        return back();
+                    }
+                }
+            }
+        }
+        if ($request->action == 'ban') {
+            if (!$request->checkboxConfirm) {
+                return back();
+            } else {
+                foreach ($request->checkboxConfirm as $key => $value) {
+                    $ban = DB::table('users')
+                        ->where('id', $key)
+                        ->whereNull('deleted_at')
+                        ->update([
+                            'status' => 'Đã bị chặn',
+                            'isBan' => 1,
+                        ]);
+                    if ($ban == true) {
+                        return back()->with('message', 'Tài khoản đã bị chặn');
+                    } else {
+                        return back();
+                    }
+                }
+            }
+        }
+        if ($request->action == 'unban') {
+            if (!$request->checkboxConfirm) {
+                return back();
+            } else {
+                foreach ($request->checkboxConfirm as $key => $value) {
+                    $ban = DB::table('users')
+                        ->where('id', $key)
+                        ->whereNull('deleted_at')
+                        ->update([
+                            'status' => 'đang hoạt động',
+                            'isBan' => 0,
+                        ]);
+                    if ($ban == true) {
+                        return back()->with('message', 'Tài khoản đã được huỷ chặn');
+                    } else {
+                        return back();
+                    }
+                }
+            }
+        }
     }
 }

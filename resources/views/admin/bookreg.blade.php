@@ -1,17 +1,14 @@
 @extends('admin.adminLayout')
 @section('adminBody')
-    <p class="text-center text-2xl font-bold">Sách đã duyệt</p>
-    <div class="w-full flex justify-end">
-        <a href="/admin/bookReg/confirm" class="no-underline mr-8 text-black bg-red-300 p-2">Duyệt sách</a>
-    </div>
-        <table class="table mt-2">
-            <thead class="thead-dark" style="background-color: red">
+    <p class="text-center mt-4 text-4xl font-bold">Sách đã duyệt</p>
+        <a href="/admin/bookReg/confirm" class="no-underline fixed bottom-0 right-0 text-2xl text-black bg-red-300 p-4">Duyệt sách</a>
+        <table class="table mt-2 table table-striped"  id= "tablebookreg">
+            <thead>
                 <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Người dùng</th>
-                    <th scope="col">Tên sách</th>
-                    <th scope="col">Tác giả</th>
-                    <th scope="col">Số lượng</th>
+                    <th>Người dùng</th>
+                    <th>Tên sách</th>
+                    <th>Tác giả</th>
+                    <th>Số lượng</th>
                 </tr>
             </thead>
             @foreach ($bookRegs as $bookReg)
@@ -23,18 +20,26 @@
                 @endforeach
                 <tbody>
                     <tr>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="{{ $bookReg->id }}"
-                                    name ="checkboxConfirm[{{ $bookReg->id }}]" id="checkboxConfirm">
-                            </div>
-                        </td>
-                        <td scope="row">{{ $email }}</td>
-                        <td scope="row">{{ $bookReg->name }}</td>
+                        <td>{{ $email }}</td>
+                        <td>{{ $bookReg->name }}</td>
                         <td>{{ $bookReg->author }}</td>
                         <td>{{ $bookReg->quantity }}</td>
                     </tr>
                 </tbody>
             @endforeach
         </table>
+        <script>
+            let table = new DataTable('#tablebookreg', {
+                "language": {
+                    "search": "Tìm kiếm",
+                    "paginate": {
+                        "first": "First",
+                        "last": "Last",
+                        "next": "Sau",
+                        "previous": "Trước"
+                    },
+                },
+                "pageLength": 15
+            });
+        </script>
 @endsection

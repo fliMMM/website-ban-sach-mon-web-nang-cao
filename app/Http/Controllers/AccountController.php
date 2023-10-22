@@ -233,4 +233,5 @@ class AccountController extends Controller
         dd($orders);
         return view('manageAccount.order', compact('orders'));
     }
+
 }

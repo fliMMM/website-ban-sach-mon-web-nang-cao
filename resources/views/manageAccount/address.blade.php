@@ -274,7 +274,6 @@
                         $('#idAddress').val($idAddress)
                     }
                 });
-                console.log($value)
             });
         });
     </script>

@@ -36,12 +36,15 @@ class ProductDetailController extends Controller
         $carts = DB::table('carts')
             ->where('userId', '=', $id)
             ->pluck('id');
+        // dd($carts);
         foreach ($productDetails as $products) {
-            $quantity = DB::table('cart_items')->where('productId', '=', $products->id)->pluck('quantity');
-            $isProductIdExists = DB::table('cart_items')->where('productId', '=', $products->id)->exists();
+            $quantity = DB::table('cart_items')->where('productId', '=', $products->id)->where('cartId' , '=', $carts )->where('isCheckout', '=', 0)->pluck('quantity');
+            // dd($cartItemId);
+            $isProductIdExists = DB::table('cart_items')->where('productId', '=', $products->id)->where('cartId' , '=', $carts )->where('isCheckout', '=', 0)->exists();
             if ($isProductIdExists) {
+                // dd($quantity);
                 $quantity[0] += 1;
-                DB::table('cart_items')->where('productId', '=', $products->id)->update(['quantity' => $quantity[0], 'updated_at' => date('Y-m-d H:i:s')]);
+                DB::table('cart_items')->where('productId', '=', $products->id)->where('cartId' , '=', $carts)->where('isCheckout', '=', 0)->update(['quantity' => $quantity[0], 'updated_at' => date('Y-m-d H:i:s')]);
             } else {
                 DB::table('cart_items')->insert([
                     'created_at' => date('Y-m-d H:i:s'),

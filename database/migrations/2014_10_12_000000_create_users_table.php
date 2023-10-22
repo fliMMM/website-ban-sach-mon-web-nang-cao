@@ -22,6 +22,8 @@ return new class extends Migration
       $table->string('gender')->nullable();
       $table->string('deleted_at')->nullable();
       $table->boolean('isAdmin')->default(false);
+      $table->string('status')->default('đang hoạt động');
+      $table->boolean('isBan')->default(false);
     });
   }
 
