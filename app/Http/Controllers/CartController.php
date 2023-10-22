@@ -13,31 +13,31 @@ class CartController extends Controller
     public function show()
     {
         $id = Auth::id();
-        $products = DB::table('products')
+        $cartItems = DB::table('products')
             ->join('cart_items', 'products.Id', '=', 'cart_items.productId')
             ->join('carts', 'cart_items.cartId', '=', 'carts.id')
-            ->select('products.*', 'cart_items.quantity', 'cart_items.price as unit_price')
+            ->select('products.*', 'cart_items.quantity', 'cart_items.price as unit_price', 'cart_items.id as cartItemId')
             ->where('carts.userId', $id)
             ->where('cart_items.isCheckout', '=', false)
             ->whereNull('cart_items.deleted_at')
             ->get();
 
 
-        $products->each(function ($product) {
+        $cartItems->each(function ($product) {
             $product->totalPrice = number_format($product->price * $product->quantity, 0, ',', '.') . ' ₫';
             $product->itemPrice = number_format($product->price, 0, ',', '.') . ' ₫';
         });
-        $totalPrice = $products->sum(function ($product) {
+        $totalPrice = $cartItems->sum(function ($product) {
             return $product->price * $product->quantity;
         });
         $totalCartPrice = number_format($totalPrice, 0, ',', '.') . ' ₫';
 
-        return view('cart', compact('products', 'totalCartPrice', 'id'));
+        return view('cart', compact('cartItems', 'totalCartPrice'));
     }
 
     public function deleteCartItem($id)
     {
-        DB::table('cart_items')->where('productId', $id)->update(['deleted_at' => now()]);
+        DB::table('cart_items')->where('id', $id)->update(['deleted_at' => now()]);
         return response()->json(['message' => 'Cart item deleted successfully']);
     }
     public function updateCart(Request $request)

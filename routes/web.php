@@ -42,17 +42,25 @@ Route::prefix('/account')->group(function () {
 });
 
 
-Route::get('/cart', [CartController::class, 'show'])->name('cart');
-Route::delete('/delete-cart-item/{id}', [CartController::class, 'deleteCartItem'])->name('cart.delete');
+Route::prefix('cart')->group(function () {
+  Route::get('/', [CartController::class, 'show'])->name('cart');
+  Route::delete('/delete-cart-item/{id}', [CartController::class, 'deleteCartItem'])->name('cart.delete');
+  Route::post('/update', [CartController::class, 'updateCart'])->name('cart.update');
+});
 
 
-Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
+Route::prefix('collection')->group(function () {
+  Route::get('/{title}', [CollectionController::class, 'showNewBooks'])->name('product');
+  Route::get('/', [CollectionController::class, 'show'])->name('product');
+});
 
-
-Route::get('/collection/{title}', [CollectionController::class, 'showNewBooks'])->name('collection');
-Route::get('/collection', [CollectionController::class, 'show'])->name('collection');
 Route::get('/sort-products', [CollectionController::class, 'sortProduct']);
 Route::get('/filter-products',  [CollectionController::class, 'filterByType']);
+
+
+
+
+
 
 Route::prefix('admin')->group(function () {
   Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');

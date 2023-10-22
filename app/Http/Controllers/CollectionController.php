@@ -11,8 +11,8 @@ class CollectionController extends Controller
 {
     public function show()
     {
-        $collections = Product::paginate(16);
-        return view('collection', compact('collections'));
+        $products = Product::paginate(16);
+        return view('collection', compact('products'));
     }
     public function sortProduct(Request $request)
     {
@@ -33,13 +33,12 @@ class CollectionController extends Controller
             case 'price-descending':
                 $query = Product::orderBy('price', 'desc');
                 break;
-
             default:
                 break;
         }
 
-        $collections = $query->paginate(16);
-        return response()->json($collections);
+        $products = $query->paginate(16);
+        return response()->json($products);
     }
 
 
@@ -58,10 +57,10 @@ class CollectionController extends Controller
     public function showNewBooks($title)
     {
         if ($title == "SÁCH MỚI") {
-            $collections = Product::orderBy('ngayPhatHanh', 'desc')->paginate(16);
+            $products = Product::orderBy('ngayPhatHanh', 'desc')->paginate(16);
         } elseif ($title == "SÁCH BÁN CHẠY") {
-            $collections = Product::orderBy('inStock', 'asc')->paginate(16);
+            $products = Product::orderBy('inStock', 'asc')->paginate(16);
         }
-        return view('collection', compact('collections'));
+        return view('collection', compact('products'));
     }
 }

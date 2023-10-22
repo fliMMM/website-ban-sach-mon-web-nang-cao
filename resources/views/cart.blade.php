@@ -34,47 +34,47 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($products as $product)
+                            @foreach ($cartItems as $cartItem)
                                 <tr class="cart_row table__section">
                                     <td data-label="Sản phẩm">
-                                        <a href="/productDetail/{{ $product->name }}" class="cart__image">
-                                            <img src="{{ $product->image }}" alt="{{ $product->name }}">
+                                        <a href="/productDetail/{{ $cartItem->name }}" class="cart__image">
+                                            <img src="{{ $cartItem->image }}" alt="{{ $cartItem->name }}">
                                         </a>
                                     </td>
 
                                     <td>
-                                        <a href="/productDetail/{{ $product->name }}" class="h4">
-                                            {{ $product->name }}
+                                        <a href="/productDetail/{{ $cartItem->name }}" class="h4">
+                                            {{ $cartItem->name }}
                                         </a>
                                     </td>
                                     <td data-label="Đơn giá">
                                         <span class="h3">
-                                            {{ $product->itemPrice }}
+                                            {{ $cartItem->itemPrice }}
                                         </span>
                                     </td>
                                     <td class="quantity" data-label="Số lượng">
                                         <div class="input-group row">
                                             <button type="button" class="btn btn-icon btn-secondary btn_minus"
-                                                data-product-id="{{ $product->id }}">-</button>
+                                                data-cart-item-id="{{ $cartItem->id }}">-</button>
                                             <input type="number" class="form-control text-center quantity-input"
-                                                id="quantity" name="quantity[]" value="{{ $product->quantity }}">
+                                                id="quantity" name="quantity[]" value="{{ $cartItem->quantity }}">
                                             <button type="button" class="btn btn-icon btn-secondary btn_plus"
-                                                data-product-id="{{ $product->id }}">+ </button>
+                                                data-cart-item-id="{{ $cartItem->id }}">+ </button>
                                         </div>
                                     </td>
                                     <td data-label="Tổng tiền" class="text-right">
                                         <span class="h3">
-                                            {{ $product->totalPrice }}
+                                            {{ $cartItem->totalPrice }}
                                         </span>
                                     </td>
                                     <td>
                                         <span class="h3">
                                             <a href="#" class="delete-cart-item"
-                                                data-product-id="{{ $product->id }}">Xoá</a>
+                                                data-cart-item-id="{{ $cartItem->cartItemId }}">Xoá</a>
                                         </span>
                                     </td>
                                 </tr>
-                                <input type="hidden" name="product_ids[]" value="{{ $product->id }}">
+                                <input type="hidden" name="product_ids[]" value="{{ $cartItem->id }}">
                             @endforeach
                         </tbody>
                     </table>
@@ -124,12 +124,12 @@
             });
             $(".delete-cart-item").click(function(e) {
                 e.preventDefault();
-                var productID = $(this).data("product-id");
+                var cartItemID = $(this).data("cart-item-id");
                 var csrfToken = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
-                    url: '/delete-cart-item/' + productID,
+                    url: '/cart/delete-cart-item/' + cartItemID,
                     type: 'DELETE',
-                    headers: {
+                    headers: {                                                
                         'X-CSRF-TOKEN': csrfToken
                     },
                     success: function(data) {
@@ -147,7 +147,7 @@
 
                 $(".quantity-input").each(function() {
                     quantities.push($(this).val());
-                    productIds.push($(this).data("product-id"));
+                    productIds.push($(this).data("cart-item-id"));
                 });
 
                 var data = {
