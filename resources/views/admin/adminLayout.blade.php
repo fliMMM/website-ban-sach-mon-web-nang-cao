@@ -31,6 +31,8 @@
                 <li class="majorItem"><a href="/admin/orders"><i class="fa-solid fa-cart-shopping"></i>Danh sách đặt
                         hàng</a>
                 </li>
+                <li class="majorItem"><a href="/admin/bookReg"><i class="fa-solid fa-book-bible"></i>Sách đăng ký</a>
+                </li>
                 <li class="majorItem"><a href=""><i class="fas fa-comment-alt"></i>Phản hồi</a></li>
                 <li class="majorItem"><a href="../"><i class="fas fa-home"></i>Trang chủ</a></li>
                 <li class="majorItem"><a href=""><i class="fas fa-sign-out-alt"></i>Đăng xuất</a></li>
@@ -41,6 +43,7 @@
             @yield('adminBody')
         </div>
     </div>
+
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
 

@@ -19,12 +19,12 @@ class AdminController extends Controller
         $productCount = Product::count();
         $categoryCount = Categories::count();
         // $orderCount = Order::count();
-        return view('admin.dashboard', compact('userCount', 'productCount', 'categoryCount',));
+        return view('admin.dashboard', compact('userCount', 'productCount', 'categoryCount'));
     }
 
     public function getProducts()
     {
-        $products =  Product::paginate(10);
+        $products = Product::paginate(10);
         return view('admin.product', compact('products'));
     }
 
@@ -32,8 +32,7 @@ class AdminController extends Controller
     {
         $searchTerm = $request->input('searchTerm');
 
-        $products = Product::where('name', 'like', "%$searchTerm%")
-            ->paginate(10);
+        $products = Product::where('name', 'like', "%$searchTerm%")->paginate(10);
 
         return response()->json($products);
     }
@@ -41,7 +40,6 @@ class AdminController extends Controller
     public function showEditProd($id)
     {
         $product = Product::find($id);
-
 
         return view('admin.editProd', compact('product'));
     }
@@ -56,27 +54,22 @@ class AdminController extends Controller
         $image = $request->file('image');
         $imageUrl = null;
 
-
-
-        $formData = $request->validate(
-            [
-                'name' => ['required'],
-                'author' => ['required'],
-                'description' => ['required'],
-                'categories' => ['required'],
-                'price' => ['required'],
-                'inStock' => ['required'],
-                'target' => ['required'],
-                'khuonKho' => ['required'],
-                'soTrang' => ['required'],
-                'weight' => ['required'],
-                'combo' => ['required'],
-                'ngayPhatHanh' => ['required'],
-                'image' => [],
-                'rating' => [],
-            ]
-        );
-
+        $formData = $request->validate([
+            'name' => ['required'],
+            'author' => ['required'],
+            'description' => ['required'],
+            'categories' => ['required'],
+            'price' => ['required'],
+            'inStock' => ['required'],
+            'target' => ['required'],
+            'khuonKho' => ['required'],
+            'soTrang' => ['required'],
+            'weight' => ['required'],
+            'combo' => ['required'],
+            'ngayPhatHanh' => ['required'],
+            'image' => [],
+            'rating' => [],
+        ]);
 
         if (isset($image)) {
             $imageUrl = $image->store('images', 'public');
@@ -85,16 +78,13 @@ class AdminController extends Controller
 
         $formData['rating'] = 0;
 
-
-
-
         $prod = DB::table('products')->insert($formData);
 
         if ($prod) {
             return redirect('/admin/products');
         }
 
-        return redirect('/admin/addProd/')->with('message', "khong thanh cong");
+        return redirect('/admin/addProd/')->with('message', 'khong thanh cong');
     }
 
     public function editProduct($id, Request $request)
@@ -102,31 +92,27 @@ class AdminController extends Controller
         $image = $request->file('image');
         $imageUrl = null;
 
-
-
         $oldUrl = DB::table('products')
             ->where('id', '=', $id)
-            ->select('image')->get();
+            ->select('image')
+            ->get();
 
-        $formData = $request->validate(
-            [
-                'name' => ['required'],
-                'author' => ['required'],
-                'description' => ['required'],
-                'categories' => ['required'],
-                'price' => ['required'],
-                'inStock' => ['required'],
-                'target' => ['required'],
-                'khuonKho' => ['required'],
-                'soTrang' => ['required'],
-                'weight' => ['required'],
-                'combo' => ['required'],
-                'ngayPhatHanh' => ['required'],
-                'updated_at' => now(),
-                'image' => []
-            ]
-        );
-
+        $formData = $request->validate([
+            'name' => ['required'],
+            'author' => ['required'],
+            'description' => ['required'],
+            'categories' => ['required'],
+            'price' => ['required'],
+            'inStock' => ['required'],
+            'target' => ['required'],
+            'khuonKho' => ['required'],
+            'soTrang' => ['required'],
+            'weight' => ['required'],
+            'combo' => ['required'],
+            'ngayPhatHanh' => ['required'],
+            'updated_at' => now(),
+            'image' => [],
+        ]);
 
         if (isset($image)) {
             $imageUrl = $image->store('images', 'public');
@@ -135,16 +121,71 @@ class AdminController extends Controller
             $formData['image'] = $oldUrl[0]->image;
         }
 
-
-
-
-        $prod = DB::table('products')->where('id', $id)->update($formData);
+        $prod = DB::table('products')
+            ->where('id', $id)
+            ->update($formData);
 
         if ($prod) {
             return redirect('/admin/products');
         }
 
-        return redirect('/admin/editProd/' . $id)->with('message', "khong thanh cong");
+        return redirect('/admin/editProd/' . $id)->with('message', 'khong thanh cong');
+    }
+    public function bookReg()
+    {
+        $bookRegistrations = DB::table('registration_book')
+            ->orwhere('isConfirm', '=', 1)
+            ->get();
+        // dd($bookRegistrations);
+        $users = DB::table('users')->get();
+        // dd($users);
+        return view('admin.bookreg', ['bookRegs' => $bookRegistrations, 'users' => $users]);
+    }
+    public function manageBookReg()
+    {
+        $bookRegistrations = DB::table('registration_book')
+            ->orwhere('isConfirm', '=', 0)
+            ->whereNull('deleted_at')
+            ->get();
+        // dd($bookRegistrations);
+        $bookRegCount = DB::table('registration_book')
+            ->orwhere('isConfirm', '=', 0)
+            ->whereNull('deleted_at')
+            ->count('id');
+        $users = DB::table('users')->get();
+        // dd($users);
+        return view('admin.bookregcf', ['bookRegs' => $bookRegistrations, 'users' => $users, 'bookRegCount' => $bookRegCount]);
+    }
+    public function bookRegConfirm(Request $request)
+    {
+        if ($request->action == 'delete') {
+            if (!$request->checkboxConfirm) {
+                return back();
+            } else {
+                foreach ($request->checkboxConfirm as $key => $value) {
+                    DB::table('registration_book')
+                        ->where('id', $key)
+                        ->update([
+                            'deleted_at' => date('Y-m-d H:i:s'),
+                        ]);
+                }
+            }
+        }
+        if ($request->action == 'confirm') {
+            if (!$request->checkboxConfirm) {
+                return back();
+            } else {
+                foreach ($request->checkboxConfirm as $key => $value) {
+                    DB::table('registration_book')
+                        ->where('id', $key)
+                        ->update([
+                            'status' => 'đã duyệt',
+                            'isConfirm' => 1,
+                        ]);
+                }
+            }
+        }
+        return back()->with('message', 'Yêu cầu đã được duyệt ');
     }
 
     public function showOrderList()
