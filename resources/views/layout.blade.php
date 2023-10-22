@@ -103,7 +103,7 @@
     </head>
 
 
-    <main class="h-fit">
+    <main class=" min-h-screen">
         @yield('body')
     </main>
 

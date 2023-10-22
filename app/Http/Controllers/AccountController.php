@@ -58,14 +58,15 @@ class AccountController extends Controller
             ->get();
         return view('/manageAccount/address', ['address' => $address]);
     }
-    public function checkDefaultAddress($id){
+    public function checkDefaultAddress($id)
+    {
         $idAuth = Auth::id();
         DB::table('address')
-        ->where('userId',  $idAuth)
-        ->update(['isDefault'=> 0]);
-         DB::table('address')
-        ->where('id', '=', $id)
-        ->update(['isDefault'=> 1]);
+            ->where('userId',  $idAuth)
+            ->update(['isDefault' => 0]);
+        DB::table('address')
+            ->where('id', '=', $id)
+            ->update(['isDefault' => 1]);
         return back();
     }
     public function addAddress(Request $request)
@@ -84,11 +85,11 @@ class AccountController extends Controller
                 'name.required' => 'Vui lòng nhập Họ Tên',
                 'name.min' => 'Trường Họ tên phải từ :min ký tự trở lên',
                 'phone.required' => 'Vui lòng nhập số điện thoại',
-                'phone.numeric'=> 'Vui lòng nhập chính xác số điện thoại',
-                'city.required'=> 'Vui lòng chọn tỉnh thành',
-                'district.required'=> 'Vui lòng chọn quận huyện',
-                'village.required'=> 'Vui lòng chọn phường xã',
-                'locationSpecific'=> 'Vui lòng nhập địa chỉ cụ thể',
+                'phone.numeric' => 'Vui lòng nhập chính xác số điện thoại',
+                'city.required' => 'Vui lòng chọn tỉnh thành',
+                'district.required' => 'Vui lòng chọn quận huyện',
+                'village.required' => 'Vui lòng chọn phường xã',
+                'locationSpecific' => 'Vui lòng nhập địa chỉ cụ thể',
             ],
         );
         $dataAdd = [
@@ -127,11 +128,11 @@ class AccountController extends Controller
                 'name.required' => 'Vui lòng nhập Họ Tên',
                 'name.min' => 'Trường Họ tên phải từ :min ký tự trở lên',
                 'phone.required' => 'Vui lòng nhập số điện thoại',
-                'phone.numeric'=> 'Vui lòng nhập chính xác số điện thoại',
-                'city.required'=> 'Vui lòng chọn tỉnh thành',
-                'district.required'=> 'Vui lòng chọn quận huyện',
-                'village.required'=> 'Vui lòng chọn phường xã',
-                'locationSpecific'=> 'Vui lòng nhập địa chỉ cụ thể',
+                'phone.numeric' => 'Vui lòng nhập chính xác số điện thoại',
+                'city.required' => 'Vui lòng chọn tỉnh thành',
+                'district.required' => 'Vui lòng chọn quận huyện',
+                'village.required' => 'Vui lòng chọn phường xã',
+                'locationSpecific' => 'Vui lòng nhập địa chỉ cụ thể',
             ],
         );
         $dataUpdate = [
@@ -219,5 +220,17 @@ class AccountController extends Controller
             return back()->with('success', 'Đổi mật khẩu thành công');
         }
         return back()->with('errorrr', "Hãy kiếm tra lại thông tin!!");
+    }
+
+    public function showOrder()
+    {
+        $orders = DB::table('orders')
+            ->where('userId', '=', auth()->user()->id)
+            ->select('created_at', 'payment_method', 'total')
+            ->get();
+
+
+        dd($orders);
+        return view('manageAccount.order', compact('orders'));
     }
 }
