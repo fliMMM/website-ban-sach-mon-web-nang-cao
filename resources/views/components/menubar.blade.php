@@ -30,12 +30,21 @@
                 </a>
             </li>
         @endif
-        <li class=" p-3 h-14 border-b-[1px]  border-gray-300">
-            <a href="" class="text-black no-underline ">
-                <span class=""><i class="fa-regular fa-circle fa-xs" style="color:red"></i></span>
-                <span class="">Đổi mật khẩu</span>
-            </a>
-        </li>
+        @if ($title == 'Đổi mật khẩu')
+            <li class="p-3 h-14 border-b-[1px] border-gray-300  bg-[#f7f3eb]">
+                <a href="/account/change-password" class="text-black no-underline ">
+                    <span class=""><i class="fa-regular fa-circle fa-xs" style="color:red"></i></span>
+                    <span class="">Đổi mật khẩu</span>
+                </a>
+            </li>
+        @else
+            <li class="p-3 h-14 border-b-[1px] border-gray-300">
+                <a href="/account/change-password" class="text-black no-underline ">
+                    <span class=""><i class="fa-regular fa-circle fa-xs" style="color:red"></i></span>
+                    <span class="">Đổi mật khẩu</span>
+                </a>
+            </li>
+        @endif
         @if ($title == 'Đăng ký sách')
             <li class="p-3 h-14 border-b-[1px] border-gray-300 bg-[#f7f3eb]">
                 <a href="/account/bookRegistration" class="text-black no-underline ">

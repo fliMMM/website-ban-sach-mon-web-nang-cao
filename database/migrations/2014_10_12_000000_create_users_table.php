@@ -21,9 +21,10 @@ return new class extends Migration
       $table->string('phone')->nullable();
       $table->string('gender')->nullable();
       $table->string('deleted_at')->nullable();
+      $table->boolean('isAdmin')->default(false);
     });
   }
-  
+
 
   /**
    * Reverse the migrations.
