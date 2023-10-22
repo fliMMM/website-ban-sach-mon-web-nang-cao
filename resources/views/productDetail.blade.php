@@ -4,6 +4,7 @@
     <div class="flex justify-center items-center">
         @if (Session::has('message'))
             <script>
+                console.log('hehe')
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
