@@ -77,7 +77,8 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item text-black" href="#">Theo dõi đơn hàng</a></li>
+                                <li><a class="dropdown-item text-black" href="/account/order/?tab=0">Theo dõi đơn hàng</a>
+                                </li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -192,7 +193,7 @@
             </ul>
         </div>
     </footer>
-   
+
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
@@ -224,4 +225,3 @@
 </script>
 
 </html>
-

@@ -79,7 +79,7 @@ class CheckoutController extends Controller
             ->join('products', 'cart_items.productId', '=', 'products.id')
             ->where('cartId', '=', $cartId)
             ->where('isCheckout', '=', false)
-            ->select('products.*', 'cart_items.*')
+            ->select('products.price', 'cart_items.*')
             ->get();
 
 
@@ -95,9 +95,12 @@ class CheckoutController extends Controller
         $formData['total'] =  $total_amount + 10000;
         $formData['created_at'] =  now();
 
-        $success =  DB::table('orders')->insert($formData);
+        $successId =  DB::table('orders')->insertGetId($formData);
+        if ($successId) {
 
-        if ($success) {
+            foreach ($cart_items as $item) {
+                DB::table('cart_items')->where('id', '=', $item->id)->update(['orderId' => $successId]);
+            }
             DB::table('cart_items')->where("cartId", '=', $cartId)->update(['isCheckout' => true]);
         }
 
