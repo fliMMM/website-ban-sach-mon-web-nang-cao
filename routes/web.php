@@ -64,8 +64,12 @@ Route::prefix('admin')->group(function () {
     Route::get('/orders', function () {
         return view('admin.order');
     });
-    Route::get('/bookReg', [AdminController::class, 'manageBookReg'] );
-    Route::post('/bookReg/confirm', [AdminController::class, 'bookRegConfirm']);
+    Route::prefix('bookReg')->group(function () {
+      Route::get('/', [AdminController::class,'bookReg']);
+      Route::get('/confirm', [AdminController::class, 'manageBookReg'] );
+      Route::post('/confirm', [AdminController::class, 'bookRegConfirm']);
+    });
+    
     Route::get('/editProd/{id}', [AdminController::class, 'showEditProd']);
     Route::get('/addProd', [AdminController::class, 'showAddProd']);
     Route::post('/handler/editProduct/{id}', [AdminController::class, 'editProduct']);

@@ -131,6 +131,16 @@ class AdminController extends Controller
 
         return redirect('/admin/editProd/' . $id)->with('message', 'khong thanh cong');
     }
+    public function bookReg()
+    {
+        $bookRegistrations = DB::table('registration_book')
+            ->orwhere('isConfirm', '=', 1)
+            ->get();
+        // dd($bookRegistrations);
+        $users = DB::table('users')->get();
+        // dd($users);
+        return view('admin.bookreg', ['bookRegs' => $bookRegistrations, 'users' => $users]);
+    }
     public function manageBookReg()
     {
         $bookRegistrations = DB::table('registration_book')
@@ -144,7 +154,7 @@ class AdminController extends Controller
             ->count('id');
         $users = DB::table('users')->get();
         // dd($users);
-        return view('admin.bookreg', ['bookRegs' => $bookRegistrations, 'users' => $users, 'bookRegCount' => $bookRegCount]);
+        return view('admin.bookregcf', ['bookRegs' => $bookRegistrations, 'users' => $users, 'bookRegCount' => $bookRegCount]);
     }
     public function bookRegConfirm(Request $request)
     {
