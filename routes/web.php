@@ -45,24 +45,20 @@ Route::prefix('/account')->middleware('auth')->group(function () {
   Route::get('/order', [AccountController::class, 'showOrder']);
 });
 
-Route::prefix('/account')->group(function () {
-  Route::get('/', [AccountController::class, 'profile']);
-  Route::post('/', [AccountController::class, 'updateProfile']);
-  Route::prefix('/address')->group(function () {
-    Route::get('/', [AccountController::class, 'address']);
-    Route::post('/addAddress', [AccountController::class, 'addAddress']);
-    Route::get('/checkDefault/{id}', [AccountController::class, 'checkDefaultAddress']);
-    Route::get('/editAddress/{id}', [AccountController::class, 'editAddress']);
-    Route::post('/updateAddress', [AccountController::class, 'updateAddress']);
-    Route::get('/deleteAddress/{id}', [AccountController::class, 'deleteAddress']);
-  });
-  Route::prefix('/bookRegistration')->group(function () {
-    Route::get('/', [AccountController::class, 'registerBook']);
-    Route::post('/addBookRegistration', [AccountController::class, 'addRegistrationBook']);
-  });
-  Route::get('/listBookReg', [AccountController::class, 'listBookReg']);
-  Route::get('/change-password', [AccountController::class, 'showChangePassword']);
-  Route::post('/handler/change-password', [AccountController::class, 'handleChangePassword']);
+Route::prefix('admin')->middleware('auth', 'can:admin')->group(function () {
+  Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+  Route::get('/products', [AdminController::class, 'getProducts'])->name('product');
+  Route::get('/products/search',  [AdminController::class, 'searchProduct'])->name('products.search');
+
+  Route::get('/editProduct/{id}', [AdminController::class, 'editProduct']);
+
+  Route::get('/orders', [AdminController::class, 'showOrderList']);
+
+  Route::get('/editProd/{id}', [AdminController::class, 'showEditProd']);
+  Route::get('/addProd', [AdminController::class, 'showAddProd']);
+
+  Route::post('/handler/editProduct/{id}', [AdminController::class, 'editProduct']);
+  Route::post('/handler/addProduct', [AdminController::class, 'addProduct']);
 });
 
 
