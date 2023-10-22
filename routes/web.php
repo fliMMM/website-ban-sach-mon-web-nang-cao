@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
+use Illuminate\Support\Facades\Gate;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,7 @@ Route::get('/', [HomeController::class, 'show'])->name('home');
 Route::get('/search', [HomeController::class, 'search']);
 
 
-Route::prefix('/account')->group(function () {
+Route::prefix('/account')->middleware('auth')->group(function () {
   Route::get('/', [AccountController::class, 'profile']);
   Route::post('/', [AccountController::class, 'updateProfile']);
   Route::get('/address', [AccountController::class, 'address']);
@@ -39,22 +40,11 @@ Route::prefix('/account')->group(function () {
   Route::post('/bookRegistration/addBookRegistration', [AccountController::class, 'addRegistrationBook']);
   Route::get('/listBookReg', [AccountController::class, 'listBookReg']);
   Route::get('/deleteAddress/{id}', [AccountController::class, 'deleteAddress']);
+  Route::get('/change-password', [AccountController::class, 'showChangePassword']);
+  Route::post('/handler/change-password', [AccountController::class, 'handleChangePassword']);
 });
 
-
-Route::get('/cart', [CartController::class, 'show'])->name('cart');
-Route::delete('/delete-cart-item/{id}', [CartController::class, 'deleteCartItem'])->name('cart.delete');
-
-
-Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
-
-
-Route::get('/collection/{title}', [CollectionController::class, 'showNewBooks'])->name('collection');
-Route::get('/collection', [CollectionController::class, 'show'])->name('collection');
-Route::get('/sort-products', [CollectionController::class, 'sortProduct']);
-Route::get('/filter-products',  [CollectionController::class, 'filterByType']);
-
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('auth', 'can:admin')->group(function () {
   Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
   Route::get('/products', [AdminController::class, 'getProducts'])->name('product');
   Route::get('/products/search',  [AdminController::class, 'searchProduct'])->name('products.search');
@@ -71,13 +61,25 @@ Route::prefix('admin')->group(function () {
 });
 
 
+Route::get('/cart', [CartController::class, 'show'])->name('cart');
+Route::delete('/delete-cart-item/{id}', [CartController::class, 'deleteCartItem'])->name('cart.delete');
+
+
+Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
+
+
+Route::get('/collection/{title}', [CollectionController::class, 'showNewBooks'])->name('collection');
+Route::get('/collection', [CollectionController::class, 'show'])->name('collection');
+Route::get('/sort-products', [CollectionController::class, 'sortProduct']);
+Route::get('/filter-products',  [CollectionController::class, 'filterByType']);
+
+
 
 
 
 Route::get('/checkout', [CheckoutController::class, 'show']);
 //handle checkout
 Route::post('/handle/checkout', [CheckoutController::class, 'handleCheckout']);
-
 
 //logout
 Route::post('/logout', [UserController::class, 'logout']);
