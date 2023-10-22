@@ -146,4 +146,15 @@ class AdminController extends Controller
 
         return redirect('/admin/editProd/' . $id)->with('message', "khong thanh cong");
     }
+
+    public function showOrderList()
+    {
+        $orders =  DB::table('orders')
+            ->where('status', '=', 0)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+
+        return view('admin.order', compact('orders'));
+    }
 }

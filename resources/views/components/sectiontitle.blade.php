@@ -1,5 +1,5 @@
 <p class="text-center mt-20 font-bold text-3xl mb-10">{{ $title }}</p>
-<div class="w-full ">
+<div class="w-full">
     <div class="flex justify-between multiple-items w-full mx-auto my-0s">
         @foreach ($list as $listProduct)
             <div class="ml-6 mr-6">

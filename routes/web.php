@@ -61,9 +61,7 @@ Route::prefix('admin')->group(function () {
 
   Route::get('/editProduct/{id}', [AdminController::class, 'editProduct']);
 
-  Route::get('/orders', function () {
-    return view('admin.order');
-  });
+  Route::get('/orders', [AdminController::class, 'showOrderList']);
 
   Route::get('/editProd/{id}', [AdminController::class, 'showEditProd']);
   Route::get('/addProd', [AdminController::class, 'showAddProd']);
@@ -90,7 +88,12 @@ Route::get('/login', [UserController::class, 'showLogin'])->name('login');
 Route::post('/handler/login', [UserController::class, 'handleLogin']);
 
 
-
+Route::post('/handler/reset-password', [UserController::class, 'handleResetPassword'])->middleware('guest')->name('password.update');
+Route::post('/handler/forgot-password', [UserController::class, 'handleForgotPassword'])->middleware('guest')->name('password.email');
+Route::get("/forgot-password", [UserController::class, 'showResetPasswordForm'])->name('showResetPasswordForm')->middleware('guest')->name('password.request');
+Route::get('/reset-password/{token}', function (string $token) {
+  return view('auth.reset_password', ['token' => $token]);
+})->middleware('guest')->name('password.reset');
 
 
 //product Detail 
