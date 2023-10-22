@@ -2,7 +2,7 @@
 @section('adminBody')
     <p class="text-center text-2xl font-bold">Sách đã duyệt</p>
     <div class="w-full flex justify-end">
-        <a href="/admin/bookReg/confirm" class="no-underline mr-10 text-black bg-red-300 p-2">Duyệt sách</a>
+        <a href="/admin/bookReg/confirm" class="no-underline mr-8 text-black bg-red-300 p-2">Duyệt sách</a>
     </div>
         <table class="table mt-2">
             <thead class="thead-dark" style="background-color: red">
