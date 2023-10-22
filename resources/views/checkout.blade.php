@@ -57,9 +57,14 @@
 
                 <form action="/handle/checkout" method="POST" class="flex flex-col ">
                     @csrf
-                    <input placeholder="Địa chỉ nhận hàng" value="{{ $formatAddress }}"
-                        class="w-[500px] rounded-md appearance-none mb-3 border py-2 px-3 text-gray-700 leading-tight focus:border-gray-500 focus:outline-none"
-                        type="text" id="address" name="address">
+                    <div class="flex flex-col mb-3 items-end">
+                        <a href="/account/address" class="text-xs underline pb-1 text-blue-500">Thay đổi địa chỉ mặc
+                            định</a>
+                        <input placeholder="Địa chỉ nhận hàng" value="{{ $formatAddress }}"
+                            class="w-[500px] rounded-md appearance-none  border py-2 px-3 text-gray-700 leading-tight focus:border-gray-500 focus:outline-none"
+                            type="text" id="address" name="address">
+
+                    </div>
                     @if ($address)
                         <input placeholder="Số điện thoại" value="{{ $address->phone }}"
                             class="w-[500px] mb-3 rounded-md appearance-none border py-2 px-3 text-gray-700 leading-tight focus:border-gray-500 focus:outline-none"

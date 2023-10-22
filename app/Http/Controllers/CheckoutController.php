@@ -25,6 +25,10 @@ class CheckoutController extends Controller
             ->select('products.*', 'cart_items.*')
             ->get();
 
+        if (count($cart_items) == 0) {
+            return redirect('/cart');
+        }
+
 
 
         $address = DB::table('address')
@@ -55,8 +59,9 @@ class CheckoutController extends Controller
                 'cartId' => [],
                 'fullname' => [],
                 'address' => ['required'],
-                'phoneNumber' => ['required', 'not_regex:^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$'],
+                'phoneNumber' => ['required', 'regex:/^(([+]84|0)[1-9]\d{8})$/'],
                 'payment_method' => ['required', 'doesnt_start_with:label'],
+                'created_at' => []
             ]
         );
 
@@ -88,6 +93,7 @@ class CheckoutController extends Controller
         $formData['userId'] = auth()->user()->id;
         $formData['cartId'] = $cartId;
         $formData['total'] =  $total_amount + 10000;
+        $formData['created_at'] =  now();
 
         $success =  DB::table('orders')->insert($formData);
 

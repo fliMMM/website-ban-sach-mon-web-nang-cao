@@ -25,7 +25,6 @@
 
                 <form class=" space-y-2" method="POST" action="/handler/login">
                     @csrf
-
                     <input placeholder="Email" value="{{ old('email') }}"
                         class="w-96 appearance-none border py-2 px-3 text-gray-700 leading-tight focus:border-gray-500 focus:outline-none"
                         type="email" id="email" name="email"><br>
@@ -54,7 +53,9 @@
                             nhập Facebook</button>
                     </div>
                 </form>
-                <div><a class="text-red-600 text-lg no-underline" href="/register"> Đăng
+                <div class="flex justify-between">
+                    <a class="text-red-600 text-lg no-underline" href="/forgot-password"> Quên mật khẩu</a>
+                    <a class="text-red-600 text-lg no-underline" href="/register"> Đăng
                         ký</a>
                 </div>
             </div>
