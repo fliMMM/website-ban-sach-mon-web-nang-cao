@@ -255,22 +255,6 @@
             };
         }
     </script>
-    {{-- <script>
-        $(document).ready(function() {
-            $(document).on('click', '#setDefault', function() {
-                $idAddress = $(this).val();
-                console.log($idAddress);
-                $.ajax({
-                    url: "address/checkDefault/" + $idAddress,
-                    type: "GET",
-                    success: function(response) {
-                        console.log('hehe')
-                    }
-                });
-                console.log($value)
-            });
-        });
-    </script> --}}
     <script>
         $(document).ready(function() {
             $(document).on('click', '#editAddress', function() {

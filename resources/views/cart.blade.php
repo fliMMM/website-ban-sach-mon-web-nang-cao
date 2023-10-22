@@ -37,12 +37,13 @@
                             @foreach ($products as $product)
                                 <tr class="cart_row table__section">
                                     <td data-label="Sản phẩm">
-                                        <a href="" class="cart__image">
+                                        <a href="/productDetail/{{ $product->name }}" class="cart__image">
                                             <img src="{{ $product->image }}" alt="{{ $product->name }}">
                                         </a>
                                     </td>
+
                                     <td>
-                                        <a href="" class="h4">
+                                        <a href="/productDetail/{{ $product->name }}" class="h4">
                                             {{ $product->name }}
                                         </a>
                                     </td>
@@ -90,8 +91,10 @@
                                 <span class="h3"> {{ $totalCartPrice }}
                                 </span>
                             </p>
-                            <button type="submit" name="update" class="btn update-cart">Cập nhật</button>
-                            <button type="submit" name="checkout" class="btn">Thanh toán</button>
+                            <div class="flex justify-end space-x-2 ">
+                                <button type="submit" name="update" class="btn update-cart">Cập nhật</button>
+                                <a id="checkoutBtn" class=" bg-red-600 py-1  px-2 font-bold" href="/checkout">Thanh toán</a>
+                            </div>
                         </div>
                     </div>
                 </div>

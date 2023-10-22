@@ -55,4 +55,3 @@ class ProductDetailController extends Controller
         return back()->with('message', 'Sản phẩm đã được thêm vào giỏ hàng');
     }
 }
-

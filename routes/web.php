@@ -26,6 +26,7 @@ Route::get('/', [HomeController::class, 'show'])->name('home');
 
 Route::get('/search', [HomeController::class, 'search']);
 
+
 Route::prefix('/account')->group(function () {
     Route::get('/', [AccountController::class, 'profile']);
     Route::post('/', [AccountController::class, 'updateProfile']);
@@ -44,6 +45,7 @@ Route::prefix('/account')->group(function () {
     Route::get('/listBookReg', [AccountController::class, 'listBookReg']);
 });
 
+
 Route::get('/cart', [CartController::class, 'show'])->name('cart');
 Route::delete('/delete-cart-item/{id}', [CartController::class, 'deleteCartItem'])->name('cart.delete');
 
@@ -55,6 +57,7 @@ Route::get('/sort-products', [CollectionController::class, 'sortProduct']);
 Route::get('/filter-products', [CollectionController::class, 'filterByType']);
 
 Route::prefix('admin')->group(function () {
+
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('/products', [AdminController::class, 'manageProducts'])->name('product');
     Route::get('/editProduct/{id}', [AdminController::class, 'editProduct']);
@@ -62,9 +65,20 @@ Route::prefix('admin')->group(function () {
         return view('admin.order');
     });
     Route::get('/bookReg', [AdminController::class, 'manageBookReg'] );
+    Route::post('/bookReg/confirm', [AdminController::class, 'bookRegConfirm']);
+    Route::get('/editProd/{id}', [AdminController::class, 'showEditProd']);
+    Route::get('/addProd', [AdminController::class, 'showAddProd']);
+    Route::post('/handler/editProduct/{id}', [AdminController::class, 'editProduct']);
+    Route::post('/handler/addProduct', [AdminController::class, 'addProduct']);
+
 });
 
+
+
+
+
 Route::get('/checkout', [CheckoutController::class, 'show']);
+
 
 //show login form
 // Route::get('/login', [UserController::class, 'showLogin'])->name('login');
@@ -75,6 +89,10 @@ Route::get('/checkout', [CheckoutController::class, 'show']);
 //create users
 // Route::post('/users', [UserController::class, 'createUser']);
 
+//handle checkout
+Route::post('/handle/checkout', [CheckoutController::class, 'handleCheckout']);
+
+
 //logout
 Route::post('/logout', [UserController::class, 'logout']);
 
@@ -83,11 +101,10 @@ Route::get('/login', [UserController::class, 'showLogin'])->name('login');
 //handle login
 Route::post('/handler/login', [UserController::class, 'handleLogin']);
 
+
 //delete file
 Route::post('/file/delete/{id}', [FileController::class, 'delete']);
 
-//update file
-Route::post('/file/edit/{id}', [FileController::class, 'update']);
 
 //product Detail
 Route::get('/productDetail/{name}', [ProductDetailController::class, 'index'])->name('/productDetail/{name}');

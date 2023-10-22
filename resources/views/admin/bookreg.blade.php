@@ -1,84 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="{{ asset('/css/admin/product.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-    </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
-</head>
-
-<body>
-    <div class="row">
-        <div class="col-lg-2 dashboard">
-            <h1>Welcome, Admin</h1>
-            <ul class="majorList">
-                <li class="majorItem"><a href="/admin"><i class="fas fa-chart-simple"></i>Tổng quan</a>
-                </li>
-                <li class="majorItem"><a href=""><i class="fas fa-list"></i>Danh sách sản phẩm</a>
-                </li>
-                <li class="majorItem"><a href="/admin/orders"><i class="fa-solid fa-cart-shopping"></i>Danh sách đặt
-                        hàng</a>
-                </li>
-                <li class="majorItem"><a href="" class="active"><i class="fas fa-comment-alt"></i>Sách đăng
-                        ký</a></li>
-                <li class="majorItem"><a href=""><i class="fas fa-comment-alt"></i>Phản hồi</a></li>
-                <li class="majorItem"><a href="../"><i class="fas fa-home"></i>Trang chủ</a></li>
-                <li class="majorItem"><a href=""><i class="fas fa-sign-out-alt"></i>Đăng xuất</a></li>
-            </ul>
-        </div>
-        <div class="col-lg-10 products">
-            <p>Sách đăng ký chờ duyệt</p>
-            <table class="table mt-2">
-                <thead class="thead-dark" style="background-color: red">
-                    <tr>
-                        <th scope="col">Người dùng</th>
-                        <th scope="col">Tên sách</th>
-                        <th scope="col">Tác giả</th>
-                        <th scope="col">Số lượng</th>
-                        <th scope="col">Trạng thái</th>
-                        <th scope="col">Duyệt</th>
-                    </tr>
-                </thead>
-                @foreach ($bookRegs as $bookReg)
-                    @foreach ($users as $user)
-                        @if ($user->id == $bookReg->id)
-                            <?php $email = $user->email; ?>
-                        @endif
-                    @endforeach
-                    <tbody>
-                        <tr>
-                            <td scope="row">{{ $email }}</td>
-                            <td scope="row">{{ $bookReg->name }}</td>
-                            <td>{{ $bookReg->author }}</td>
-                            <td>{{ $bookReg->quantity }}</td>
-                            <td>
-                                <div class="" style="display:flex; align-items: center">
-                                    <img style="width: 20px; height: 20px"
-                                        src="https://img.icons8.com/ios-glyphs/30/timer.png" alt="timer" />
-                                    <p class="mb-0 ml-1">{{ $bookReg->status }}</p>
-                                </div>
-                            </td>
-                            <td>
-                                <a href="">Duyệt</a>
-                            </td>
-                        </tr>
-                    </tbody>
+@extends('admin.adminLayout')
+@section('adminBody')
+    <p class="text-center text-2xl font-bold">Sách đăng ký chờ duyệt</p>
+    @if (Session::has('message'))
+        <script>
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: '{{ Session::get('message') }}',
+                showConfirmButton: true,
+                timer: 2000
+            })
+        </script>
+    @endif
+    <form action="{{ url('/admin/bookReg/confirm') }}" method="post">
+        <table class="table mt-2">
+            <thead class="thead-dark" style="background-color: red">
+                <tr>
+                    <th></th>
+                    <th scope="col">Người dùng</th>
+                    <th scope="col">Tên sách</th>
+                    <th scope="col">Tác giả</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Trạng thái</th>
+                </tr>
+            </thead>
+            @foreach ($bookRegs as $bookReg)
+                @foreach ($users as $user)
+                    @if ($user->id == $bookReg->userId)
+                        <?php $email = $user->email;
+                        ?>
+                    @endif
                 @endforeach
-            </table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="{{ $bookReg->id }}"
+                                    name ="checkboxConfirm[{{ $bookReg->id }}]" id="checkboxConfirm">
+                            </div>
+                        </td>
+                        <td scope="row">{{ $email }}</td>
+                        <td scope="row">{{ $bookReg->name }}</td>
+                        <td>{{ $bookReg->author }}</td>
+                        <td>{{ $bookReg->quantity }}</td>
+                        <td>
+                            <div class="" style="display:flex; align-items: center">
+                                <img style="width: 20px; height: 20px" src="https://img.icons8.com/ios-glyphs/30/timer.png"
+                                    alt="timer" />
+                                <p class="mb-0 ml-1">{{ $bookReg->status }}</p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            @endforeach
+        </table>
+        <div class="bg-[#a9171d] w-2/4 p-3 flex items-center justify-between" style="position: fixed; bottom: 0; right: 0">
+            <div class="flex items-center">
+                <div class="form-check ml-3 mt-1">
+                    <input class="form-check-input" type="checkbox" value="" id="checkboxall"
+                        onchange="checkall(this)">
+                </div>
+                <p class="mb-0 text-xl text-white">Chọn tất cả ({{ $bookRegCount }})</p>
+                <button type="submit" class="ml-2 text-xl text-white" name="action" value="delete">Xoá</button>
+            </div>
+            <button type="submit" class="no-underline text-xl bg-red-400 p-2 text-white mr-4" name="action"
+                value="confirm" id="confirm">Duyệt</button>
+            @csrf
         </div>
-    </div>
-</body>
+    </form>
 
-</html>
+    <script>
+        var checkboxs = document.querySelectorAll("#checkboxConfirm")
+        var checkboxall = document.getElementById("checkboxall")
+        var count = 0;
+
+        function checkall(checkboxall) {
+            if (checkboxall.checked == true) {
+                console.log('hihi')
+                checkboxs.forEach(function(checkbox) {
+                    checkbox.checked = true;
+                    count = checkboxs.length
+                })
+
+            } else {
+                checkboxs.forEach(function(checkbox) {
+                    checkbox.checked = false
+                })
+            }
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            checkboxs.forEach(function(check) {
+                check.addEventListener('change', (event) => {
+                    if (check.checked == false) {
+                        count = count - 1;
+                        checkboxall.checked = false;
+                        console.log(checkboxall.checked)
+                        console.log(count)
+                    }
+                    if (check.checked == true) {
+                        count = count + 1;
+                    }
+                    if (count == checkboxs.length) {
+                        checkboxall.checked = true;
+                    }
+                    console.log(count)
+                })
+            })
+        });
+    </script>
+@endsection
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
