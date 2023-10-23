@@ -94,7 +94,9 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        Tổng tiền: {{ $order->total }}
+                                        <span class="orderPrice">
+
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -139,7 +141,9 @@
                 url: '/admin/order/' + orderId,
                 type: 'GET',
                 success: function(data) {
+                    var totalPrice = formatVND(data[0].totalPrice);
                     $.each(data, function(index, orderedProduct) {
+                        var price = formatVND(orderedProduct.price);
                         orderDetail1.append(`
                         <tr>
                             <th scope="row">${index + 1}</th>
@@ -151,11 +155,14 @@
                                 ${orderedProduct.name}
                             </td>
                             <td>${orderedProduct.quantity}</td>
-                            <td>${orderedProduct.price} đ</td>
+                            <td>${price}</td>
                         </tr>
                     `);
 
                     });
+                    $(".orderPrice").append(` 
+                Tổng tiền: ${totalPrice }
+                `);
                 },
                 error: function(e) {
                     console.log(e);
@@ -163,7 +170,15 @@
             });
             $('.orderDetailModal').on('hidden.bs.modal', function() {
                 orderDetail1.empty();
+                $(".orderPrice").empty();
             });
         });
+
+        function formatVND(number) {
+            return number.toLocaleString('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            });
+        }
     </script>
 @endsection
