@@ -18,13 +18,8 @@ class AdminController extends Controller
         $userCount = User::count();
         $productCount = Product::count();
         $categoryCount = Categories::count();
-<<<<<<< HEAD
         $orderCount = DB::table('orders')->count();;
         return view('admin.dashboard', compact('userCount', 'productCount', 'categoryCount', 'orderCount'));
-=======
-        // $orderCount = Order::count();
-        return view('admin.dashboard', compact('userCount', 'productCount', 'categoryCount'));
->>>>>>> 1cdd7168fe1739154c433976cd06c43f86681af7
     }
 
     public function getProducts()
@@ -62,27 +57,6 @@ class AdminController extends Controller
         $image = $request->file('image');
         $imageUrl = null;
 
-<<<<<<< HEAD
-        $formData = $request->validate(
-            [
-                'name' => ['required'],
-                'author' => ['required'],
-                'description' => ['required'],
-                'categories' => ['required'],
-                'price' => ['required'],
-                'inStock' => ['required'],
-                'target' => ['required'],
-                'khuonKho' => ['required'],
-                'soTrang' => ['required'],
-                'weight' => ['required'],
-                'combo' => ['required'],
-                'ngayPhatHanh' => ['required'],
-                'image' => [],
-                'rating' => [],
-            ]
-        );
-
-=======
         $formData = $request->validate([
             'name' => ['required'],
             'author' => ['required'],
@@ -99,7 +73,6 @@ class AdminController extends Controller
             'image' => [],
             'rating' => [],
         ]);
->>>>>>> 1cdd7168fe1739154c433976cd06c43f86681af7
 
         if (isset($image)) {
             $imageUrl = $image->store('images', 'public');
@@ -150,13 +123,9 @@ class AdminController extends Controller
             $formData['image'] = $oldUrl[0]->image;
         }
 
-<<<<<<< HEAD
-        $prod = DB::table('products')->where('id', $id)->update($formData);
-=======
         $prod = DB::table('products')
             ->where('id', $id)
             ->update($formData);
->>>>>>> 1cdd7168fe1739154c433976cd06c43f86681af7
 
         if ($prod) {
             return redirect('/admin/products');
@@ -231,7 +200,6 @@ class AdminController extends Controller
 
         return view('admin.order', compact('orders'));
     }
-<<<<<<< HEAD
     public function updateOrder(Request $request, $id)
     {
         if ($request->has('approve')) {
@@ -254,7 +222,7 @@ class AdminController extends Controller
             ->get();
 
         return response()->json($orderedProduct);
-=======
+    }
     public function userManage()
     {
         $users = DB::table('users')
@@ -327,6 +295,5 @@ class AdminController extends Controller
                 }
             }
         }
->>>>>>> 1cdd7168fe1739154c433976cd06c43f86681af7
     }
 }
