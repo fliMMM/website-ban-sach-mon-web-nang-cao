@@ -1,6 +1,17 @@
 @extends('layout')
 @section('body')
     <div class="">
+        @if (Session::has('success'))
+            <script>
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: '{{ Session::get('success') }}',
+                    showConfirmButton: true,
+                    timer: 2000
+                })
+            </script>
+        @endif
         <div class="m-4">
             <h3 class="text-center">Theo dõi đơn hàng</h3>
             <div class="flex mt-10 justify-items-start">
