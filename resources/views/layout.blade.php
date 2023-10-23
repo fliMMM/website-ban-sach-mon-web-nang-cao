@@ -17,9 +17,42 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('/css/slide.css') }}">
     @stack('css')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 </head>
 
 <body class="relative">
+    {{-- <!-- Messenger Plugin chat Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your Plugin chat code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+        var chatbox = document.getElementById('fb-customer-chat');
+        chatbox.setAttribute("page_id", "110790918372700");
+        chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+
+    <!-- Your SDK code -->
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                xfbml: true,
+                version: 'v18.0'
+            });
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script> --}}
 
     <head>
         <div class="flex justify-content items-center h-5 bg-red-700">
@@ -47,13 +80,17 @@
                     </div>
                 </div>
             </div>
+
+
             <a href="{{ route('home') }}"><img src="https://theme.hstatic.net/200000343865/1001052087/14/logo.png?v=320"
                     alt=""></a>
 
             <div class="flex justify-center ">
                 <ul class="flex w-100vw justify-between items-center space-x-4 mt-2 mb-2">
                     <a href="{{ route('cart') }}" class="text-black flex items-center"><i
-                            class="fa-solid fa-bag-shopping fa-xl ml-3"></i></a>
+                            class="fa-solid fa-bag-shopping fa-xl ml-3" style="color:red"></i></a>
+                    <p class="text-white border rounded-full w-6 text-center bg-red-500" style="margin-left: 0"
+                        id="countCartItem"></p>
                     @auth
                         <div class="dropdown ">
                             <a class="btn d-flex border-0 items-center bg-white " href="#" role="button"
@@ -76,7 +113,8 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item text-black" href="#">Theo dõi đơn hàng</a></li>
+                                <li><a class="dropdown-item text-black" href="/account/order/?tab=0">Theo dõi đơn hàng</a>
+                                </li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -103,7 +141,7 @@
     </head>
 
 
-    <main class="h-fit">
+    <main class=" min-h-screen">
         @yield('body')
     </main>
 
@@ -150,7 +188,7 @@
         </div>
         <div class="w-60">
             <ul>
-                <li class="text-lg font-semibold uppercase mb-2">Nyhà xuất bản</li>
+                <li class="text-lg font-semibold uppercase mb-2">Nhà xuất bản</li>
                 <li>
                     <a class="text-black text-sm no-underline" href="/">Giám đốc: Bùi Tuấn Nghĩa</a>
                 </li>
@@ -191,8 +229,9 @@
             </ul>
         </div>
     </footer>
+
 </body>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
     integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
 </script>
@@ -201,6 +240,7 @@
 </script>
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
 <script>
     $(document).ready(function() {
         $('#search').on('keyup', function() {
@@ -216,6 +256,19 @@
                     $('.search_list').html(data);
                 }
             });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: "/layout",
+            type: "GET",
+            success: function(response) {
+                if (response.countCartItem) {
+                    $('#countCartItem').text(response.countCartItem);
+                }
+            }
         });
     });
 </script>

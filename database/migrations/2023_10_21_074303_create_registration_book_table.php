@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('author')->nullable();
             $table->integer('quantity')->nullable();
             $table->string('status')->nullable();
+            $table->boolean('isConfirm')->default(false);
+            $table->string('deleted_at')->nullable();
         });
     }
 

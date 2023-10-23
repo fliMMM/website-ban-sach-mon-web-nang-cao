@@ -12,14 +12,20 @@
     </head>
 
     <body>
+        @if (Session::has('status_error'))
+            <script>
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: '{{ Session::get('status_error') }}',
+                    showConfirmButton: true,
+                    timer: 2000
+                })
+            </script>
+        @endif
         <div class="px-10 pb-10 flex items-center space-x-10 justify-center">
 
             <div class="space-y-3 shadow p-5 rounded-sm mt-32">
-                @if (session('status'))
-                    <ul>
-                        <li class="text-danger"> {{ session('status') }}</li>
-                    </ul>
-                @endif
 
                 <p class="text-2xl font-bold mb-0">Xin chào,</p>
 

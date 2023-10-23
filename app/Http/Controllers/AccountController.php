@@ -58,22 +58,38 @@ class AccountController extends Controller
             ->get();
         return view('/manageAccount/address', ['address' => $address]);
     }
+    public function checkDefaultAddress($id)
+    {
+        $idAuth = Auth::id();
+        DB::table('address')
+            ->where('userId',  $idAuth)
+            ->update(['isDefault' => 0]);
+        DB::table('address')
+            ->where('id', '=', $id)
+            ->update(['isDefault' => 1]);
+        return back();
+    }
     public function addAddress(Request $request)
     {
         $id = Auth::id();
         $request->validate(
             [
                 'name' => 'required|min:5',
-                'phone' => 'required',
+                'phone' => 'required|numeric',
                 'city' => 'required',
                 'district' => 'required',
                 'village' => 'required',
                 'locationSpecific' => 'required',
             ],
             [
-                'username.required' => 'Vui lòng nhập Họ Tên',
-                'username.min' => 'Trường Họ tên phải từ :min ký tự trở lên',
+                'name.required' => 'Vui lòng nhập Họ Tên',
+                'name.min' => 'Trường Họ tên phải từ :min ký tự trở lên',
                 'phone.required' => 'Vui lòng nhập số điện thoại',
+                'phone.numeric' => 'Vui lòng nhập chính xác số điện thoại',
+                'city.required' => 'Vui lòng chọn tỉnh thành',
+                'district.required' => 'Vui lòng chọn quận huyện',
+                'village.required' => 'Vui lòng chọn phường xã',
+                'locationSpecific' => 'Vui lòng nhập địa chỉ cụ thể',
             ],
         );
         $dataAdd = [
@@ -102,16 +118,21 @@ class AccountController extends Controller
         $request->validate(
             [
                 'name' => 'required|min:5',
-                'phone' => 'required',
+                'phone' => 'required|numeric',
                 'city' => 'required',
                 'district' => 'required',
                 'village' => 'required',
                 'locationSpecific' => 'required',
             ],
             [
-                'username.required' => 'Vui lòng nhập Họ Tên',
-                'username.min' => 'Trường Họ tên phải từ :min ký tự trở lên',
+                'name.required' => 'Vui lòng nhập Họ Tên',
+                'name.min' => 'Trường Họ tên phải từ :min ký tự trở lên',
                 'phone.required' => 'Vui lòng nhập số điện thoại',
+                'phone.numeric' => 'Vui lòng nhập chính xác số điện thoại',
+                'city.required' => 'Vui lòng chọn tỉnh thành',
+                'district.required' => 'Vui lòng chọn quận huyện',
+                'village.required' => 'Vui lòng chọn phường xã',
+                'locationSpecific' => 'Vui lòng nhập địa chỉ cụ thể',
             ],
         );
         $dataUpdate = [
@@ -200,4 +221,35 @@ class AccountController extends Controller
         }
         return back()->with('errorrr', "Hãy kiếm tra lại thông tin!!");
     }
+
+    public function showOrder(Request $request)
+    {
+        $tab = request()->tab;
+        $orders = DB::table('orders')
+            ->where('userId', '=', auth()->user()->id)
+            ->where('status', '=', (int)$tab)
+            ->get();
+
+
+
+        foreach ($orders as $order) {
+            $products = array();
+            $productIds = DB::table('cart_items')->where('orderId', '=', $order->id)->select('productId', 'quantity')->get();
+
+            foreach ($productIds as $id) {
+                if ($id->productId) {
+                    $product =  DB::table('products')->where('id', '=', $id->productId)->select('name', 'image')->get()->first();
+                    $product->quantity = $id->quantity;
+                    array_push($products, $product);
+                }
+            }
+
+            if (count($products) > 0) {
+                $order->products = $products;
+            }
+        }
+
+        return view('manageAccount.order', compact('orders', 'tab'));
+    }
+
 }
