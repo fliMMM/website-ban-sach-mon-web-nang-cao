@@ -222,16 +222,34 @@ class AccountController extends Controller
         return back()->with('errorrr', "Hãy kiếm tra lại thông tin!!");
     }
 
-    public function showOrder()
+    public function showOrder(Request $request)
     {
+        $tab = request()->tab;
         $orders = DB::table('orders')
             ->where('userId', '=', auth()->user()->id)
-            ->select('created_at', 'payment_method', 'total')
+            ->where('status', '=', (int)$tab)
             ->get();
 
 
-        dd($orders);
-        return view('manageAccount.order', compact('orders'));
+
+        foreach ($orders as $order) {
+            $products = array();
+            $productIds = DB::table('cart_items')->where('orderId', '=', $order->id)->select('productId', 'quantity')->get();
+
+            foreach ($productIds as $id) {
+                if ($id->productId) {
+                    $product =  DB::table('products')->where('id', '=', $id->productId)->select('name', 'image')->get()->first();
+                    $product->quantity = $id->quantity;
+                    array_push($products, $product);
+                }
+            }
+
+            if (count($products) > 0) {
+                $order->products = $products;
+            }
+        }
+
+        return view('manageAccount.order', compact('orders', 'tab'));
     }
 
 }
