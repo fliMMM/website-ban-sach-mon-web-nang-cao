@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
+use Illuminate\Support\Facades\Gate;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,7 @@ Route::get('/', [HomeController::class, 'show'])->name('home');
 Route::get('/search', [HomeController::class, 'search']);
 
 
-Route::prefix('/account')->group(function () {
+Route::prefix('/account')->middleware('auth')->group(function () {
   Route::get('/', [AccountController::class, 'profile']);
   Route::post('/', [AccountController::class, 'updateProfile']);
   Route::get('/address', [AccountController::class, 'address']);
@@ -39,6 +40,24 @@ Route::prefix('/account')->group(function () {
   Route::post('/bookRegistration/addBookRegistration', [AccountController::class, 'addRegistrationBook']);
   Route::get('/listBookReg', [AccountController::class, 'listBookReg']);
   Route::get('/deleteAddress/{id}', [AccountController::class, 'deleteAddress']);
+  Route::get('/change-password', [AccountController::class, 'showChangePassword']);
+  Route::post('/handler/change-password', [AccountController::class, 'handleChangePassword']);
+});
+
+Route::prefix('admin')->middleware('auth', 'can:admin')->group(function () {
+  Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+  Route::get('/products', [AdminController::class, 'getProducts'])->name('product');
+  Route::get('/products/search',  [AdminController::class, 'searchProduct'])->name('products.search');
+
+  Route::get('/editProduct/{id}', [AdminController::class, 'editProduct']);
+
+  Route::get('/orders', [AdminController::class, 'showOrderList']);
+
+  Route::get('/editProd/{id}', [AdminController::class, 'showEditProd']);
+  Route::get('/addProd', [AdminController::class, 'showAddProd']);
+
+  Route::post('/handler/editProduct/{id}', [AdminController::class, 'editProduct']);
+  Route::post('/handler/addProduct', [AdminController::class, 'addProduct']);
 });
 
 
@@ -63,16 +82,17 @@ Route::get('/filter-products',  [CollectionController::class, 'filterByType']);
 
 
 Route::prefix('admin')->group(function () {
-  Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
-  Route::get('/products', [AdminController::class, 'getProducts'])->name('product');
+  Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+  Route::get('/products', [AdminController::class, 'getProducts'])->name('admin.product');
   Route::get('/products/search',  [AdminController::class, 'searchProduct'])->name('products.search');
 
-  Route::get('/editProduct/{id}', [AdminController::class, 'editProduct']);
-
-  Route::get('/orders', function () {
-    return view('admin.order');
-  });
-
+  
+  Route::get('/orders', [AdminController::class, 'showOrderList'])->name('admin.order');
+  Route::post('/update-order-status/{id}', [AdminController::class, 'updateOrder'])->name('update.order.status');
+  Route::get('/order/{id}', [AdminController::class, 'showOrderDetail'])->name('order.detail');
+  
+  
+  // Route::get('/editProduct/{id}', [AdminController::class, 'editProduct']);
   Route::get('/editProd/{id}', [AdminController::class, 'showEditProd']);
   Route::get('/addProd', [AdminController::class, 'showAddProd']);
 
@@ -88,7 +108,6 @@ Route::get('/checkout', [CheckoutController::class, 'show']);
 //handle checkout
 Route::post('/handle/checkout', [CheckoutController::class, 'handleCheckout']);
 
-
 //logout
 Route::post('/logout', [UserController::class, 'logout']);
 
@@ -98,7 +117,12 @@ Route::get('/login', [UserController::class, 'showLogin'])->name('login');
 Route::post('/handler/login', [UserController::class, 'handleLogin']);
 
 
-
+Route::post('/handler/reset-password', [UserController::class, 'handleResetPassword'])->middleware('guest')->name('password.update');
+Route::post('/handler/forgot-password', [UserController::class, 'handleForgotPassword'])->middleware('guest')->name('password.email');
+Route::get("/forgot-password", [UserController::class, 'showResetPasswordForm'])->name('showResetPasswordForm')->middleware('guest')->name('password.request');
+Route::get('/reset-password/{token}', function (string $token) {
+  return view('auth.reset_password', ['token' => $token]);
+})->middleware('guest')->name('password.reset');
 
 
 //product Detail 

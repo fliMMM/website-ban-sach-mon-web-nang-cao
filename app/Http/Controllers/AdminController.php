@@ -18,8 +18,8 @@ class AdminController extends Controller
         $userCount = User::count();
         $productCount = Product::count();
         $categoryCount = Categories::count();
-        // $orderCount = Order::count();
-        return view('admin.dashboard', compact('userCount', 'productCount', 'categoryCount',));
+        $orderCount = DB::table('orders')->count();;
+        return view('admin.dashboard', compact('userCount', 'productCount', 'categoryCount', 'orderCount'));
     }
 
     public function getProducts()
@@ -51,12 +51,13 @@ class AdminController extends Controller
         return view('admin.addProd');
     }
 
+
+
+
     public function addProduct(Request $request)
     {
         $image = $request->file('image');
         $imageUrl = null;
-
-
 
         $formData = $request->validate(
             [
@@ -82,11 +83,7 @@ class AdminController extends Controller
             $imageUrl = $image->store('images', 'public');
             $formData['image'] = asset('storage/' . $imageUrl);
         }
-
         $formData['rating'] = 0;
-
-
-
 
         $prod = DB::table('products')->insert($formData);
 
@@ -101,8 +98,6 @@ class AdminController extends Controller
     {
         $image = $request->file('image');
         $imageUrl = null;
-
-
 
         $oldUrl = DB::table('products')
             ->where('id', '=', $id)
@@ -135,9 +130,6 @@ class AdminController extends Controller
             $formData['image'] = $oldUrl[0]->image;
         }
 
-
-
-
         $prod = DB::table('products')->where('id', $id)->update($formData);
 
         if ($prod) {
@@ -145,5 +137,38 @@ class AdminController extends Controller
         }
 
         return redirect('/admin/editProd/' . $id)->with('message', "khong thanh cong");
+    }
+
+    public function showOrderList()
+    {
+        $orders =  DB::table('orders')
+            ->where('status', '=', 0)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('admin.order', compact('orders'));
+    }
+    public function updateOrder(Request $request, $id)
+    {
+        if ($request->has('approve')) {
+            DB::table('orders')->where('id', $id)->update(['status' => 1]);
+        } elseif ($request->has('cancel')) {
+            DB::table('orders')->where('id', $id)->update(['status' => 2]);
+        }
+        return redirect()->route('admin.order');
+    }
+
+
+    public function showOrderDetail($id)
+    {
+        $orderedProduct = DB::table('cart_items')
+            ->join('orders', 'orders.cartId', '=', 'cart_items.cartId')
+            ->join('carts', 'orders.cartId', '=', 'carts.id')
+            ->join('products', 'cart_items.productId', '=', 'products.id')
+            ->select('products.*', 'cart_items.quantity', 'cart_items.price as unit_price', 'cart_items.id as cartItemId')
+            ->where('orders.id', $id)
+            ->get();
+
+        return response()->json($orderedProduct);
     }
 }

@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+
 class AccountController extends Controller
 {
     //
@@ -127,7 +130,7 @@ class AccountController extends Controller
     }
     public function deleteAddress($id)
     {
-        DB::table('address')->where('id','=', $id)->delete();
+        DB::table('address')->where('id', '=', $id)->delete();
         return back();
     }
     public function registerBook()
@@ -168,6 +171,33 @@ class AccountController extends Controller
         $bookRegistrations = DB::table('registration_book')
             ->where('userId', '=', $id)
             ->get();
-        return view('manageAccount.listBookReg' ,['bookregistrations' => $bookRegistrations]);
+        return view('manageAccount.listBookReg', ['bookregistrations' => $bookRegistrations]);
+    }
+
+    public function showChangePassword()
+    {
+        return view('manageAccount.changePassword');
+    }
+
+    public function handleChangePassword(Request $request)
+    {
+        $request->validate([
+            'old_password' => ['required', 'min:8'],
+            'new_password' => ['required', 'min:8'],
+            'confirm_password' => ['required', "min:8", "same:new_password"],
+        ]);
+
+        $user = DB::table('users')->where('email', '=', auth()->user()->email)->get();
+
+
+        if (count($user) > 0 && Hash::check($request->old_password, $user[0]->password)) {
+            Auth::logout();
+
+            DB::table('users')->where('id', '=', $user[0]->id)->update(['password' => Hash::make($request->new_password)]);
+
+            auth()->loginUsingId($user[0]->id);
+            return back()->with('success', 'Đổi mật khẩu thành công');
+        }
+        return back()->with('errorrr', "Hãy kiếm tra lại thông tin!!");
     }
 }

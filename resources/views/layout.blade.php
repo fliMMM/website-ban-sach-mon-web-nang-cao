@@ -19,7 +19,7 @@
     @stack('css')
 </head>
 
-<body>
+<body class="relative">
 
     <head>
         <div class="flex justify-content items-center h-5 bg-red-700">
@@ -102,36 +102,122 @@
         </div>
     </head>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
-    </script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#search').on('keyup', function() {
-                $value = $(this).val();
-                $.ajax({
-                    url: "{{ URL::to('search') }}",
-                    type: "GET",
-                    data: {
-                        'search': $value
-                    },
-                    success: function(data) {
-                        console.log($value)
-                        $('.search_list').html(data);
-                    }
-                });
-            });
-        });
-    </script>
-    <main>
+
+    <main class="h-fit">
         @yield('body')
     </main>
+
+    <footer class="flex justify-center space-x-10 border-t p-10  mt-7">
+        <div>
+            <ul class="space-y-1">
+                <li class="text-lg font-semibold uppercase mb-1">Dịch vụ</li>
+                <li>
+                    <a class="text-black text-sm no-underline" href="/">Điều khoản sử dụng</a>
+                </li>
+                <li>
+                    <a class="text-black text-sm no-underline" href="/">Chính sách bảo mật</a>
+                </li>
+                <li>
+                    <a class="text-black text-sm no-underline" href="/">Liên hệ</a>
+                </li>
+                <li>
+                    <a class="text-black text-sm no-underline" href="/">Hệ thống nhà sách</a>
+                </li>
+                <li>
+                    <a class="text-black text-sm no-underline" href="/">Tra cứu đơn hàng</a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li class="text-lg font-semibold uppercase mb-2">Hỗ trợ</li>
+                <li>
+                    <a class="text-black text-sm no-underline" href="/">Hướng dẫn đặt hàng</a>
+                </li>
+                <li>
+                    <a class="text-black text-sm no-underline" href="/">Chính sách đổi trả - hoàn tiền</a>
+                </li>
+                <li>
+                    <a class="text-black text-sm no-underline" href="/">Phương thức vận chuyển</a>
+                </li>
+                <li>
+                    <a class="text-black text-sm no-underline" href="/">Chính sách khách háng mua sỉ</a>
+                </li>
+                <li>
+                    <a class="text-black text-sm no-underline" href="/">Chính sách khách hàng cho trường học</a>
+                </li>
+            </ul>
+        </div>
+        <div class="w-60">
+            <ul>
+                <li class="text-lg font-semibold uppercase mb-2">Nyhà xuất bản</li>
+                <li>
+                    <a class="text-black text-sm no-underline" href="/">Giám đốc: Bùi Tuấn Nghĩa</a>
+                </li>
+                <li>
+                    <a class="text-black text-sm no-underline" href="/">Địa chỉ: Số 55 Quang Trung, Nguyễn Du,
+                        Hai Bà Trưng,
+                        Hà
+                        Nội</a>
+                </li>
+                <li>
+                    <a class="text-black text-sm no-underline" href="/">Số điện thoại: (+84) 1900571595 </a>
+                </li>
+                <li>
+                    <a class="text-black text-sm no-underline" href="/">Email: bach@gmail.com</a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <p class="text-lg font-semibold uppercase mb-2">Kết nối mạng xã hội</p>
+            <ul class="flex space-x-3 pl-0 text-lg">
+
+                <li>
+                    <a class="text-red-600" target="__blank"
+                        href="https://canvas.phenikaa-uni.edu.vn/login/canvas"><i
+                            class="fa-brands fa-facebook-f"></i></a>
+                </li>
+                <li>
+                    <a class="text-red-600" target="__blank"
+                        href="https://canvas.phenikaa-uni.edu.vn/login/canvas"><i
+                            class="fa-brands fa-youtube"></i></a>
+                </li>
+                <li>
+                    <a class="text-red-600" target="__blank"
+                        href="https://canvas.phenikaa-uni.edu.vn/login/canvas"><i
+                            class="fa-brands fa-instagram"></i></a>
+                </li>
+
+            </ul>
+        </div>
+    </footer>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
+</script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#search').on('keyup', function() {
+            $value = $(this).val();
+            $.ajax({
+                url: "{{ URL::to('search') }}",
+                type: "GET",
+                data: {
+                    'search': $value
+                },
+                success: function(data) {
+                    console.log($value)
+                    $('.search_list').html(data);
+                }
+            });
+        });
+    });
+</script>
 
 </html>
