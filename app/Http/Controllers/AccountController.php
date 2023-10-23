@@ -231,7 +231,6 @@ class AccountController extends Controller
             ->get();
 
 
-
         foreach ($orders as $order) {
             $products = array();
             $productIds = DB::table('cart_items')->where('orderId', '=', $order->id)->select('productId', 'quantity')->get();
