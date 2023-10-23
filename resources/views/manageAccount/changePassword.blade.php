@@ -13,11 +13,29 @@
                     <div class="border-b pb-4">
                         <div class="ml-24 mt-6">
                             @if (Session::has('success'))
-                                <p class="text-red-500 font-bold">Đổi mật khẩu thành công</p>
+                                <script>
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'success',
+                                        title: '{{ Session::get('success') }}',
+                                        showConfirmButton: true,
+                                        timer: 2000
+                                    })
+                                </script>
                             @endif
                             @if (Session::has('errorrr'))
-                                <p class="text-red-500 font-bold">Hãy kiểm tra lại mật khẩu</p>
+                                <script>
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'error',
+                                        title: '{{ Session::get('error') }}',
+                                        text: 'Hãy nhập đúng thông tin!',
+                                        showConfirmButton: true,
+                                        timer: 2000
+                                    })
+                                </script>
                             @endif
+
                             <form class="space-y-3 w-fit" method="POST" action="/account/handler/change-password">
                                 @csrf
 

@@ -88,26 +88,26 @@
                     </div>
                     <div class="collection-body">
                         <div class="product-list row">
-                            @foreach ($collections as $collection)
+                            @foreach ($products as $product)
                                 <div class="product-item col-lg-3 col-md-4 col-sm-4">
                                     <div class="product-img">
-                                        <a href="/productDetail/{{ $collection->name }}">
-                                            <img src="{{ $collection->image }}">
+                                        <a href="/productDetail/{{ $product->name }}">
+                                            <img src="{{ $product->image }}">
                                         </a>
                                     </div>
                                     <div class="product-info">
                                         <div class="product-title">
-                                            <a href="/productDetail/{{ $collection->name }}"><span
-                                                    class="truncate-text">{{ $collection->name }}</span></a>
+                                            <a href="/productDetail/{{ $product->name }}"><span
+                                                    class="truncate-text">{{ $product->name }}</span></a>
                                         </div>
                                         <div class="product-price">
-                                            <span class="current-price">{{ $collection->price }}₫</span>
+                                            <span class="current-price">{{ $product->price }}₫</span>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
-                        {{ $collections->links() }}
+                        {{ $products->links() }}
                     </div>
                 </div>
             </div>
@@ -231,4 +231,3 @@
 
     </html>
 @endsection
-

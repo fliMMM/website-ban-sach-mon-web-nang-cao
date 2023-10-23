@@ -86,7 +86,7 @@
             </li>
         @else
             <li class="p-3 h-14 border-b-[1px] border-gray-300">
-                <a href="/account/order" class="text-black no-underline ">
+                <a href="/account/order/?tab=0" class="text-black no-underline ">
                     <span class=""><i class="fa-regular fa-circle fa-xs" style="color:bisque"></i></span>
                     <span class="">Danh sách đơn hàng</span>
                 </a>

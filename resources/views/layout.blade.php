@@ -22,6 +22,38 @@
 </head>
 
 <body class="relative">
+    {{-- <!-- Messenger Plugin chat Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your Plugin chat code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+        var chatbox = document.getElementById('fb-customer-chat');
+        chatbox.setAttribute("page_id", "110790918372700");
+        chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+
+    <!-- Your SDK code -->
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                xfbml: true,
+                version: 'v18.0'
+            });
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script> --}}
+
     <head>
         <div class="flex justify-content items-center h-5 bg-red-700">
             <i class="fa-brands fa-facebook-f ml-52 mr-6" style="color: #ffffff;"></i>
@@ -48,6 +80,8 @@
                     </div>
                 </div>
             </div>
+
+
             <a href="{{ route('home') }}"><img src="https://theme.hstatic.net/200000343865/1001052087/14/logo.png?v=320"
                     alt=""></a>
 
@@ -55,7 +89,8 @@
                 <ul class="flex w-100vw justify-between items-center space-x-4 mt-2 mb-2">
                     <a href="{{ route('cart') }}" class="text-black flex items-center"><i
                             class="fa-solid fa-bag-shopping fa-xl ml-3" style="color:red"></i></a>
-                            <p class="text-white border rounded-full w-6 text-center bg-red-500" style="margin-left: 0" id="countCartItem"></p>
+                    <p class="text-white border rounded-full w-6 text-center bg-red-500" style="margin-left: 0"
+                        id="countCartItem"></p>
                     @auth
                         <div class="dropdown ">
                             <a class="btn d-flex border-0 items-center bg-white " href="#" role="button"
@@ -226,15 +261,16 @@
 </script>
 <script>
     $(document).ready(function() {
-            $.ajax({
-                url: "/layout",
-                type: "GET",
-                success: function(response) {
-                    if(response.countCartItem){
-                        $('#countCartItem').text(response.countCartItem);
-                    }
+        $.ajax({
+            url: "/layout",
+            type: "GET",
+            success: function(response) {
+                if (response.countCartItem) {
+                    $('#countCartItem').text(response.countCartItem);
                 }
-            });
+            }
+        });
     });
 </script>
+
 </html>

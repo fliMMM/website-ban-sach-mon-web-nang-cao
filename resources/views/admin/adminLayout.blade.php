@@ -8,7 +8,7 @@
     <title>Document</title>
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="{{ asset('/css/admin/dashboard.css') }}">
-    <link rel="stylesheet" href="{{ asset('/css/admin/table.css') }}">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -18,23 +18,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
-    <div class="row h-screen">
+    <div class="row  d-flex">
         <div class="col-lg-2 dashboard">
             <h1>Welcome, Admin</h1>
             <ul class="majorList">
-                <li class="majorItem"><a href="" class="active"><i class="fas fa-chart-simple"></i>Tổng quan</a>
+                <li class="majorItem"><a href="{{ route('admin.dashboard') }}"
+                        class="@if (request()->routeIs('admin.dashboard')) active @endif"><i class="fas fa-chart-simple"></i>Tổng
+                        quan</a>
                 </li>
-                <li class="majorItem"><a href="/admin/products"><i class="fas fa-list"></i>Danh sách sản phẩm</a>
+                <li class="majorItem"><a href="{{ route('admin.product') }}"
+                        class="@if (request()->routeIs('admin.product')) active @endif"><i class="fas fa-list"></i>Danh sách sản
+                        phẩm</a>
                 </li>
-                <li class="majorItem"><a href="/admin/orders"><i class="fa-solid fa-cart-shopping"></i>Danh sách đặt
+                <li class="majorItem"><a href="{{ route('admin.order') }}"
+                        class="@if (request()->routeIs('admin.order')) active @endif"><i class="fas fa-list"></i>Danh sách đặt
                         hàng</a>
-                </li>
-                <li class="majorItem"><a href="/admin/bookReg"><i class="fa-solid fa-book-bible"></i>Sách đăng ký</a>
                 </li>
                 <li class="majorItem"><a href=""><i class="fas fa-comment-alt"></i>Phản hồi</a></li>
                 <li class="majorItem"><a href="../"><i class="fas fa-home"></i>Trang chủ</a></li>
@@ -42,10 +46,7 @@
 
             </ul>
         </div>
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
-        <div class="col-lg-10 ">
+        <div class="col-lg-10">
             @yield('adminBody')
         </div>
     </div>
@@ -53,5 +54,6 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+
 
 </html>

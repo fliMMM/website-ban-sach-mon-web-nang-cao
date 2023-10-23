@@ -81,13 +81,17 @@ class UserController extends Controller
 
     $user = DB::table('users')->where('email', '=', $formData['email'])->get();
 
+    if ($user[0]->isBan == 1) {
+      return back()->with('status_error', "Tải khoản đã bị cấm");
+    }
+
 
     if (count($user) > 0 && Hash::check($formData['password'], $user[0]->password)) {
       auth()->loginUsingId($user[0]->id);
       return redirect('/');
     }
 
-    return redirect()->back()->with('status', "Email hoặc mật khẩu không đúng");
+    return back()->with('status_error', "Email hoặc mật khẩu không đúng");
   }
 
   public function logout(Request $request)

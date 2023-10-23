@@ -73,15 +73,49 @@ Route::prefix('admin')
         Route::post('/handler/addProduct', [AdminController::class, 'addProduct']);
     });
 
-Route::get('/cart', [CartController::class, 'show'])->name('cart');
-Route::delete('/delete-cart-item/{id}', [CartController::class, 'deleteCartItem'])->name('cart.delete');
 
-Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
+Route::prefix('cart')->group(function () {
+    Route::get('/', [CartController::class, 'show'])->name('cart');
+    Route::delete('/delete-cart-item/{id}', [CartController::class, 'deleteCartItem'])->name('cart.delete');
+    Route::post('/update', [CartController::class, 'updateCart'])->name('cart.update');
+});
 
-Route::get('/collection/{title}', [CollectionController::class, 'showNewBooks'])->name('collection');
-Route::get('/collection', [CollectionController::class, 'show'])->name('collection');
+
+Route::prefix('collection')->group(function () {
+    Route::get('/{title}', [CollectionController::class, 'showNewBooks'])->name('product');
+    Route::get('/', [CollectionController::class, 'show'])->name('product');
+});
+
 Route::get('/sort-products', [CollectionController::class, 'sortProduct']);
-Route::get('/filter-products', [CollectionController::class, 'filterByType']);
+Route::get('/filter-products',  [CollectionController::class, 'filterByType']);
+
+
+
+
+
+
+Route::prefix('admin')->group(function () {
+    Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/products', [AdminController::class, 'getProducts'])->name('admin.product');
+    Route::get('/products/search',  [AdminController::class, 'searchProduct'])->name('products.search');
+
+
+    Route::get('/orders', [AdminController::class, 'showOrderList'])->name('admin.order');
+    Route::post('/update-order-status/{id}', [AdminController::class, 'updateOrder'])->name('update.order.status');
+    Route::get('/order/{id}', [AdminController::class, 'showOrderDetail'])->name('order.detail');
+
+
+    // Route::get('/editProduct/{id}', [AdminController::class, 'editProduct']);
+    Route::get('/editProd/{id}', [AdminController::class, 'showEditProd']);
+    Route::get('/addProd', [AdminController::class, 'showAddProd']);
+
+    Route::post('/handler/editProduct/{id}', [AdminController::class, 'editProduct']);
+    Route::post('/handler/addProduct', [AdminController::class, 'addProduct']);
+});
+
+
+
+
 
 Route::get('/checkout', [CheckoutController::class, 'show']);
 

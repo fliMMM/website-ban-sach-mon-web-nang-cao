@@ -33,6 +33,7 @@ class CheckoutController extends Controller
 
         $address = DB::table('address')
             ->where('userId', '=', $userId)
+            ->where('isDefault', '=', 1)
             ->get()->first();
         if ($address) {
             $formatAddress = $address->locationSpecific . ', '  . $address->district . ', ' . $address->city;
@@ -104,6 +105,6 @@ class CheckoutController extends Controller
             DB::table('cart_items')->where("cartId", '=', $cartId)->update(['isCheckout' => true]);
         }
 
-        return redirect('/');
+        return redirect('/account/order/?tab=0')->with('success', 'Đặt hàng thành công');
     }
 }
