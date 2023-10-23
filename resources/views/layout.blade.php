@@ -18,10 +18,10 @@
     <link rel="stylesheet" href="{{ asset('/css/slide.css') }}">
     @stack('css')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 </head>
 
 <body class="relative">
-
     <head>
         <div class="flex justify-content items-center h-5 bg-red-700">
             <i class="fa-brands fa-facebook-f ml-52 mr-6" style="color: #ffffff;"></i>
@@ -54,7 +54,8 @@
             <div class="flex justify-center ">
                 <ul class="flex w-100vw justify-between items-center space-x-4 mt-2 mb-2">
                     <a href="{{ route('cart') }}" class="text-black flex items-center"><i
-                            class="fa-solid fa-bag-shopping fa-xl ml-3"></i></a>
+                            class="fa-solid fa-bag-shopping fa-xl ml-3" style="color:red"></i></a>
+                            <p class="text-white border rounded-full w-6 text-center bg-red-500" style="margin-left: 0" id="countCartItem"></p>
                     @auth
                         <div class="dropdown ">
                             <a class="btn d-flex border-0 items-center bg-white " href="#" role="button"
@@ -152,7 +153,7 @@
         </div>
         <div class="w-60">
             <ul>
-                <li class="text-lg font-semibold uppercase mb-2">Nyhà xuất bản</li>
+                <li class="text-lg font-semibold uppercase mb-2">Nhà xuất bản</li>
                 <li>
                     <a class="text-black text-sm no-underline" href="/">Giám đốc: Bùi Tuấn Nghĩa</a>
                 </li>
@@ -223,5 +224,17 @@
         });
     });
 </script>
-
+<script>
+    $(document).ready(function() {
+            $.ajax({
+                url: "/layout",
+                type: "GET",
+                success: function(response) {
+                    if(response.countCartItem){
+                        $('#countCartItem').text(response.countCartItem);
+                    }
+                }
+            });
+    });
+</script>
 </html>

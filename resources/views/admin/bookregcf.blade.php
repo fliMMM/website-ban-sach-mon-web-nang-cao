@@ -1,6 +1,6 @@
 @extends('admin.adminLayout')
 @section('adminBody')
-    <p class="text-center text-2xl font-bold">Sách đăng ký chờ duyệt</p>
+    <p class="text-center mt-4 text-4xl font-bold">Sách đăng ký chờ duyệt</p>
     @if (Session::has('message'))
         <script>
             Swal.fire({
@@ -13,7 +13,7 @@
         </script>
     @endif
     <form action="{{ url('/admin/bookReg/confirm') }}" method="post">
-        <table class="table mt-2">
+        <table class="table mt-4" id="tablebookregcf">
             <thead class="thead-dark" style="background-color: red">
                 <tr>
                     <th></th>
@@ -68,7 +68,21 @@
             @csrf
         </div>
     </form>
-
+    <script>
+        let table = new DataTable('#tablebookregcf', {
+            "language": {
+                "emptyTable": "Không có đơn cần duyệt",
+                "search": "Tìm kiếm",
+                "paginate": {
+                    "first": "First",
+                    "last": "Last",
+                    "next": "Sau",
+                    "previous": "Trước"
+                },
+            },
+            "pageLength": 15
+        });
+    </script>
     <script>
         var checkboxs = document.querySelectorAll("#checkboxConfirm")
         var checkboxall = document.getElementById("checkboxall")
