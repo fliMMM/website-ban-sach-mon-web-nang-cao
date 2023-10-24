@@ -25,9 +25,9 @@
                             </p>
                         </div>
                     </div>
-                    <div class="flex mt-6">
-                        <img src="{{ $productDetail->image }}" class="w-2/5 h-2/4" alt="">
-                        <div class="ml-10 w-3/5">
+                    <div class="xl:flex lg:flex md:block mt-6">
+                        <img src="{{ $productDetail->image }}" class="lg:w-2/5 lg:h-2/4 xl:h-[600px] xl:w-[500px] md:w-full" alt="">
+                        <div class="lg:ml-10 xl:ml-10 md:ml-0 lg:w-3/5 xl:w-3/5 md:w-full">
                             <div class="border-b pt-3 pb-3 ">
                                 <h4 class="">{{ $productDetail->name }}</h4>
                             </div>
@@ -52,18 +52,18 @@
                                     <p>Số Trang: {{ $productDetail->soTrang }} </p>
                                     <p>Trọng Lượng: {{ $productDetail->inStock }}</p>
                                 </div>
-                                <div class="mt-28">
+                                <div class="xl:mt-28 lg:ml-2 lg:mt-40 md:mt-40">
                                     <div class="bg-red-700">
                                         <form action="" method="post">
                                             @csrf
-                                            <button type="submit" class="text-white px-5 py-1">
+                                            <button type="submit" class="text-white xl:text-base lg:text-sm lg:px-2 xl:px-5 py-1 md:px-2">
                                                 THÊM VÀO GIỎ HÀNG
                                             </button>
                                         </form>
 
                                     </div>
-                                    <div class="bg-red-700 w-24 mt-2">
-                                        <button class="text-white py-2 px-1">MUA NGAY
+                                    <div class="bg-red-700 w-24 mt-2 text-center">
+                                        <button class="text-white xl:py-2 xl:px-1 xl:text-base lg:text-sm lg:py-2 lg:px-1 md:py-2">MUA NGAY
                                         </button>
                                     </div>
                                 </div>
@@ -119,7 +119,19 @@
             slidesToShow: 5,
             slidesToScroll: 1,
             arrow: true,
-            focusOnSelect: true
+            focusOnSelect: true,
+            responsive: [{
+                breakpoint: 1030,
+                settings: {
+                    slidesToShow: 4,
+                }
+            }, 
+            {
+                breakpoint: 770,
+                settings: {
+                    slidesToShow: 3,
+                }
+            },]
         });
     </script>
 @endsection

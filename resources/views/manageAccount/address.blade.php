@@ -27,11 +27,11 @@
                                         <p class="ml-2 text-[#757575]">{{ $adr->phone }}</p>
                                     </div>
                                     <div class="mb-0 h-[30px]">
-                                        <p class="mb-0 text-[#757575]">{{ $adr->locationSpecific }}</p>
+                                        <p class="mb-0 text-[#757575]">{{ $adr->locationSpecific}}</p>
                                     </div>
                                     <div class="flex h-[30px]">
-                                        <p class="text-[#757575] mr-1.5">{{ $adr->city }}</p>
-                                        <p class="text-[#757575] mr-1.5">{{ $adr->district }}</p>
+                                        <p class="text-[#757575] mr-1.5">{{ $adr->city }},</p>
+                                        <p class="text-[#757575] mr-1.5">{{ $adr->district}},</p>
                                         <p class="text-[#757575]">{{ $adr->village }}</p>
                                     </div>
                                     @if ($adr ->isDefault == 1)
@@ -39,9 +39,9 @@
                                 @endif
                                 </div>
                                 <div class="columns-1">
-                                    <button type="button" class="ml-10 mb-3 text-[#84D0FF]" id="editAddress"
+                                    <button type="button" class="ml-10 mb-3 text-red-700 font-bold" id="editAddress"
                                         value="{{ $adr->id }}">Cập nhật</button>
-                                    <button class="text-[#84D0FF]" value="{{ $adr->id }}"
+                                    <button class="text-red-700 font-bold ml-2" value="{{ $adr->id }}"
                                         id="deleteAddress">Xoá</button>
                                         @if ($adr ->isDefault == 1)
                                         <div class="border border-black pl-2 pr-2 bg-white">

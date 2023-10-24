@@ -1,4 +1,4 @@
-<div class="ml-36 border-r-[1px] border-gray-300">
+<div class="xl:ml-36 lg:ml-10 border-r-[1px] border-gray-300">
     <ul>
         @if ($title == 'Hồ Sơ')
             <li class=" w-[240px] h-14 p-3 border-b-[1px] border-gray-300 bg-[#f7f3eb]">

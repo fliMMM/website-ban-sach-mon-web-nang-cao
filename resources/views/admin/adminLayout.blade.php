@@ -18,7 +18,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
 </head>
 
@@ -39,7 +44,19 @@
                         class="@if (request()->routeIs('admin.order')) active @endif"><i class="fas fa-list"></i>Danh sách đặt
                         hàng</a>
                 </li>
-                {{-- <li class="majorItem"><a href=""><i class="fas fa-comment-alt"></i>Phản hồi</a></li> --}}
+
+                <li class="majorItem"><a href="{{ route('admin.userManage') }}"
+                        class="@if (request()->routeIs('admin.userManage')) active @endif"><i class="fa-regular fa-user"></i>Quản
+                        lí người dùng</a>
+                </li>
+                <li class="majorItem"><a href="{{ route('bookReg') }}"
+                        class="@if (request()->routeIs('bookReg')) active @endif"><i class="fa-solid fa-bookmark"></i>Sách đăng ký</a>
+                </li>
+                <li class="majorItem"><a href="{{ route('bookConfirm') }}"
+                    class="@if (request()->routeIs('bookConfirm')) active @endif"><i class="fa-solid fa-receipt"></i>Duyệt sách</a>
+            </li>
+                <li class="majorItem"><a href=""><i class="fas fa-comment-alt"></i>Phản hồi</a></li>
+
                 <li class="majorItem"><a href="../"><i class="fas fa-home"></i>Trang chủ</a></li>
                 <li class="majorItem"><a href=""><i class="fas fa-sign-out-alt"></i>Đăng xuất</a></li>
 

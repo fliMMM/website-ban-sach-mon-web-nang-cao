@@ -11,13 +11,37 @@
             <?php $list = $sellingbooks; ?>
             <x-sectiontitle :$list title="SÁCH BÁN CHẠY" />
         </div>
+        <div class="w-8/12">
+            <?php $list = $sellingbooks; ?>
+            <x-sectiontitle :$list title="SÁCH BÁN CHẠY" />
+        </div>
+        <div class="w-8/12">
+            <?php $list = $sellingbooks; ?>
+            <x-sectiontitle :$list title="SÁCH BÁN CHẠY" />
+        </div>
+        <div class="w-8/12">
+            <?php $list = $sellingbooks; ?>
+            <x-sectiontitle :$list title="SÁCH BÁN CHẠY" />
+        </div>
     </div>
     <script type="text/javascript">
         $('.multiple-items').slick({
             slidesToShow: 5,
             slidesToScroll: 1,
             arrow: true,
-            focusOnSelect: true
+            focusOnSelect: true,
+            responsive: [{
+                breakpoint: 1030,
+                settings: {
+                    slidesToShow: 4,
+                }
+            }, 
+            {
+                breakpoint: 770,
+                settings: {
+                    slidesToShow: 3,
+                }
+            },]
         });
     </script>
 @endsection

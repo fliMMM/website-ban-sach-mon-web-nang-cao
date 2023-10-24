@@ -18,11 +18,13 @@ class AdminController extends Controller
         $userCount = User::count();
         $productCount = Product::count();
         $categoryCount = Categories::count();
+
         $orderQuantity = DB::table('orders')
             ->where('status', '=', 0)
             ->count();
 
         return view('admin.dashboard', compact('userCount', 'productCount', 'categoryCount', 'orderQuantity'));
+
     }
 
     public function getProducts()
@@ -52,32 +54,28 @@ class AdminController extends Controller
         return view('admin.addProd');
     }
 
-
-
-
     public function addProduct(Request $request)
     {
         $image = $request->file('image');
         $imageUrl = null;
 
-        $formData = $request->validate(
-            [
-                'name' => ['required'],
-                'author' => ['required'],
-                'description' => ['required'],
-                'categories' => ['required'],
-                'price' => ['required'],
-                'inStock' => ['required'],
-                'target' => ['required'],
-                'khuonKho' => ['required'],
-                'soTrang' => ['required'],
-                'weight' => ['required'],
-                'combo' => ['required'],
-                'ngayPhatHanh' => ['required'],
-                'image' => [],
-                'rating' => [],
-            ]
-        );
+
+        $formData = $request->validate([
+            'name' => ['required'],
+            'author' => ['required'],
+            'description' => ['required'],
+            'categories' => ['required'],
+            'price' => ['required'],
+            'inStock' => ['required'],
+            'target' => ['required'],
+            'khuonKho' => ['required'],
+            'soTrang' => ['required'],
+            'weight' => ['required'],
+            'combo' => ['required'],
+            'ngayPhatHanh' => ['required'],
+            'image' => [],
+            'rating' => [],
+        ]);
 
 
         if (isset($image)) {
@@ -129,7 +127,10 @@ class AdminController extends Controller
             $formData['image'] = $oldUrl[0]->image;
         }
 
-        $prod = DB::table('products')->where('id', $id)->update($formData);
+        $prod = DB::table('products')
+            ->where('id', $id)
+            ->update($formData);
+
 
         if ($prod) {
             return redirect('/admin/products');
@@ -209,13 +210,16 @@ class AdminController extends Controller
     public function updateOrder(Request $request, $id)
     {
         if ($request->has('approve')) {
-            DB::table('orders')->where('id', $id)->update(['status' => 1]);
+            DB::table('orders')
+                ->where('id', $id)
+                ->update(['status' => 1]);
         } elseif ($request->has('cancel')) {
-            DB::table('orders')->where('id', $id)->update(['status' => 2]);
+            DB::table('orders')
+                ->where('id', $id)
+                ->update(['status' => 2]);
         }
         return redirect()->route('admin.order');
     }
-
 
     public function showOrderDetail($id)
     {
@@ -228,5 +232,114 @@ class AdminController extends Controller
             ->get();
 
         return response()->json($orderedProduct);
+    }
+    public function userManage()
+    {
+        $users = DB::table('users')
+        ->get();
+        $userCount = DB::table('users')
+        ->count();
+        return view('admin.userManage', ['users' => $users, 'userCount' => $userCount]);
+    }
+    public function userDelete(Request $request)
+    {
+        // dd($request->all());
+        if ($request->action == 'delete') {
+            if (!$request->checkboxConfirm) {
+                return back();
+            } else {
+                foreach ($request->checkboxConfirm as $key => $value) {
+                    $delete = DB::table('users')
+                        ->where('id', $key)
+                        ->update([
+                            'status' => 'Đã xoá',
+                            'deleted_at' => date('Y-m-d H:i:s'),
+                        ]);
+                    if ($delete == true) {
+                        return back()->with('message', 'Tài khoản đã bị xoá');
+                    } else {
+                        return back();
+                    }
+                }
+            }
+        }
+        if ($request->action == 'ban') {
+            if (!$request->checkboxConfirm) {
+                return back();
+            } else {
+                foreach ($request->checkboxConfirm as $key => $value) {
+                    $ban = DB::table('users')
+                        ->where('id', $key)
+                        ->whereNull('deleted_at')
+                        ->update([
+                            'status' => 'Đã bị chặn',
+                            'isBan' => 1,
+                        ]);
+                    if ($ban == true) {
+                        return back()->with('message', 'Tài khoản đã bị chặn');
+                    } else {
+                        return back();
+                    }
+                }
+            }
+        }
+        if ($request->action == 'unban') {
+            if (!$request->checkboxConfirm) {
+                return back();
+            } else {
+                foreach ($request->checkboxConfirm as $key => $value) {
+                    $ban = DB::table('users')
+                        ->where('id', $key)
+                        ->whereNull('deleted_at')
+                        ->update([
+                            'status' => 'đang hoạt động',
+                            'isBan' => 0,
+                        ]);
+                    if ($ban == true) {
+                        return back()->with('message', 'Tài khoản đã được huỷ chặn');
+                    } else {
+                        return back();
+                    }
+                }
+            }
+        }
+        if ($request->action == 'user') {
+            if (!$request->checkboxConfirm) {
+                return back();
+            } else {
+                foreach ($request->checkboxConfirm as $key => $value) {
+                    $ban = DB::table('users')
+                        ->where('id', $key)
+                        ->whereNull('deleted_at')
+                        ->update([
+                            'isAdmin' => 0,
+                        ]);
+                    if ($ban == true) {
+                        return back()->with('message', 'Tài khoản đã được thay đổi quyền');
+                    } else {
+                        return back();
+                    }
+                }
+            }
+        }
+        if ($request->action == 'admin') {
+            if (!$request->checkboxConfirm) {
+                return back();
+            } else {
+                foreach ($request->checkboxConfirm as $key => $value) {
+                    $ban = DB::table('users')
+                        ->where('id', $key)
+                        ->whereNull('deleted_at')
+                        ->update([
+                            'isAdmin' => 1,
+                        ]);
+                    if ($ban == true) {
+                        return back()->with('message', 'Tài khoản đã được thay đổi quyền');
+                    } else {
+                        return back();
+                    }
+                }
+            }
+        }
     }
 }
