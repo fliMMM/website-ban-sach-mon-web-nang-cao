@@ -66,36 +66,39 @@
             </marquee>
         </div>
         <div class="flex w-100vw justify-around items-center pb-3 mt-3 border-b">
-            <div>
-                <div class="form-group w-[300px] flex">
+            <div class="lg:w-1/3 md:w-2/5 xl:w-[330px]">
+                <div class="form-group w-[300px] flex md:w-[200px] lg:w-[260px]">
                     <input type="text" name="search" id="search" class="form-control h-6 rounded-0 "
                         placeholder="Tìm kiếm..." onfocus="this.value">
                     <button class="border-1  bg-red-600 text-white w-7  h-6" type="button">
                         <i class="fa fa-search "></i>
                     </button>
                 </div>
-                <div class="absolute z-10 w-[300px]">
+                <div class="absolute z-10 w-[300px] md:w-[200px] lg:w-[260px]">
                     <div class="search_list">
-
                     </div>
                 </div>
             </div>
 
 
             <a href="{{ route('home') }}"><img src="https://theme.hstatic.net/200000343865/1001052087/14/logo.png?v=320"
-                    alt=""></a>
+                    alt="" class=""></a>
 
-            <div class="flex justify-center ">
+            <div class="flex justify-center items-center">
+                @auth
+                @if (auth()->user()->isAdmin == 1)
+                    <a href="/admin" class="no-underline text-black border p-2 bg-red-500">Admin</a>
+                @endif
+                @endauth
                 <ul class="flex w-100vw justify-between items-center space-x-4 mt-2 mb-2">
                     <a href="{{ route('cart') }}" class="text-black flex items-center"><i
                             class="fa-solid fa-bag-shopping fa-xl ml-3" style="color:red"></i></a>
-                    <p class="text-white border rounded-full w-6 text-center bg-red-500" style="margin-left: 0"
-                        id="countCartItem"></p>
+                <div id="countCartItem" style="margin-left: 0"> </div>
                     @auth
                         <div class="dropdown ">
                             <a class="btn d-flex border-0 items-center bg-white " href="#" role="button"
                                 id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                <div class="flex items-center ">
+                                <div class="flex items-center">
                                     <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
                                         alt="" class="w-10 h-10 rounded-circle">
                                     <p class="mt-1 mb-0 text-black font-normal">
@@ -265,8 +268,10 @@
             url: "/layout",
             type: "GET",
             success: function(response) {
-                if (response.countCartItem) {
-                    $('#countCartItem').text(response.countCartItem);
+                if (response.countCartItem > 0) {
+                    // $('#countCartItem').text(response.countCartItem);
+                    $('#countCartItem').html('<p class="text-white border rounded-full w-6 text-center bg-red-500" style="margin-left: 0" id ="count"></p>')
+                    $('#count').text(response.countCartItem)
                 }
             }
         });

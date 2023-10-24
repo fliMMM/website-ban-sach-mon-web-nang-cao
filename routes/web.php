@@ -61,13 +61,13 @@ Route::prefix('admin')
 
         Route::get('/orders', [AdminController::class, 'showOrderList']);
         Route::prefix('bookReg')->group(function () {
-            Route::get('/', [AdminController::class, 'bookReg']);
-            Route::get('/confirm', [AdminController::class, 'manageBookReg']);
+            Route::get('/', [AdminController::class, 'bookReg'])->name('bookReg');
+            Route::get('/confirm', [AdminController::class, 'manageBookReg'])->name('bookConfirm');
             Route::post('/confirm', [AdminController::class, 'bookRegConfirm']);
         });
         Route::get('/editProd/{id}', [AdminController::class, 'showEditProd']);
         Route::get('/addProd', [AdminController::class, 'showAddProd']);
-        Route::get('/userManage', [AdminController::class, 'userManage']);
+        Route::get('/userManage', [AdminController::class, 'userManage'])->name('admin.userManage');
         Route::post('/userManage/userDelete', [AdminController::class, 'userDelete']);
         Route::post('/handler/editProduct/{id}', [AdminController::class, 'editProduct']);
         Route::post('/handler/addProduct', [AdminController::class, 'addProduct']);

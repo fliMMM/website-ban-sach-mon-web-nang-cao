@@ -165,7 +165,7 @@ class AccountController extends Controller
             [
                 'name' => 'required',
                 'author' => 'required',
-                'quantity' => 'required|numeric|max:10',
+                'quantity' => 'required|numeric|max:10000000',
             ],
             [
                 'name.required' => 'Vui lòng nhập Họ Tên',
@@ -230,7 +230,6 @@ class AccountController extends Controller
             ->where('status', '=', (int)$tab)
             ->orderBy('created_at', 'desc')
             ->get();
-
 
 
         foreach ($orders as $order) {

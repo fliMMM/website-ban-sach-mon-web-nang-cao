@@ -18,7 +18,7 @@ class AdminController extends Controller
         $userCount = User::count();
         $productCount = Product::count();
         $categoryCount = Categories::count();
-        $orderCount = DB::table('orders')->count();;
+        $orderCount = DB::table('orders')->count();
         return view('admin.dashboard', compact('userCount', 'productCount', 'categoryCount', 'orderCount'));
     }
 
@@ -48,9 +48,6 @@ class AdminController extends Controller
     {
         return view('admin.addProd');
     }
-
-
-
 
     public function addProduct(Request $request)
     {
@@ -206,13 +203,16 @@ class AdminController extends Controller
     public function updateOrder(Request $request, $id)
     {
         if ($request->has('approve')) {
-            DB::table('orders')->where('id', $id)->update(['status' => 1]);
+            DB::table('orders')
+                ->where('id', $id)
+                ->update(['status' => 1]);
         } elseif ($request->has('cancel')) {
-            DB::table('orders')->where('id', $id)->update(['status' => 2]);
+            DB::table('orders')
+                ->where('id', $id)
+                ->update(['status' => 2]);
         }
         return redirect()->route('admin.order');
     }
-
 
     public function showOrderDetail($id)
     {
@@ -229,11 +229,9 @@ class AdminController extends Controller
     public function userManage()
     {
         $users = DB::table('users')
-            ->where('isAdmin', '=', 0)
-            ->get();
+        ->get();
         $userCount = DB::table('users')
-            ->where('isAdmin', '=', 0)
-            ->count();
+        ->count();
         return view('admin.userManage', ['users' => $users, 'userCount' => $userCount]);
     }
     public function userDelete(Request $request)
@@ -292,6 +290,44 @@ class AdminController extends Controller
                         ]);
                     if ($ban == true) {
                         return back()->with('message', 'Tài khoản đã được huỷ chặn');
+                    } else {
+                        return back();
+                    }
+                }
+            }
+        }
+        if ($request->action == 'user') {
+            if (!$request->checkboxConfirm) {
+                return back();
+            } else {
+                foreach ($request->checkboxConfirm as $key => $value) {
+                    $ban = DB::table('users')
+                        ->where('id', $key)
+                        ->whereNull('deleted_at')
+                        ->update([
+                            'isAdmin' => 0,
+                        ]);
+                    if ($ban == true) {
+                        return back()->with('message', 'Tài khoản đã được thay đổi quyền');
+                    } else {
+                        return back();
+                    }
+                }
+            }
+        }
+        if ($request->action == 'admin') {
+            if (!$request->checkboxConfirm) {
+                return back();
+            } else {
+                foreach ($request->checkboxConfirm as $key => $value) {
+                    $ban = DB::table('users')
+                        ->where('id', $key)
+                        ->whereNull('deleted_at')
+                        ->update([
+                            'isAdmin' => 1,
+                        ]);
+                    if ($ban == true) {
+                        return back()->with('message', 'Tài khoản đã được thay đổi quyền');
                     } else {
                         return back();
                     }
