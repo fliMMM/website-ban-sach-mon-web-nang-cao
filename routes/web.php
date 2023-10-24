@@ -61,8 +61,8 @@ Route::prefix('admin')
 
         Route::get('/orders', [AdminController::class, 'showOrderList']);
         Route::prefix('bookReg')->group(function () {
-            Route::get('/', [AdminController::class, 'bookReg']);
-            Route::get('/confirm', [AdminController::class, 'manageBookReg']);
+            Route::get('/', [AdminController::class, 'bookReg'])->name('bookReg');
+            Route::get('/confirm', [AdminController::class, 'manageBookReg'])->name('bookConfirm');
             Route::post('/confirm', [AdminController::class, 'bookRegConfirm']);
         });
         Route::get('/editProd/{id}', [AdminController::class, 'showEditProd']);

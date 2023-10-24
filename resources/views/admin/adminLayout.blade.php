@@ -8,7 +8,7 @@
     <title>Document</title>
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="{{ asset('/css/admin/dashboard.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('/css/admin/table.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -21,6 +21,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 </head>
 
 <body>
@@ -41,8 +43,15 @@
                         hàng</a>
                 </li>
                 <li class="majorItem"><a href="{{ route('admin.userManage') }}"
-                        class="@if (request()->routeIs('admin.userManage')) active @endif"><i class="fas fa-list"></i>Quản lí người dùng</a>
+                        class="@if (request()->routeIs('admin.userManage')) active @endif"><i class="fa-regular fa-user"></i>Quản
+                        lí người dùng</a>
                 </li>
+                <li class="majorItem"><a href="{{ route('bookReg') }}"
+                        class="@if (request()->routeIs('bookReg')) active @endif"><i class="fa-solid fa-bookmark"></i>Sách đăng ký</a>
+                </li>
+                <li class="majorItem"><a href="{{ route('bookConfirm') }}"
+                    class="@if (request()->routeIs('bookConfirm')) active @endif"><i class="fa-solid fa-receipt"></i>Duyệt sách</a>
+            </li>
                 <li class="majorItem"><a href=""><i class="fas fa-comment-alt"></i>Phản hồi</a></li>
                 <li class="majorItem"><a href="../"><i class="fas fa-home"></i>Trang chủ</a></li>
                 <li class="majorItem"><a href=""><i class="fas fa-sign-out-alt"></i>Đăng xuất</a></li>

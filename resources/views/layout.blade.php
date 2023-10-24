@@ -85,9 +85,11 @@
                     alt="" class=""></a>
 
             <div class="flex justify-center items-center">
+                @auth
                 @if (auth()->user()->isAdmin == 1)
                     <a href="/admin" class="no-underline text-black border p-2 bg-red-500">Admin</a>
                 @endif
+                @endauth
                 <ul class="flex w-100vw justify-between items-center space-x-4 mt-2 mb-2">
                     <a href="{{ route('cart') }}" class="text-black flex items-center"><i
                             class="fa-solid fa-bag-shopping fa-xl ml-3" style="color:red"></i></a>
