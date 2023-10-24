@@ -21,8 +21,7 @@ class CartController extends Controller
             ->where('cart_items.isCheckout', '=', false)
             ->whereNull('cart_items.deleted_at')
             ->get();
-
-
+        $cartItemQuantity = $cartItems->count();
         $cartItems->each(function ($product) {
             $product->totalPrice = number_format($product->price * $product->quantity, 0, ',', '.') . ' ₫';
             $product->itemPrice = number_format($product->price, 0, ',', '.') . ' ₫';
@@ -32,7 +31,7 @@ class CartController extends Controller
         });
         $totalCartPrice = number_format($totalPrice, 0, ',', '.') . ' ₫';
 
-        return view('cart', compact('cartItems', 'totalCartPrice'));
+        return view('cart', compact('cartItems', 'totalCartPrice', 'cartItemQuantity'));
     }
 
     public function deleteCartItem($id)

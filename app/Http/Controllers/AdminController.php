@@ -18,8 +18,13 @@ class AdminController extends Controller
         $userCount = User::count();
         $productCount = Product::count();
         $categoryCount = Categories::count();
-        $orderCount = DB::table('orders')->count();
-        return view('admin.dashboard', compact('userCount', 'productCount', 'categoryCount', 'orderCount'));
+
+        $orderQuantity = DB::table('orders')
+            ->where('status', '=', 0)
+            ->count();
+
+        return view('admin.dashboard', compact('userCount', 'productCount', 'categoryCount', 'orderQuantity'));
+
     }
 
     public function getProducts()
@@ -198,7 +203,9 @@ class AdminController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('admin.order', compact('orders'));
+
+        $orderQuantity = $orders->count();
+        return view('admin.order', compact('orders', 'orderQuantity'));
     }
     public function updateOrder(Request $request, $id)
     {
