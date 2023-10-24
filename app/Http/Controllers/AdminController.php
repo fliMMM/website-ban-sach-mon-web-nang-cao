@@ -54,6 +54,7 @@ class AdminController extends Controller
         $image = $request->file('image');
         $imageUrl = null;
 
+
         $formData = $request->validate([
             'name' => ['required'],
             'author' => ['required'],
@@ -70,6 +71,7 @@ class AdminController extends Controller
             'image' => [],
             'rating' => [],
         ]);
+
 
         if (isset($image)) {
             $imageUrl = $image->store('images', 'public');
@@ -123,6 +125,7 @@ class AdminController extends Controller
         $prod = DB::table('products')
             ->where('id', $id)
             ->update($formData);
+
 
         if ($prod) {
             return redirect('/admin/products');
@@ -214,10 +217,10 @@ class AdminController extends Controller
     public function showOrderDetail($id)
     {
         $orderedProduct = DB::table('cart_items')
-            ->join('orders', 'orders.cartId', '=', 'cart_items.cartId')
+            ->join('orders', 'orders.id', '=', 'cart_items.orderId')
             ->join('carts', 'orders.cartId', '=', 'carts.id')
             ->join('products', 'cart_items.productId', '=', 'products.id')
-            ->select('products.*', 'cart_items.quantity', 'cart_items.price as unit_price', 'cart_items.id as cartItemId')
+            ->select('products.*', 'orders.total as totalPrice', 'cart_items.quantity', 'cart_items.price as unit_price', 'cart_items.id as cartItemId')
             ->where('orders.id', $id)
             ->get();
 

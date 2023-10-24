@@ -1,12 +1,11 @@
-* {
-    padding: 0;
-    margin: 0;
-    scroll-behavior: smooth;
+.page {
+    height: 100vh;
 }
+
 .dashboard {
     background-color: #a9171d;
-    height: 100vh;
     padding: 30px 25px !important;
+    /* position: fixed; */
 }
 .dashboard h1 {
     color: #fff;

@@ -1,6 +1,8 @@
 @extends('admin.adminLayout')
 
 @section('adminBody')
+    <link rel="stylesheet" href="{{ asset('/css/admin/dashboard.css') }}">
+
     <form method="POST" action="/admin/handler/editProduct/{{ $product->id }}" class='h-screen mx-4 mt-4'
         enctype="multipart/form-data">
         @csrf

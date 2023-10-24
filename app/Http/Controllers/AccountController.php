@@ -228,6 +228,7 @@ class AccountController extends Controller
         $orders = DB::table('orders')
             ->where('userId', '=', auth()->user()->id)
             ->where('status', '=', (int)$tab)
+            ->orderBy('created_at', 'desc')
             ->get();
 
 
@@ -250,5 +251,4 @@ class AccountController extends Controller
 
         return view('manageAccount.order', compact('orders', 'tab'));
     }
-
 }
