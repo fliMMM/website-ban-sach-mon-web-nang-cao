@@ -5,11 +5,10 @@
 .dashboard {
     background-color: #a9171d;
     padding: 30px 25px !important;
-    /* position: fixed; */
 }
 .dashboard h1 {
     color: #fff;
-    font-size: 25px;
+    font-size: 27px;
     text-transform: uppercase;
 }
 
