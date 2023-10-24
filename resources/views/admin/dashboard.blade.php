@@ -19,6 +19,11 @@
                 <p>Số lượng đặt hàng</p>
                 <p>{{ $orderQuantity }}</p>
             </div>
+            <div class="col-lg-5 overviewItem">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <p>Số lượng đơn hàng đã duyệt</p>
+                <p>{{ $solvedOrderQuantity }}</p>
+            </div>
         </div>
     </div>
 @endsection

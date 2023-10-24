@@ -37,7 +37,7 @@ class CartController extends Controller
     public function deleteCartItem($id)
     {
         DB::table('cart_items')->where('id', $id)->update(['deleted_at' => now()]);
-        return response()->json(['message' => 'Cart item deleted successfully']);
+        return response()->json(['message' => 'Delete cart item successfully']);
     }
     public function updateCart(Request $request)
     {

@@ -50,14 +50,16 @@ Route::prefix('/account')
         Route::get('/order', [AccountController::class, 'showOrder']);
     });
 
+
+
 Route::prefix('admin')
     ->middleware('auth', 'can:admin')
     ->group(function () {
         Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
         Route::get('/products', [AdminController::class, 'getProducts'])->name('product');
         Route::get('/products/search', [AdminController::class, 'searchProduct'])->name('products.search');
-
         Route::get('/editProduct/{id}', [AdminController::class, 'editProduct']);
+        Route::delete('/deleteProduct/{id}', [AdminController::class, 'deleteProduct']);
 
         Route::get('/orders', [AdminController::class, 'showOrderList']);
         Route::prefix('bookReg')->group(function () {
@@ -71,6 +73,8 @@ Route::prefix('admin')
         Route::post('/userManage/userDelete', [AdminController::class, 'userDelete']);
         Route::post('/handler/editProduct/{id}', [AdminController::class, 'editProduct']);
         Route::post('/handler/addProduct', [AdminController::class, 'addProduct']);
+
+        Route::get('/solvedOrder', [AdminController::class, 'showSolvedOrder'])->name('admin.solvedOrder');
     });
 
 

@@ -16,18 +16,20 @@ class AdminController extends Controller
     public function dashboard()
     {
         $userCount = User::count();
-        $productCount = Product::count();
-        $categoryCount = Categories::count();
+        $productCount = DB::table('products')->whereNull('products.deleted_at')->count();
+        $solvedOrderQuantity =  $orderQuantity = DB::table('orders')
+            ->where('status', '=', 1)
+            ->count();
         $orderQuantity = DB::table('orders')
             ->where('status', '=', 0)
             ->count();
 
-        return view('admin.dashboard', compact('userCount', 'productCount', 'categoryCount', 'orderQuantity'));
+        return view('admin.dashboard', compact('userCount', 'productCount', 'orderQuantity', 'solvedOrderQuantity'));
     }
 
     public function getProducts()
     {
-        $products = Product::paginate(10);
+        $products = DB::table('products')->whereNull('products.deleted_at')->paginate(10);
         return view('admin.product', compact('products'));
     }
 
@@ -35,7 +37,7 @@ class AdminController extends Controller
     {
         $searchTerm = $request->input('searchTerm');
 
-        $products = Product::where('name', 'like', "%$searchTerm%")->paginate(10);
+        $products = DB::table('products')->where('name', 'like', "%$searchTerm%")->whereNull('products.deleted_at')->paginate(10);
 
         return response()->json($products);
     }
@@ -78,8 +80,6 @@ class AdminController extends Controller
                 'rating' => [],
             ]
         );
-
-
         if (isset($image)) {
             $imageUrl = $image->store('images', 'public');
             $formData['image'] = asset('storage/' . $imageUrl);
@@ -93,6 +93,12 @@ class AdminController extends Controller
         }
 
         return redirect('/admin/addProd/')->with('message', 'khong thanh cong');
+    }
+
+    public function deleteProduct($id)
+    {
+        DB::table('products')->where('products.id', $id)->update(['deleted_at' => now()]);
+        return response()->json(['message' => 'Delete product successfully']);
     }
 
     public function editProduct($id, Request $request)
@@ -206,12 +212,23 @@ class AdminController extends Controller
         $orderQuantity = $orders->count();
         return view('admin.order', compact('orders', 'orderQuantity'));
     }
+    public function showSolvedOrder()
+    {
+        $orders = DB::table('orders')
+            ->where('status', '=', 1)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+
+        $orderQuantity = $orders->count();
+        return view('admin.solvedOrder', compact('orders', 'orderQuantity'));
+    }
     public function updateOrder(Request $request, $id)
     {
         if ($request->has('approve')) {
             DB::table('orders')->where('id', $id)->update(['status' => 1]);
         } elseif ($request->has('cancel')) {
-            DB::table('orders')->where('id', $id)->update(['status' => 2]);
+            DB::table('orders')->where('id', $id)->update(['status' => 3]);
         }
         return redirect()->route('admin.order');
     }
@@ -223,7 +240,7 @@ class AdminController extends Controller
             ->join('orders', 'orders.id', '=', 'cart_items.orderId')
             ->join('carts', 'orders.cartId', '=', 'carts.id')
             ->join('products', 'cart_items.productId', '=', 'products.id')
-            ->select('products.*', 'orders.total as totalPrice', 'cart_items.quantity', 'cart_items.price as unit_price', 'cart_items.id as cartItemId')
+            ->select('products.*', 'orders.total as totalPrice', 'orders.address as address', 'cart_items.quantity', 'cart_items.price as unit_price', 'cart_items.id as cartItemId')
             ->where('orders.id', $id)
             ->get();
 

@@ -39,7 +39,9 @@
                         class="@if (request()->routeIs('admin.order')) active @endif"><i class="fas fa-list"></i>Danh sách đặt
                         hàng</a>
                 </li>
-                {{-- <li class="majorItem"><a href=""><i class="fas fa-comment-alt"></i>Phản hồi</a></li> --}}
+                <li class="majorItem"><a href="{{ route('admin.solvedOrder') }}"
+                        class="@if (request()->routeIs('admin.solvedOrder')) active @endif"><i class="fas fa-comment-alt"></i>Danh
+                        sách đơn hàng đã duyệt</a></li>
                 <li class="majorItem"><a href="../"><i class="fas fa-home"></i>Trang chủ</a></li>
                 <li class="majorItem"><a href=""><i class="fas fa-sign-out-alt"></i>Đăng xuất</a></li>
 
