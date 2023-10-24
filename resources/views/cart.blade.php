@@ -16,90 +16,100 @@
 
     <body>
 
-        <div class="container">
-
+        <div class="container mt-2">
             <h1>Giỏ hàng</h1>
-            <?php ?>
-            <form action="/cart/update" method="POST" class=" cart table-wrap medium--hide ">
-                @csrf
-                <div class="table-responsive">
-                    <table class="cart-table table">
-                        <thead class="cart_row ">
-                            <tr>
-                                <th colspan="2" class="text-center">Sản phẩm</th>
-                                <th class="text-center" style="width: 135px;">Đơn giá</th>
-                                <th class="text-center">Số lượng</th>
-                                <th class="text-right" style="width: 135px;">Tổng giá</th>
-                                <th class="text-right">#</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($cartItems as $cartItem)
-                                <tr class="cart_row table__section">
-                                    <td data-label="Sản phẩm">
-                                        <a href="/productDetail/{{ $cartItem->name }}" class="cart__image">
-                                            <img src="{{ $cartItem->image }}" alt="{{ $cartItem->name }}">
-                                        </a>
-                                    </td>
 
-                                    <td>
-                                        <a href="/productDetail/{{ $cartItem->name }}" class="h4">
-                                            {{ $cartItem->name }}
-                                        </a>
-                                    </td>
-                                    <td data-label="Đơn giá">
-                                        <span class="h3">
-                                            {{ $cartItem->itemPrice }}
-                                        </span>
-                                    </td>
-                                    <td class="quantity" data-label="Số lượng">
-                                        <div class="input-group row">
-                                            <button type="button" class="btn btn-icon btn-secondary btn_minus"
-                                                data-cart-item-id="{{ $cartItem->id }}">-</button>
-                                            <input type="number" class="form-control text-center quantity-input"
-                                                id="quantity" name="quantity[]" value="{{ $cartItem->quantity }}">
-                                            <button type="button" class="btn btn-icon btn-secondary btn_plus"
-                                                data-cart-item-id="{{ $cartItem->id }}">+ </button>
-                                        </div>
-                                    </td>
-                                    <td data-label="Tổng tiền" class="text-right">
-                                        <span class="h3">
-                                            {{ $cartItem->totalPrice }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="h3">
-                                            <a href="#" class="delete-cart-item"
-                                                data-cart-item-id="{{ $cartItem->cartItemId }}">Xoá</a>
-                                        </span>
-                                    </td>
+            @if ($cartItemQuantity > 0)
+                <form action="/cart/update" method="POST" class=" cart table-wrap medium--hide ">
+                    @csrf
+                    <div class="table-responsive">
+                        <table class="cart-table table">
+                            <thead class="cart_row ">
+                                <tr>
+                                    <th colspan="2" class="text-center">Sản phẩm</th>
+                                    <th class="text-center" style="width: 135px;">Đơn giá</th>
+                                    <th class="text-center">Số lượng</th>
+                                    <th class="text-right" style="width: 135px;">Tổng giá</th>
+                                    <th class="text-right">#</th>
                                 </tr>
-                                <input type="hidden" name="product_ids[]" value="{{ $cartItem->id }}">
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div class="grid cart_row">
-                    <div class="row">
-                        <div class="grid__item col-8 ">
-                            <label for="CartSpecialInstructions">Ghi chú</label><br>
-                            <textarea name="note" class="input-full" id="CartSpecialInstructions"></textarea>
-                        </div>
-                        <div class="grid__item col-4 total">
-                            <p>
-                                <span class="">Tạm tính</span>
-                                <span class="h3"> {{ $totalCartPrice }}
-                                </span>
-                            </p>
-                            <div class="flex justify-end space-x-2 ">
-                                <button type="submit" name="update" class="btn update-cart">Cập nhật</button>
-                                <a id="checkoutBtn" class=" bg-red-600 py-1  px-2 font-bold" href="/checkout">Thanh toán</a>
+                            </thead>
+                            <tbody>
+
+                                @foreach ($cartItems as $cartItem)
+                                    <tr class="cart_row table__section">
+                                        <td data-label="Sản phẩm">
+                                            <a href="/productDetail/{{ $cartItem->name }}" class="cart__image">
+                                                <img src="{{ $cartItem->image }}" alt="{{ $cartItem->name }}">
+                                            </a>
+                                        </td>
+
+                                        <td>
+                                            <a href="/productDetail/{{ $cartItem->name }}" class="h4">
+                                                {{ $cartItem->name }}
+                                            </a>
+                                        </td>
+                                        <td data-label="Đơn giá">
+                                            <span class="h3">
+                                                {{ $cartItem->itemPrice }}
+                                            </span>
+                                        </td>
+                                        <td class="quantity" data-label="Số lượng">
+                                            <div class="input-group row">
+                                                <button type="button" class="btn btn-icon btn-secondary btn_minus"
+                                                    data-cart-item-id="{{ $cartItem->id }}">-</button>
+                                                <input type="number" class="form-control text-center quantity-input"
+                                                    id="quantity" name="quantity[]" value="{{ $cartItem->quantity }}">
+                                                <button type="button" class="btn btn-icon btn-secondary btn_plus"
+                                                    data-cart-item-id="{{ $cartItem->id }}">+ </button>
+                                            </div>
+                                        </td>
+                                        <td data-label="Tổng tiền" class="text-right">
+                                            <span class="h3">
+                                                {{ $cartItem->totalPrice }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="h3">
+                                                <a href="#" class="delete-cart-item"
+                                                    data-cart-item-id="{{ $cartItem->cartItemId }}">Xoá</a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <input type="hidden" name="product_ids[]" value="{{ $cartItem->id }}">
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="grid cart_row">
+                        <div class="row">
+                            <div class="grid__item col-8 ">
+                                <label for="CartSpecialInstructions">Ghi chú</label><br>
+                                <textarea name="note" class="input-full" id="CartSpecialInstructions"></textarea>
+                            </div>
+                            <div class="grid__item col-4 total">
+                                <p>
+                                    <span class="">Tạm tính</span>
+                                    <span class="h3"> {{ $totalCartPrice }}
+                                    </span>
+                                </p>
+                                <div class="flex justify-end space-x-2 ">
+                                    <button type="submit" name="update" class="btn update-cart">Cập nhật</button>
+                                    <a id="checkoutBtn" class=" bg-red-600 py-1  px-2 font-bold" href="/checkout">Thanh
+                                        toán</a>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </form>
+            @else
+                <div class="d-flex flex-column align-items-center mt-10">
+                    <div>
+                        <img src="https://cdni.iconscout.com/illustration/free/thumb/free-empty-cart-4085814-3385483.png"
+                            width="400" height="300" class="img-fluid mb-4 mr-3">
+                    </div>
+                    <h2><strong>Giỏ hàng trống</strong></h2>
                 </div>
-            </form>
-
+            @endif
         </div>
         <script>
             $(".btn_minus").click(function() {
@@ -129,7 +139,7 @@
                 $.ajax({
                     url: '/cart/delete-cart-item/' + cartItemID,
                     type: 'DELETE',
-                    headers: {                                                
+                    headers: {
                         'X-CSRF-TOKEN': csrfToken
                     },
                     success: function(data) {

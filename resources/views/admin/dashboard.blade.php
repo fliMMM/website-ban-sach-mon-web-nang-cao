@@ -13,19 +13,12 @@
                 <p>Số lượng sản phẩm</p>
                 <p>{{ $productCount }}</p>
             </div>
-            <div class="col-lg-5 overviewItem">
-                <i class="fa-brands fa-microsoft"></i>
-                <p>Số lượng danh mục</p>
-                <p>{{ $categoryCount }}</p>
-            </div>
+
             <div class="col-lg-5 overviewItem">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <p>Số lượng đặt hàng</p>
-                <p>{{ $orderCount }}</p>
+                <p>{{ $orderQuantity }}</p>
             </div>
         </div>
     </div>
 @endsection
-
-
-
