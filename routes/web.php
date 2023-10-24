@@ -67,7 +67,7 @@ Route::prefix('admin')
         });
         Route::get('/editProd/{id}', [AdminController::class, 'showEditProd']);
         Route::get('/addProd', [AdminController::class, 'showAddProd']);
-        Route::get('/userManage', [AdminController::class, 'userManage']);
+        Route::get('/userManage', [AdminController::class, 'userManage'])->name('admin.userManage');
         Route::post('/userManage/userDelete', [AdminController::class, 'userDelete']);
         Route::post('/handler/editProduct/{id}', [AdminController::class, 'editProduct']);
         Route::post('/handler/addProduct', [AdminController::class, 'addProduct']);

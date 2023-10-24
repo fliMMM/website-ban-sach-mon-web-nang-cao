@@ -40,6 +40,9 @@
                         class="@if (request()->routeIs('admin.order')) active @endif"><i class="fas fa-list"></i>Danh sách đặt
                         hàng</a>
                 </li>
+                <li class="majorItem"><a href="{{ route('admin.userManage') }}"
+                        class="@if (request()->routeIs('admin.userManage')) active @endif"><i class="fas fa-list"></i>Quản lí người dùng</a>
+                </li>
                 <li class="majorItem"><a href=""><i class="fas fa-comment-alt"></i>Phản hồi</a></li>
                 <li class="majorItem"><a href="../"><i class="fas fa-home"></i>Trang chủ</a></li>
                 <li class="majorItem"><a href=""><i class="fas fa-sign-out-alt"></i>Đăng xuất</a></li>
