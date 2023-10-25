@@ -45,6 +45,11 @@
                         hàng</a>
                 </li>
 
+                <li class="majorItem"><a href="{{ route('admin.solvedOrder') }}"
+                        class="@if (request()->routeIs('admin.solvedOrder')) active @endif"><i class="fas fa-comment-alt"></i>Danh
+                        sách đơn hàng đã duyệt</a></li>
+
+
                 <li class="majorItem"><a href="{{ route('admin.userManage') }}"
                         class="@if (request()->routeIs('admin.userManage')) active @endif"><i class="fa-regular fa-user"></i>Quản
                         lí người dùng</a>
@@ -56,6 +61,7 @@
                     class="@if (request()->routeIs('bookConfirm')) active @endif"><i class="fa-solid fa-receipt"></i>Duyệt sách</a>
             </li>
                 <li class="majorItem"><a href=""><i class="fas fa-comment-alt"></i>Phản hồi</a></li>
+
 
                 <li class="majorItem"><a href="../"><i class="fas fa-home"></i>Trang chủ</a></li>
                 <li class="majorItem"><a href=""><i class="fas fa-sign-out-alt"></i>Đăng xuất</a></li>
