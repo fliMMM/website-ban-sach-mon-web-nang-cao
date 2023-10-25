@@ -2,7 +2,17 @@
 
 @section('body')
     <div class="px-10 pb-10 flex items-center space-x-10 justify-center">
-
+        @if (Session::has('status_error'))
+            <script>
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: '{{ Session::get('status_error') }}',
+                    showConfirmButton: true,
+                    timer: 2000
+                })
+            </script>
+        @endif
         <div class="space-y-4 shadow p-5 rounded-sm mt-32">
             @if (session('duplicateEmail'))
                 <ul>
@@ -34,7 +44,7 @@
                     <i id="eye_slash_confirm" class="fa-regular fa-eye-slash absolute right-5 top-3 cursor-pointer"></i>
                 </div>
                 @error('confirmPassword')
-                    <p class="text-red-500 font-bold">Hãy nhập đúng mật khẩu</p>
+                    <p class="text-red-500 font-bold">{{ $errors->first('confirmPassword') }}</p>
                 @enderror
 
                 <button type="submit" class="bg-[#D51C24]  p-2 text-white font-bold mt-2 w-96">Đăng

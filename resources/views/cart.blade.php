@@ -1,5 +1,5 @@
 @extends('layout')
-
+@section('title', 'Giỏ hàng')
 @section('body')
     <!DOCTYPE html>
     <html lang="en">

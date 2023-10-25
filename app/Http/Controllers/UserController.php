@@ -29,25 +29,25 @@ class UserController extends Controller
 
   public function handleRegister(Request $request)
   {
-    unset($_SESSION['duplicateEmail']);
-
-    $existUserCout = DB::table('users')
-      ->where('email', $request->email)
-      ->count();
-
-    if ($existUserCout > 0) {
-      return redirect('/register')->with('duplicateEmail', "Email đã tồn tại!");
-    }
 
     $formData = $request->validate(
       [
         'email' => ['required', 'email'],
         'password' => ['required', "min:8"],
         'confirmPassword' => ['required', "min:8", "same:password"],
-      ]
+      ],
+      [
+        'confirmPassword.same' => 'Hãy nhập đúng xác nhận mật khẩu!!'
+      ],
     );
 
+    $existUserCout = DB::table('users')
+      ->where('email', $request->email)
+      ->count();
 
+    if ($existUserCout > 0) {
+      return redirect('/register')->with('status_error', "Email đã tồn tại!");
+    }
 
     array_pop($formData);
 
@@ -81,7 +81,7 @@ class UserController extends Controller
 
     $user = DB::table('users')->where('email', '=', $formData['email'])->get();
 
-    if ($user[0]->isBan == 1) {
+    if (isset($user[0]) && $user[0]->isBan == 1) {
       return back()->with('status_error', "Tải khoản đã bị cấm");
     }
 

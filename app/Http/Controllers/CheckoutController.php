@@ -58,7 +58,7 @@ class CheckoutController extends Controller
                 'userId' => [],
                 'total' => [],
                 'cartId' => [],
-                'fullname' => [],
+                'fullname' => ['required'],
                 'address' => ['required'],
                 'phoneNumber' => ['required', 'regex:/^(([+]84|0)[1-9]\d{8})$/'],
                 'payment_method' => ['required', 'doesnt_start_with:label'],
@@ -90,7 +90,6 @@ class CheckoutController extends Controller
 
 
         $formData['email'] = auth()->user()->email;
-        $formData['fullname'] = auth()->user()->name;
         $formData['userId'] = auth()->user()->id;
         $formData['cartId'] = $cartId;
         $formData['total'] =  $total_amount + 10000;

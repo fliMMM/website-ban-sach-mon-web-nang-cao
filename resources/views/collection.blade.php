@@ -1,4 +1,5 @@
 @extends('layout')
+@section('title', 'Bộ sưu tập')
 @section('body')
     <!DOCTYPE html>
     <html lang="en">

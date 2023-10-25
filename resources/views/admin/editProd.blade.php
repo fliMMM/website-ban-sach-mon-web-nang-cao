@@ -1,4 +1,5 @@
 @extends('admin.adminLayout')
+@section('title', $product->name)
 
 @section('adminBody')
     <link rel="stylesheet" href="{{ asset('/css/admin/dashboard.css') }}">

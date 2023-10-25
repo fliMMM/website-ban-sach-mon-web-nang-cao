@@ -1,5 +1,5 @@
 @extends('layout')
-
+@section('title', 'BookAM')
 @section('body')
     <div class="flex flex-col items-center">
         <x-banner />
@@ -31,17 +31,18 @@
             arrow: true,
             focusOnSelect: true,
             responsive: [{
-                breakpoint: 1030,
-                settings: {
-                    slidesToShow: 4,
-                }
-            }, 
-            {
-                breakpoint: 770,
-                settings: {
-                    slidesToShow: 3,
-                }
-            },]
+                    breakpoint: 1030,
+                    settings: {
+                        slidesToShow: 4,
+                    }
+                },
+                {
+                    breakpoint: 770,
+                    settings: {
+                        slidesToShow: 3,
+                    }
+                },
+            ]
         });
     </script>
 @endsection

@@ -55,18 +55,20 @@ Route::prefix('/account')
 Route::prefix('admin')
     ->middleware('auth', 'can:admin')
     ->group(function () {
-        Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
-        Route::get('/products', [AdminController::class, 'getProducts'])->name('product');
+        Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('/products', [AdminController::class, 'getProducts'])->name('admin.product');
         Route::get('/products/search', [AdminController::class, 'searchProduct'])->name('products.search');
         Route::get('/editProduct/{id}', [AdminController::class, 'editProduct']);
         Route::delete('/deleteProduct/{id}', [AdminController::class, 'deleteProduct']);
 
-        Route::get('/orders', [AdminController::class, 'showOrderList']);
+        Route::get('/orders', [AdminController::class, 'showOrderList'])->name('admin.order');
         Route::prefix('bookReg')->group(function () {
             Route::get('/', [AdminController::class, 'bookReg'])->name('bookReg');
             Route::get('/confirm', [AdminController::class, 'manageBookReg'])->name('bookConfirm');
             Route::post('/confirm', [AdminController::class, 'bookRegConfirm']);
         });
+        Route::post('/update-order-status/{id}', [AdminController::class, 'updateOrder'])->name('update.order.status');
+        Route::get('/order/{id}', [AdminController::class, 'showOrderDetail'])->name('order.detail');
         Route::get('/editProd/{id}', [AdminController::class, 'showEditProd']);
         Route::get('/addProd', [AdminController::class, 'showAddProd']);
         Route::get('/userManage', [AdminController::class, 'userManage'])->name('admin.userManage');

@@ -1,4 +1,5 @@
 @extends('admin.adminLayout')
+@section('title', 'Thêm mới sản phẩm')
 
 @section('adminBody')
     <form method="POST" action="/admin/handler/addProduct" class='h-screen mx-4 mt-4' enctype="multipart/form-data">

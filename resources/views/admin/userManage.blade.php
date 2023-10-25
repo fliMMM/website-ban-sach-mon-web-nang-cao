@@ -1,4 +1,5 @@
 @extends('admin.adminLayout')
+@section('title', 'Quản lí người dùng')
 @section('adminBody')
     <p class="text-center text-4xl mt-4 font-bold">Quản lí người dùng</p>
     @if (Session::has('message'))
@@ -42,11 +43,11 @@
                                 <td>{{ $user->phone }}</td>
                                 <td>{{ $user->status }}</td>
                                 @if ($user->isAdmin == 1)
-                                <td>Admin</td>
+                                    <td>Admin</td>
                                 @else
-                                <td>User</td>
+                                    <td>User</td>
                                 @endif
-                                
+
                             </tr>
                         @endforeach
                     </tbody>
@@ -60,15 +61,18 @@
                         </div>
                         <p class="mb-0 text-xl text-white">Chọn tất cả ({{ $userCount }})</p>
                         <button type="submit" class="ml-2 text-xl text-white" name="action" value="delete">Xoá</button>
-                        
+
                     </div>
                     <div class="flex items-center">
                         <p class="text-white mb-0 text-xl mr-2">Thay đổi quyền:</p>
-                        <button type="submit" class="no-underline text-xl bg-red-400 w-[80px] p-2 text-white mr-4" name="action" value="user">User</button>
-                        <button type="submit" class="no-underline text-xl bg-red-400 w-[80px] p-2 text-white mr-4" name="action" value="admin">Admin</button>
+                        <button type="submit" class="no-underline text-xl bg-red-400 w-[80px] p-2 text-white mr-4"
+                            name="action" value="user">User</button>
+                        <button type="submit" class="no-underline text-xl bg-red-400 w-[80px] p-2 text-white mr-4"
+                            name="action" value="admin">Admin</button>
                     </div>
-                    
-                    <button type="submit" class="no-underline text-xl bg-red-400 p-2 text-white mr-4" name="action" value="unban">Huỷ Chặn</button>
+
+                    <button type="submit" class="no-underline text-xl bg-red-400 p-2 text-white mr-4" name="action"
+                        value="unban">Huỷ Chặn</button>
                     <button type="submit" class="no-underline text-xl bg-red-400 p-2 text-white mr-4" name="action"
                         value="ban" id="confirm">Chặn tài khoản</button>
                     @csrf
