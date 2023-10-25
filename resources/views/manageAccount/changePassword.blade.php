@@ -19,7 +19,7 @@
                                         icon: 'success',
                                         title: '{{ Session::get('success') }}',
                                         showConfirmButton: true,
-                                        timer: 2000
+                                        timer: 4000
                                     })
                                 </script>
                             @endif
@@ -31,7 +31,7 @@
                                         title: '{{ Session::get('error') }}',
                                         text: 'Hãy nhập đúng thông tin!',
                                         showConfirmButton: true,
-                                        timer: 2000
+                                        timer: 4000
                                     })
                                 </script>
                             @endif

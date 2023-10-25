@@ -13,7 +13,7 @@ class HomeController extends Controller
     public function layoutShow()
     {
         $id = Auth::id();
-        $countCartItem = DB::table('cart_items')->where('cartId' , '=' ,  $id)->where('isCheckout','=', 0)->count();
+        $countCartItem = DB::table('cart_items')->where('cartId', '=',  $id)->where('isCheckout', '=', 0)->count();
         return response()->json([
             'countCartItem' => $countCartItem,
         ]);
@@ -21,17 +21,45 @@ class HomeController extends Controller
     public function show()
     {
         $list = DB::table('products')
+            ->whereNull('deleted_at')
             ->limit(7)
             ->get();
         $newBooks = DB::table('products')
+            ->whereNull('deleted_at')
             ->orderBy('id', 'desc')
             ->limit(7)
             ->get();
         $sellingbooks = DB::table('products')
+            ->whereNull('deleted_at')
             ->orderBy('inStock', 'asc')
             ->limit(7)
             ->get();
-        return view('home', ['listProducts' => $list, 'newbooks' => $newBooks, 'sellingbooks' => $sellingbooks]);
+        $comedyBooks = DB::table('products')
+            ->whereNull('deleted_at')
+            ->where('categories', 'LIKE', '%Comedy%')
+            ->orderBy('inStock', 'desc')
+            ->limit(7)
+            ->get();
+        $schoolLifebooks = DB::table('products')
+            ->whereNull('deleted_at')
+            ->where('categories', 'LIKE', '%SchoolLife%')
+            ->orderBy('inStock', 'desc')
+            ->limit(7)
+            ->get();
+        $fantasybooks = DB::table('products')
+            ->whereNull('deleted_at')
+            ->where('categories', 'LIKE', '%Fantasy%')
+            ->limit(7)
+            ->get();
+
+        return view('home', [
+            'listProducts' => $list,
+            'newbooks' => $newBooks,
+            'sellingbooks' => $sellingbooks,
+            'comedyBooks' => $comedyBooks,
+            'schoolLifebooks' => $schoolLifebooks,
+            'fantasybooks' => $fantasybooks
+        ]);
     }
     public function search(Request $request)
     {

@@ -62,7 +62,7 @@
             <i class="fa fa-rss ml-40 mr-2" style="color: #ffffff;"></i>
             <marquee behavior="scroll" direction="left" class="w-96 text-white">
                 Chào mừng bạn đến với NXB BookAM. Nếu bạn cần giúp đỡ, hãy liên hệ với chúng tôi qua hotline: (+84)
-                1900571595 hoặc email: cskh_online@nxbkimdong.com.vn.
+                1900571595 hoặc email: cskh_online@bookam.com.vn.
             </marquee>
         </div>
         <div class="flex w-100vw justify-around items-center pb-3 mt-3 border-b">
