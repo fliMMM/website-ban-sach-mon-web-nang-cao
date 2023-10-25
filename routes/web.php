@@ -67,6 +67,8 @@ Route::prefix('admin')
             Route::get('/confirm', [AdminController::class, 'manageBookReg'])->name('bookConfirm');
             Route::post('/confirm', [AdminController::class, 'bookRegConfirm']);
         });
+        Route::post('/update-order-status/{id}', [AdminController::class, 'updateOrder'])->name('update.order.status');
+        Route::get('/order/{id}', [AdminController::class, 'showOrderDetail'])->name('order.detail');
         Route::get('/editProd/{id}', [AdminController::class, 'showEditProd']);
         Route::get('/addProd', [AdminController::class, 'showAddProd']);
         Route::get('/userManage', [AdminController::class, 'userManage'])->name('admin.userManage');
