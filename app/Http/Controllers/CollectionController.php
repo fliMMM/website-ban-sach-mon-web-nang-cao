@@ -60,6 +60,12 @@ class CollectionController extends Controller
             $products = Product::orderBy('ngayPhatHanh', 'desc')->paginate(16);
         } elseif ($title == "SÁCH BÁN CHẠY") {
             $products = Product::orderBy('inStock', 'asc')->paginate(16);
+        } elseif ($title == "HỌC ĐƯỜNG") {
+            $products = Product::where('categories', 'LIKE', '%SchoolLife%')->paginate(16);
+        } elseif ($title == "HÀI HƯỚC") {
+            $products = Product::where('categories', 'LIKE', '%Comedy%')->paginate(16);
+        } elseif ($title == "VIỄN TƯỞNG") {
+            $products = Product::where('categories', 'LIKE', '%Fantasy%')->paginate(16);
         }
         return view('collection', compact('products'));
     }
