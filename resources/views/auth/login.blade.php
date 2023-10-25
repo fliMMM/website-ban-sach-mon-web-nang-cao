@@ -33,7 +33,7 @@
                     @csrf
                     <input placeholder="Email" value="{{ old('email') }}"
                         class="w-96 appearance-none border py-2 px-3 text-gray-700 leading-tight focus:border-gray-500 focus:outline-none"
-                        type="email" id="email" name="email"><br>
+                        type="text" id="email" name="email"><br>
 
                     @error('email')
                         <p class="text-red-500 font-bold">Email không hợp lệ!</p>
@@ -46,7 +46,7 @@
                         <i id="eye_slash" class="fa-regular fa-eye-slash absolute right-5 top-3 cursor-pointer"></i>
                     </div>
                     @error('password')
-                        <p class="text-red-500 font-bold">Hãy nhập mật khẩu</p>
+                        <p class="text-red-500 font-bold">Hãy nhập mật khẩu dài hơn 8 kí tự</p>
                     @enderror
 
                     <button type="submit" class="bg-[#D51C24]  p-2 text-white font-bold mt-2 w-96">Đăng

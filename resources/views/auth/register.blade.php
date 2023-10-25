@@ -34,7 +34,7 @@
                     <i id="eye_slash_confirm" class="fa-regular fa-eye-slash absolute right-5 top-3 cursor-pointer"></i>
                 </div>
                 @error('confirmPassword')
-                    <p class="text-red-500 font-bold">Hãy nhập đúng mật khẩu</p>
+                    <p class="text-red-500 font-bold">Hãy nhập mật khẩu nhiểu hơn 8 ký tự</p>
                 @enderror
 
                 <button type="submit" class="bg-[#D51C24]  p-2 text-white font-bold mt-2 w-96">Đăng
