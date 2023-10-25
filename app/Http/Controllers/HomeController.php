@@ -13,7 +13,7 @@ class HomeController extends Controller
     public function layoutShow()
     {
         $id = Auth::id();
-        $countCartItem = DB::table('cart_items')->where('cartId' , '=' ,  $id)->count();
+        $countCartItem = DB::table('cart_items')->where('cartId' , '=' ,  $id)->where('isCheckout','=', 0)->count();
         return response()->json([
             'countCartItem' => $countCartItem,
         ]);

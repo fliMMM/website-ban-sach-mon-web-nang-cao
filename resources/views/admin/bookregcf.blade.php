@@ -54,14 +54,14 @@
                 </tbody>
             @endforeach
         </table>
-        <div class="bg-[#a9171d] w-2/4 p-3 flex items-center justify-between" style="position: fixed; bottom: 0; right: 0">
+        <div class="bg-[#a9171d] w-5/6 p-3 flex items-center justify-between" style="position: fixed; bottom: 0; right: 0">
             <div class="flex items-center">
                 <div class="form-check ml-3 mt-1">
                     <input class="form-check-input" type="checkbox" value="" id="checkboxall"
                         onchange="checkall(this)">
                 </div>
                 <p class="mb-0 text-xl text-white">Chọn tất cả ({{ $bookRegCount }})</p>
-                <button type="submit" class="ml-2 text-xl text-white" name="action" value="delete">Xoá</button>
+                <button type="submit" class="ml-10 text-xl text-white" name="action" value="delete">Xoá</button>
             </div>
             <button type="submit" class="no-underline text-xl bg-red-400 p-2 text-white mr-4" name="action"
                 value="confirm" id="confirm">Duyệt</button>

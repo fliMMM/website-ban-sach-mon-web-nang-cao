@@ -165,7 +165,7 @@ class AccountController extends Controller
             [
                 'name' => 'required',
                 'author' => 'required',
-                'quantity' => 'required|numeric|max:10',
+                'quantity' => 'required|numeric|max:10000000',
             ],
             [
                 'name.required' => 'Vui lòng nhập Họ Tên',
@@ -228,8 +228,8 @@ class AccountController extends Controller
         $orders = DB::table('orders')
             ->where('userId', '=', auth()->user()->id)
             ->where('status', '=', (int)$tab)
+            ->orderBy('created_at', 'desc')
             ->get();
-
 
 
         foreach ($orders as $order) {
@@ -251,5 +251,4 @@ class AccountController extends Controller
 
         return view('manageAccount.order', compact('orders', 'tab'));
     }
-
 }
