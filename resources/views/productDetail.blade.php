@@ -10,7 +10,18 @@
                     icon: 'success',
                     title: '{{ Session::get('message') }}',
                     showConfirmButton: true,
-                    timer: 2000
+                    timer: 4000
+                })
+            </script>
+        @endif
+        @if (Session::has('status_error'))
+            <script>
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: '{{ Session::get('status_error') }}',
+                    showConfirmButton: true,
+                    timer: 4000
                 })
             </script>
         @endif
@@ -49,6 +60,12 @@
                                         <p class="">Đối tượng:</p>
                                         <p class="text-red-600 font-medium ml-2">{{ $productDetail->target }}</p>
                                     </div>
+
+                                    <div class="flex items-centers">
+                                        <p class="">Thể loại:</p>
+                                        <p class="text-red-600 font-medium ml-2">{{ $productDetail->categories }}</p>
+                                    </div>
+
                                     <p>Ngày Phát Hành: {{ $productDetail->ngayPhatHanh }}</p>
                                     <p>Khuôn Khổ: {{ $productDetail->khuonKho }}</p>
                                     <p>Số Trang: {{ $productDetail->soTrang }} </p>
@@ -66,7 +83,7 @@
 
                                     </div>
                                     <div class="bg-red-700 w-24 mt-2 text-center">
-                                        <button
+                                        <button id="buy_now_btn"
                                             class="text-white xl:py-2 xl:px-1 xl:text-base lg:text-sm lg:py-2 lg:px-1 md:py-2">MUA
                                             NGAY
                                         </button>
@@ -120,6 +137,15 @@
         <x-backtotop />
     </div>
     <script type="text/javascript">
+        $('#buy_now_btn').click(() => {
+            Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: 'Chức năng đang được phát triển',
+                showConfirmButton: true,
+                timer: 4000
+            })
+        })
         $('.multiple-items').slick({
             slidesToShow: 5,
             slidesToScroll: 1,

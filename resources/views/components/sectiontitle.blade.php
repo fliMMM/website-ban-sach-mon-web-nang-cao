@@ -4,9 +4,10 @@
         @foreach ($list as $listProduct)
             <div class="ml-6 mr-6">
                 <a href="/productDetail/{{ $listProduct->name }}"><img src="{{ $listProduct->image }}" alt=""
-                        class="xl:w-48 lg:w-40 xl:h-72 lg:h-56 md:w-32 md:h-40" ></a>
+                        class="xl:w-48 lg:w-40 xl:h-72 lg:h-56 md:w-32 md:h-40"></a>
                 <a href="/productDetail/{{ $listProduct->name }} " class="no-underline text-black">
-                    <p class="xl:w-48 mr-4 lg:w-[102px] xl:w-[180px] text-sm font-semibold line-clamp-2 mb-1">{{ $listProduct->name }}</p>
+                    <p class="xl:w-48 mr-4 lg:w-[102px] xl:w-[180px] text-sm font-semibold line-clamp-2 mb-1">
+                        {{ $listProduct->name }}</p>
                 </a>
                 <?php
                 $price = number_format($listProduct->price, 0, '', ',');

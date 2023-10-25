@@ -4,7 +4,7 @@
         <div class="m-4">
             <h3 class="text-center">Đăng ký sách</h3>
             <div class="flex mt-10 justify-items-start">
-                <x-menubar title="Đăng ký sách"/>    
+                <x-menubar title="Đăng ký sách" />
                 <div class="ml-8 w-3/5">
                     <div>
                         <p>Đăng ký sách</p>
@@ -66,7 +66,7 @@
                 icon: 'success',
                 title: '{{ Session::get('message') }}',
                 showConfirmButton: true,
-                timer: 2000
+                timer: 4000
             })
         </script>
     @endif

@@ -27,32 +27,35 @@
                                         <p class="ml-2 text-[#757575]">{{ $adr->phone }}</p>
                                     </div>
                                     <div class="mb-0 h-[30px]">
-                                        <p class="mb-0 text-[#757575]">{{ $adr->locationSpecific}}</p>
+                                        <p class="mb-0 text-[#757575]">{{ $adr->locationSpecific }}</p>
                                     </div>
                                     <div class="flex h-[30px]">
                                         <p class="text-[#757575] mr-1.5">{{ $adr->city }},</p>
-                                        <p class="text-[#757575] mr-1.5">{{ $adr->district}},</p>
+                                        <p class="text-[#757575] mr-1.5">{{ $adr->district }},</p>
                                         <p class="text-[#757575]">{{ $adr->village }}</p>
                                     </div>
-                                    @if ($adr ->isDefault == 1)
-                                    <p class="text-center border text-red-500 w-[80px]" style="border-color: red !important">Mặc định</p>
-                                @endif
+                                    @if ($adr->isDefault == 1)
+                                        <p class="text-center border text-red-500 w-[80px]"
+                                            style="border-color: red !important">Mặc định</p>
+                                    @endif
                                 </div>
                                 <div class="columns-1">
                                     <button type="button" class="ml-10 mb-3 text-red-700 font-bold" id="editAddress"
                                         value="{{ $adr->id }}">Cập nhật</button>
                                     <button class="text-red-700 font-bold ml-2" value="{{ $adr->id }}"
                                         id="deleteAddress">Xoá</button>
-                                        @if ($adr ->isDefault == 1)
+                                    @if ($adr->isDefault == 1)
                                         <div class="border border-black pl-2 pr-2 bg-white">
                                             <button class="mb-0 text-[#A2A2A2]" disabled>Thiết lập mặc định</button>
                                         </div>
-                                        @else
+                                    @else
                                         <div class="border border-black pl-2 pr-2">
-                                            <a href="address/checkDefault/{{$adr->id}}" class= "no-underline text-black" id ="setDefault" value="{{$adr->id}}">Thiết lập mặc định</a>
+                                            <a href="address/checkDefault/{{ $adr->id }}"
+                                                class= "no-underline text-black" id ="setDefault"
+                                                value="{{ $adr->id }}">Thiết lập mặc định</a>
                                         </div>
-                                        @endif
-                                  
+                                    @endif
+
                                 </div>
 
                             </div>
@@ -73,7 +76,7 @@
                                                         placeholder="name@example.com" style="border-radius: 0">
                                                     <label for="floatingInput">Họ và tên</label>
                                                 </div>
-                                             
+
                                                 <div class="form-floating mb-3">
                                                     <input type="text" class="form-control" name="phone"
                                                         placeholder="name@example.com" style="border-radius: 0">
@@ -81,10 +84,10 @@
                                                 </div>
                                             </div>
                                             @error('name')
-                                            <p class="text-red-400 ml-28 mb-0">
-                                                {{ $message }}
-                                            </p>
-                                             @enderror
+                                                <p class="text-red-400 ml-28 mb-0">
+                                                    {{ $message }}
+                                                </p>
+                                            @enderror
                                             <div>
                                                 <div class="flex justify-between items-center">
                                                     <select class="form-select form-select-base mb-3" id="city"
@@ -301,12 +304,12 @@
                                     icon: 'success',
                                     title: 'Địa chỉ đã được xoá',
                                     showConfirmButton: true,
-                                    timer: 2000
-                                }).then((confirmed)=>{
+                                    timer: 4000
+                                }).then((confirmed) => {
                                     // console.log(window.location)
                                     window.location.reload();
                                 })
-                               
+
                             }
                         });
 

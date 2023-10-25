@@ -9,7 +9,7 @@
                     icon: 'error',
                     title: '{{ Session::get('status_error') }}',
                     showConfirmButton: true,
-                    timer: 2000
+                    timer: 4000
                 })
             </script>
         @endif

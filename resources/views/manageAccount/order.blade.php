@@ -8,7 +8,7 @@
                     icon: 'success',
                     title: '{{ Session::get('success') }}',
                     showConfirmButton: true,
-                    timer: 2000
+                    timer: 4000
                 })
             </script>
         @endif

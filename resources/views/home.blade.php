@@ -12,16 +12,16 @@
             <x-sectiontitle :$list title="SÁCH BÁN CHẠY" />
         </div>
         <div class="w-8/12">
-            <?php $list = $sellingbooks; ?>
-            <x-sectiontitle :$list title="SÁCH BÁN CHẠY" />
+            <?php $list = $schoolLifebooks; ?>
+            <x-sectiontitle :$list title="HỌC ĐƯỜNG" />
         </div>
         <div class="w-8/12">
-            <?php $list = $sellingbooks; ?>
-            <x-sectiontitle :$list title="SÁCH BÁN CHẠY" />
+            <?php $list = $comedyBooks; ?>
+            <x-sectiontitle :$list title="HÀI HƯỚC" />
         </div>
         <div class="w-8/12">
-            <?php $list = $sellingbooks; ?>
-            <x-sectiontitle :$list title="SÁCH BÁN CHẠY" />
+            <?php $list = $fantasybooks; ?>
+            <x-sectiontitle :$list title="VIỄN TƯỞNG" />
         </div>
     </div>
     <script type="text/javascript">
