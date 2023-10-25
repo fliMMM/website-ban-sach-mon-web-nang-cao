@@ -55,13 +55,13 @@ Route::prefix('/account')
 Route::prefix('admin')
     ->middleware('auth', 'can:admin')
     ->group(function () {
-        Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
-        Route::get('/products', [AdminController::class, 'getProducts'])->name('product');
+        Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('/products', [AdminController::class, 'getProducts'])->name('admin.product');
         Route::get('/products/search', [AdminController::class, 'searchProduct'])->name('products.search');
         Route::get('/editProduct/{id}', [AdminController::class, 'editProduct']);
         Route::delete('/deleteProduct/{id}', [AdminController::class, 'deleteProduct']);
 
-        Route::get('/orders', [AdminController::class, 'showOrderList']);
+        Route::get('/orders', [AdminController::class, 'showOrderList'])->name('admin.order');
         Route::prefix('bookReg')->group(function () {
             Route::get('/', [AdminController::class, 'bookReg'])->name('bookReg');
             Route::get('/confirm', [AdminController::class, 'manageBookReg'])->name('bookConfirm');

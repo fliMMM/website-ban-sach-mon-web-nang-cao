@@ -81,7 +81,7 @@ class UserController extends Controller
 
     $user = DB::table('users')->where('email', '=', $formData['email'])->get();
 
-    if ($user[0]->isBan == 1) {
+    if (isset($user[0]) && $user[0]->isBan == 1) {
       return back()->with('status_error', "Tải khoản đã bị cấm");
     }
 
