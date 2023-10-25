@@ -28,7 +28,7 @@
 </head>
 
 <body>
-    <div class="row d-flex page w-full h-full">
+    <div class="row d-flex page w-full h-fit">
         <div class="col-lg-2 dashboard">
             <h1>Welcome Admin</h1>
             <ul class="majorList">
@@ -55,16 +55,22 @@
                         lí người dùng</a>
                 </li>
                 <li class="majorItem"><a href="{{ route('bookReg') }}"
-                        class="@if (request()->routeIs('bookReg')) active @endif"><i class="fa-solid fa-bookmark"></i>Sách đăng ký</a>
+                        class="@if (request()->routeIs('bookReg')) active @endif"><i class="fa-solid fa-bookmark"></i>Sách
+                        đăng ký</a>
                 </li>
                 <li class="majorItem"><a href="{{ route('bookConfirm') }}"
-                    class="@if (request()->routeIs('bookConfirm')) active @endif"><i class="fa-solid fa-receipt"></i>Duyệt sách</a>
-            </li>
+                        class="@if (request()->routeIs('bookConfirm')) active @endif"><i class="fa-solid fa-receipt"></i>Duyệt
+                        sách</a>
+                </li>
                 <li class="majorItem"><a href=""><i class="fas fa-comment-alt"></i>Phản hồi</a></li>
 
 
                 <li class="majorItem"><a href="../"><i class="fas fa-home"></i>Trang chủ</a></li>
-                <li class="majorItem"><a href=""><i class="fas fa-sign-out-alt"></i>Đăng xuất</a></li>
+                <form action="/logout" method="POST">
+                    @csrf
+                    <button type="submit" class="majorItem text-white fonr-bold text-xl"><i
+                            class="fas fa-sign-out-alt"></i>Đăng xuất</button>
+                </form>
 
             </ul>
         </div>

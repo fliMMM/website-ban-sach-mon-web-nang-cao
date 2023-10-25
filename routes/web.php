@@ -98,39 +98,7 @@ Route::get('/filter-products',  [CollectionController::class, 'filterByType']);
 
 
 
-Route::prefix('admin')->group(function () {
-    Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/products', [AdminController::class, 'getProducts'])->name('admin.product');
-    Route::get('/products/search',  [AdminController::class, 'searchProduct'])->name('products.search');
-
-
-    Route::get('/orders', [AdminController::class, 'showOrderList'])->name('admin.order');
-    Route::post('/update-order-status/{id}', [AdminController::class, 'updateOrder'])->name('update.order.status');
-    Route::get('/order/{id}', [AdminController::class, 'showOrderDetail'])->name('order.detail');
-
-
-    // Route::get('/editProduct/{id}', [AdminController::class, 'editProduct']);
-    Route::get('/editProd/{id}', [AdminController::class, 'showEditProd']);
-    Route::get('/addProd', [AdminController::class, 'showAddProd']);
-
-    Route::post('/handler/editProduct/{id}', [AdminController::class, 'editProduct']);
-    Route::post('/handler/addProduct', [AdminController::class, 'addProduct']);
-});
-
-
-
-
-
 Route::get('/checkout', [CheckoutController::class, 'show']);
-
-//show login form
-// Route::get('/login', [UserController::class, 'showLogin'])->name('login');
-
-// // //show register form
-// Route::get('/', [UserController::class, 'showRegister'])->name('register');
-
-//create users
-// Route::post('/users', [UserController::class, 'createUser']);
 
 //handle checkout
 Route::post('/handle/checkout', [CheckoutController::class, 'handleCheckout']);
