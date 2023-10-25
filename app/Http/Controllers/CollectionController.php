@@ -11,8 +11,8 @@ class CollectionController extends Controller
 {
     public function show()
     {
-        $collections = Product::paginate(16);
-        return view('collection', compact('collections'));
+        $products = Product::paginate(16);
+        return view('collection', compact('products'));
     }
     public function sortProduct(Request $request)
     {
@@ -33,22 +33,34 @@ class CollectionController extends Controller
             case 'price-descending':
                 $query = Product::orderBy('price', 'desc');
                 break;
-
             default:
                 break;
         }
 
-        $collections = $query->paginate(16);
-        return response()->json($collections);
+        $products = $query->paginate(16);
+        return response()->json($products);
     }
 
 
     public function filterByType(Request $request)
     {
-        $selectedCategory = $request->input('categories');
+        $selectedCategories = $request->input('categories');
 
-        $products = Product::where('categories', 'LIKE', "%$selectedCategory%")->get();
+        $products = Product::where(function ($query) use ($selectedCategories) {
+            foreach ($selectedCategories as $category) {
+                $query->where('categories', 'like', '%' . $category . '%');
+            }
+        })->get();
 
         return response()->json($products);
+    }
+    public function showNewBooks($title)
+    {
+        if ($title == "SÁCH MỚI") {
+            $products = Product::orderBy('ngayPhatHanh', 'desc')->paginate(16);
+        } elseif ($title == "SÁCH BÁN CHẠY") {
+            $products = Product::orderBy('inStock', 'asc')->paginate(16);
+        }
+        return view('collection', compact('products'));
     }
 }

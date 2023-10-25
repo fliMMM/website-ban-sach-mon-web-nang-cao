@@ -12,20 +12,25 @@
     </head>
 
     <body>
+        @if (Session::has('status_error'))
+            <script>
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: '{{ Session::get('status_error') }}',
+                    showConfirmButton: true,
+                    timer: 2000
+                })
+            </script>
+        @endif
         <div class="px-10 pb-10 flex items-center space-x-10 justify-center">
 
             <div class="space-y-3 shadow p-5 rounded-sm mt-32">
-                @if (session('status'))
-                    <ul>
-                        <li class="text-danger"> {{ session('status') }}</li>
-                    </ul>
-                @endif
 
                 <p class="text-2xl font-bold mb-0">Xin chào,</p>
 
                 <form class=" space-y-2" method="POST" action="/handler/login">
                     @csrf
-
                     <input placeholder="Email" value="{{ old('email') }}"
                         class="w-96 appearance-none border py-2 px-3 text-gray-700 leading-tight focus:border-gray-500 focus:outline-none"
                         type="email" id="email" name="email"><br>
@@ -54,7 +59,9 @@
                             nhập Facebook</button>
                     </div>
                 </form>
-                <div><a class="text-red-600 text-lg no-underline" href="/register"> Đăng
+                <div class="flex justify-between">
+                    <a class="text-red-600 text-lg no-underline" href="/forgot-password"> Quên mật khẩu</a>
+                    <a class="text-red-600 text-lg no-underline" href="/register"> Đăng
                         ký</a>
                 </div>
             </div>

@@ -1,168 +1,183 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+@extends('admin.adminLayout')
+@section('adminBody')
+    @vite('resources/css/app.css')
     <link rel="stylesheet" href="{{ asset('/css/admin/product.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <div class="flex items-center space-x-2">
+        <form action="{{ route('products.search') }}" method="get">
+            <div class="input-group flex-nowrap mt-3 w-fit">
+                <span class="input-group-text" id="addon-wrapping"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                        height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg></span>
+                <input type="text" id="searchTerm" name="searchTerm" class="form-control" placeholder="Tìm kiếm sản phẩm"
+                    aria-label="Tìm kiếm sản phẩm" aria-describedby="addon-wrapping">
+            </div>
+        </form>
 
-</head>
-
-<body>
-
-    <div class="row">
-        <div class="col-lg-2 dashboard">
-            <h1>Welcome, Admin</h1>
-            <ul class="majorList">
-                <li class="majorItem"><a href="/admin"><i class="fas fa-chart-simple"></i>Tổng quan</a>
-                </li>
-                <li class="majorItem"><a href="" class="active"><i class="fas fa-list"></i>Danh sách sản phẩm</a>
-                </li>
-                <li class="majorItem"><a href="/admin/orders"><i class="fa-solid fa-cart-shopping"></i>Danh sách đặt
-                        hàng</a>
-                </li>
-                <li class="majorItem"><a href=""><i class="fas fa-comment-alt"></i>Phản hồi</a></li>
-                <li class="majorItem"><a href="../"><i class="fas fa-home"></i>Trang chủ</a></li>
-                <li class="majorItem"><a href=""><i class="fas fa-sign-out-alt"></i>Đăng xuất</a></li>
-            </ul>
-        </div>
-        <div class="col-lg-10 products">
-            <table class="table mt-5">
-                <thead>
-                    <tr>
-                        <th scope="col">STT</th>
-                        <th scope="col">Ảnh</th>
-                        <th scope="col">Tên sản phẩm</th>
-                        <th scope="col">Mô tả</th>
-                        <th scope="col">Giá tiền</th>
-                        <th scope="col">Hành động</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>
-                            <img class="productImage"
-                                src="https://firebasestorage.googleapis.com/v0/b/wibu-image.appspot.com/o/images%2F1652758019517THA%CC%81M%20TU%CC%9B%CC%89%20LU%CC%9B%CC%80NG%20DANH%20CONAN%20-%20TIE%CC%82%CC%89U%20THUYE%CC%82%CC%81T%20-%20HOA%20HU%CC%9BO%CC%9B%CC%81NG%20DU%CC%9BO%CC%9BNG%20TRONG%20BIE%CC%82%CC%89N%20LU%CC%9B%CC%89A.png?alt=media&token=3c9c29cc-80b4-468a-b127-1627f43f1974"
-                                alt="">
-                        </td>
-                        <td class="productName">THÁM TỬ LỪNG DANH CONAN - TIỂU THUYẾT - HOA HƯỚNG DƯƠNG TRONG BIỂN LỬA
-                        </td>
-                        <td class="productDescription">“Chết tiệt!” Shinichi vận hết
-                            sức lay thanh sắt.
-                            “Nếu không nhanh
-                            lên thì chẳng những bức
-                            tranh mà cả mình cũng sẽ…” Thế nhưng, dù thử đủ cách, cậu không thể nạy được cây cọc nằm lèn
-                            chặt giữa tường phòng và bức tranh. Cậu thở khó nhọc. Sau lưng cậu vang lên tiếng gạch vụn
-                            lộp độp rơi. Phòng triển lãm chìm trong khói bụi, ngọn lửa đã đuổi sát nút. “Kid!” Đột
-                            nhiên, một tiếng gọi vang lên. Khi quay đầu lại, cậu nhìn thấy Conan chạy vào phòng. Tập
-                            đoàn Suzuki đấu giá thành công kiệt tác Hoa hướng dương mộng ảo tưởng chừng thất lạc của
-                            danh họa van Gogh với số tiền kỉ lục và dự định tổ chức một triển lãm vô tiền khoáng hậu.
-                            Không ngờ, tai họa kinh hoàng liên tiếp giáng xuống bức tranh có số phận chìm nổi cùng những
-                            người liên quan. Bí ẩn đằng sau bức họa là gì? Danh tính kẻ thủ ác liệu có được vạch trần?
-                        </td>
-                        <td>2132131$</td>
-                        <td colspan="2">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#editProduct">Sửa</button>
-                            <div class="modal fade" id="editProduct" tabindex="-1" aria-labelledby="editProductLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="editProductLabel">Chỉnh sửa sản phẩm</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form>
-                                                <div class="form-group">
-                                                    <label for="productName">Tên sản phẩm:</label>
-                                                    <input type="text" class="form-control" id="productName">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="productImage">Ảnh:</label>
-                                                    <img src="https://firebasestorage.googleapis.com/v0/b/wibu-image.appspot.com/o/images%2F1652758019517THA%CC%81M%20TU%CC%9B%CC%89%20LU%CC%9B%CC%80NG%20DANH%20CONAN%20-%20TIE%CC%82%CC%89U%20THUYE%CC%82%CC%81T%20-%20HOA%20HU%CC%9BO%CC%9B%CC%81NG%20DU%CC%9BO%CC%9BNG%20TRONG%20BIE%CC%82%CC%89N%20LU%CC%9B%CC%89A.png?alt=media&token=3c9c29cc-80b4-468a-b127-1627f43f1974"
-                                                        alt="">
-                                                    <input type="file" onchange="readURL(this);" class="form-control"
-                                                        id="productImage">
-                                                    <img class="changingImage" src="#" alt="ảnh muốn thay thế" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="productPrice">Giá tiền:</label>
-                                                    <input type="text" class="form-control" id="productPrice">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="productDescription">Mô tả:</label>
-                                                    <textarea class="form-control" id="productDescription" rows="5"></textarea>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Huỷ</button>
-                                            <button type="button" class="btn btn-primary">Lưu</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                data-bs-target="#removeProduct">Xoá</button>
-                            <div class="modal fade" id="removeProduct" tabindex="-1"
-                                aria-labelledby="removeProductLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <form action="" method="">
-                                                Bạn có chắc chắn muốn xoá sản phẩm?
-                                                <button type="button" class="btn btn-danger">Xoá</button>
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Huỷ</button>
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>@fat</td>
-                        <td>@fat</td>
-                    </tr>
-
-                </tbody>
-            </table>
-        </div>
+        <a href="/admin/addProd/" class="block no-underline bg-blue-600 px-2 py-[0.4rem] rounded-md text-white mt-3">Thêm
+            sản phẩm</a>
     </div>
+    <table class="table mt-5">
+        <thead>
+            <tr>
+
+                <th scope="col">Ảnh</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Số lượng sản phẩm còn lại</th>
+                <th scope="col">Giá tiền</th>
+                <th scope="col">Hành động</th>
+            </tr>
+        </thead>
+        <tbody class="productList">
+            @foreach ($products as $product)
+                <?php
+                $formattedPrice = number_format($product->price, 0, ',', '.') . ' ₫';
+                ?>
+                <tr>
+                    <td>
+                        <img class="productImage" src="{{ $product->image }}" alt="">
+                    </td>
+                    <td class="truncate-text">
+                        <div>{{ $product->name }}</div>
+                    </td>
+                    <td>
+                        {{ $product->inStock }} sản phẩm
+
+                    </td>
+                    <td>{{ $formattedPrice }}</td>
+                    <td colspan="2">
+                        <div class="flex space-x-2">
+                            <a class='bg-blue-600 block mt-2 w-fit text-white no-underline px-[0.6rem] py-1 rounded-md'
+                                href="/admin/editProd/{{ $product->id }}">Sửa</a>
+                            <button type="button" data-product-id="{{ $product->id }}"
+                                class="mt-2 removeBtn bg-red-600 outsideRemove w-fit text-white no-underline px-[0.6rem] py-1 rounded-md"
+                                data-bs-toggle="modal" data-bs-target="#removeProduct">Xoá</button>
+                        </div>
+                        <div class="modal fade" id="removeProduct" tabindex="-1" aria-labelledby="removeProductLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        Bạn có chắc chắn muốn xoá sản phẩm?
+                                        <div class="text-right mt-1">
+                                            <button type="button" class="btn btn-danger deleteProduct"
+                                                data-bs-dismiss="modal">Xoá</button>
+                                            <button type="button" class="btn btn-success"
+                                                data-bs-dismiss="modal">Huỷ</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
     <script>
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+        function removeProduct() {
+            $('.removeBtn').click(function() {
+                var productID = $(this).data('product-id');
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                $(".deleteProduct").click(function() {
+                    $.ajax({
+                        url: '/admin/deleteProduct/' + productID,
+                        type: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        success: function(data) {
+                            location.reload();
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+                });
+            })
+        }
+        removeProduct();
+        $('#searchTerm').on('input', function() {
+            var searchTerm = $(this).val();
+            $.ajax({
+                url: "{{ route('products.search') }}",
+                method: 'GET',
+                data: {
+                    searchTerm: searchTerm
+                },
+                dataType: 'json',
+                success: function(data) {
+                    let productList = $(".productList");
+                    productList.empty();
+                    $.each(data.data, function(index, product) {
+                        var price = formatVND(product.price);
+                        productList.append(`
+                <tr>
+                    <td>
+                        <img class="productImage" src="${product.image}" alt="">
+                    </td>
+                    <td class="truncate-text">
+                        <div>${product.name}</div>
+                    </td>
+                    <td>
+                        ${product.inStock} sản phẩm
 
-                reader.onload = function(e) {
-                    $('.changingImage').attr('src', e.target.result).width(150).height(200);
-                };
+                    </td>
+                    <td>${price}</td>
+                    <td colspan="2">
+                        <div class="flex space-x-2">
+                            <a class='bg-blue-600 block mt-2 w-fit text-white no-underline px-[0.6rem] py-1 rounded-md'
+                                href="/admin/editProd/ ${product.id}">Sửa</a>
+                            <button type="button" data-product-id=" ${product.id}"
+                                class="mt-2 removeBtn bg-red-600 outsideRemove w-fit text-white no-underline px-[0.6rem] py-1 rounded-md"
+                                data-bs-toggle="modal" data-bs-target="#removeProduct">Xoá</button>
+                        </div>
+                        <div class="modal fade" id="removeProduct" tabindex="-1" aria-labelledby="removeProductLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        Bạn có chắc chắn muốn xoá sản phẩm?
+                                        <div class="text-right mt-1">
+                                            <button type="button" class="btn btn-danger deleteProduct"
+                                                data-bs-dismiss="modal">Xoá</button>
+                                            <button type="button" class="btn btn-success"
+                                                data-bs-dismiss="modal">Huỷ</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>`);
+                        removeProduct();
+                    });
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
 
-                reader.readAsDataURL(input.files[0]);
-            }
+        function formatVND(number) {
+            return number.toLocaleString('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            });
         }
     </script>
-</body>
-
-</html>
+    {{ $products->links() }}
+@endsection

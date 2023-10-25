@@ -1,11 +1,14 @@
+.page {
+    height: 100vh;
+}
+
 .dashboard {
     background-color: #a9171d;
-    height: 100vh;
     padding: 30px 25px !important;
 }
 .dashboard h1 {
     color: #fff;
-    font-size: 25px;
+    font-size: 27px;
     text-transform: uppercase;
 }
 

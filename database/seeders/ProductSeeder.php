@@ -30,7 +30,6 @@ class ProductSeeder extends Seeder
         'price' => intval($item[5]),
         'inStock' => intval($item[6]),
         'target' => $item[7],
-        'isDelete' => false,
         'khuonKho' => $item[9],
         'soTrang' => $item[10],
         'weight' => $item[11],

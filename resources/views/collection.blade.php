@@ -88,35 +88,31 @@
                     </div>
                     <div class="collection-body">
                         <div class="product-list row">
-                            @foreach ($collections as $collection)
+                            @foreach ($products as $product)
                                 <div class="product-item col-lg-3 col-md-4 col-sm-4">
                                     <div class="product-img">
-                                        <a href="/productDetail/{{ $collection->name }}">
-                                            <img src="{{ $collection->image }}">
+                                        <a href="/productDetail/{{ $product->name }}">
+                                            <img src="{{ $product->image }}">
                                         </a>
                                     </div>
                                     <div class="product-info">
                                         <div class="product-title">
-                                            <a href="/productDetail/{{ $collection->name }}"><span
-                                                    class="truncate-text">{{ $collection->name }}</span></a>
+                                            <a href="/productDetail/{{ $product->name }}"><span
+                                                    class="truncate-text">{{ $product->name }}</span></a>
                                         </div>
                                         <div class="product-price">
-                                            <span class="current-price">{{ $collection->price }}₫</span>
+                                            <span class="current-price">{{ $product->price }}₫</span>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
-                        {{ $collections->links() }}
+                        {{ $products->links() }}
                     </div>
                 </div>
             </div>
         </div>
         <script>
-            $('input[name="typeFilter"]').click(function() {
-                $('input[name="typeFilter"]').not(this).prop('checked', false);
-            });
-
             $('#SortBy').on('change', function() {
                 var selectedOption = $(this).val();
                 updateUrlWhenSorted(selectedOption);
@@ -145,18 +141,14 @@
                                 `
                 <div class="product-item col-lg-3 col-md-4 col-sm-4">
                     <div class="product-img">
-                        <a href="" class="text-center">
+                        <a href="/productDetail/${product.name}" class="text-center">
                             <img id="1045175926" src="${product.image}">    
                         </a>
-                        {{-- <div class="product-tags">
-                                            <div class="tag-saleoff text-center">
-                                                -70%
-                                            </div>
-                                        </div> --}}
+                      
                     </div>
                     <div class="product-info">
                         <div class="product-title">
-                            <a href=""><span class="truncate-text">${product.name}</span></a>
+                            <a href="/productDetail/${product.name}"><span class="truncate-text">${product.name}</span></a>
                         </div>
                         <div class="product-price">
                             <span class="current-price">${product.price}₫</span>
@@ -180,49 +172,53 @@
                 updateProductList();
             });
 
-            function updateUrlWhenFiltered(categorySelected) {
-                var newUrl1 = window.location.pathname + '?category=' + categorySelected;
-                window.history.pushState({
-                    path: newUrl1
-                }, '', newUrl1);
+
+            function updateUrlWhenFiltered() {
+                var selectedCategories = $('input[type="checkbox"]:checked').map(function() {
+                    return $(this).val();
+                }).get();
+
+                var newURL = '/collection/category?' + $.param({
+                    categories: selectedCategories
+                });
+                history.pushState({}, '', newURL);
             }
 
             function updateProductList() {
-                var selectedCategory = $('input[type="checkbox"]:checked').val();
-
+                var selectedCategories = $('input[type="checkbox"]:checked').map(function() {
+                    return $(this).val();
+                }).get();
+                console.log(selectedCategories);
                 $.ajax({
                     url: '/filter-products',
                     method: 'GET',
                     data: {
-                        categories: selectedCategory
+                        categories: selectedCategories
                     },
                     success: function(data) {
+                        console.log(data);
                         let filteredProducts = $('.product-list');
                         filteredProducts.empty();
                         $.each(data, function(index, product) {
-                            filteredProducts.append(`
-                <div class="product-item col-lg-3 col-md-4 col-sm-4">
-                    <div class="product-img">
-                        <a href="" class="text-center">
-                            <img id="1045175926" src="${product.image}">    
-                        </a>
-                        {{-- <div class="product-tags">
-                                            <div class="tag-saleoff text-center">
-                                                -70%
-                                            </div>
-                                        </div> --}}
-                    </div>
-                    <div class="product-info">
-                        <div class="product-title">
-                            <a href=""><span class="truncate-text">${product.name}</span></a>
-                        </div>
-                        <div class="product-price">
-                            <span class="current-price">${product.price}₫</span>
-                            {{-- <span class="original-price"><s>56,000₫</s></span> --}}
-                        </div>
-                    </div>
-                </div>
-                `);
+                            filteredProducts.append(`                      
+                            <div class="product-item col-lg-3 col-md-4 col-sm-4">
+                                <div class="product-img">
+                                    <a href="" class="text-center">
+                                        <img id="1045175926" src="${product.image}">    
+                                    </a>
+                                   
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-title">
+                                        <a href=""><span class="truncate-text">${product.name}</span></a>
+                                    </div>
+                                    <div class="product-price">
+                                        <span class="current-price">${product.price}₫</span>
+                                        {{-- <span class="original-price"><s>56,000₫</s></span> --}}
+                                    </div>
+                                </div>
+                            </div>
+                            `);
                         });
                     },
                     error: function(error) {

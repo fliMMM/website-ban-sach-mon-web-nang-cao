@@ -40,8 +40,8 @@ h4 {
     font-weight: normal;
     font-size: 18px;
 }
-#quantity {
-    width: 40%;
+.quantity {
+    width: 18%;
 }
 .cart_row {
     position: relative;
@@ -52,7 +52,7 @@ h4 {
 
 .cart__image img {
     display: block;
-    max-width: 100%;
+    width: 200px;
 }
 .cart__remove {
     display: block;
@@ -71,6 +71,9 @@ a,
 th,
 td {
     text-align: left;
+}
+.h3 > a:hover {
+    color: #430c0c !important;
 }
 .grid__item {
     box-sizing: border-box;
@@ -157,6 +160,15 @@ input::-webkit-inner-spin-button {
     .container {
         max-width: 90%;
     }
+}
+
+#checkoutBtn {
+    color: white !important;
+}
+
+#checkoutBtn:hover {
+    background-color: white;
+    color: black !important;
 }
 
 @media only screen and (min-width: 990px) and (max-width: 1200px) {

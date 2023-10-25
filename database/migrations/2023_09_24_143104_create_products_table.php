@@ -24,13 +24,13 @@ return new class extends Migration
       $table->integer('price');
       $table->integer('inStock');
       $table->string('target');
-      $table->boolean('isDelete');
       $table->string('khuonKho');
       $table->string('soTrang');
       $table->string('weight');
       $table->string('combo');
       $table->string('ngayPhatHanh');
       $table->integer('rating');
+      $table->string('deleted_at')->nullable();
     });
   }
 

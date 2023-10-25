@@ -40,7 +40,6 @@ class FileController extends Controller
         'userId' => auth()->user()->id
       ];
 
-
       DB::table('files')->where('id', '=', $id)->update($fileInfo);
     }
 

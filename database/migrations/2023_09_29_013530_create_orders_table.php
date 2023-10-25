@@ -15,12 +15,15 @@ return new class extends Migration
       $table->id();
       $table->timestamps();
       $table->integer('userId');
-      $table->string('status');
+      $table->integer('cartId');
+      $table->integer('status')->default(0);
       $table->integer('total');
       $table->string('email');
       $table->string('phoneNumber');
       $table->longText('address');
-      $table->string('fullname');
+      $table->string('fullname')->nullable();
+      $table->string('payment_method');
+      $table->string('deleted_at')->nullable();
     });
   }
 

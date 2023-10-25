@@ -18,6 +18,9 @@ return new class extends Migration
       $table->integer('price');
       $table->integer('quantity');
       $table->integer('cartId');
+      $table->string('deleted_at')->nullable();
+      $table->string('orderId')->nullable();
+      $table->boolean('isCheckout')->default(false);
     });
   }
 

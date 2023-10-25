@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductDetailController;
@@ -7,6 +8,9 @@ use App\Http\Controllers\HomeController;
 use App\Models\File;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
+use Illuminate\Support\Facades\Gate;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,42 +23,85 @@ use App\Http\Controllers\CollectionController;
 |
 */
 
-
 Route::get('/', [HomeController::class, 'show'])->name('home');
+Route::get('/layout', [HomeController::class, 'layoutShow']);
 Route::get('/search', [HomeController::class, 'search']);
-Route::get('/cart', function () {
-  return view('cart');
-})->name('cart');
+
+Route::prefix('/account')
+    ->middleware('auth')
+    ->group(function () {
+        Route::get('/', [AccountController::class, 'profile']);
+        Route::post('/', [AccountController::class, 'updateProfile']);
+        Route::prefix('/address')->group(function () {
+            Route::get('/', [AccountController::class, 'address']);
+            Route::post('/addAddress', [AccountController::class, 'addAddress']);
+            Route::get('/checkDefault/{id}', [AccountController::class, 'checkDefaultAddress']);
+            Route::get('/editAddress/{id}', [AccountController::class, 'editAddress']);
+            Route::post('/updateAddress', [AccountController::class, 'updateAddress']);
+            Route::get('/deleteAddress/{id}', [AccountController::class, 'deleteAddress']);
+        });
+        Route::prefix('/bookRegistration')->group(function () {
+            Route::get('/', [AccountController::class, 'registerBook']);
+            Route::post('/addBookRegistration', [AccountController::class, 'addRegistrationBook']);
+        });
+        Route::get('/listBookReg', [AccountController::class, 'listBookReg']);
+        Route::get('/change-password', [AccountController::class, 'showChangePassword']);
+        Route::post('/handler/change-password', [AccountController::class, 'handleChangePassword']);
+        Route::get('/order', [AccountController::class, 'showOrder']);
+    });
 
 
-Route::get('/collection', [CollectionController::class, 'show'])->name('collection');
+
+Route::prefix('admin')
+    ->middleware('auth', 'can:admin')
+    ->group(function () {
+        Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+        Route::get('/products', [AdminController::class, 'getProducts'])->name('product');
+        Route::get('/products/search', [AdminController::class, 'searchProduct'])->name('products.search');
+        Route::get('/editProduct/{id}', [AdminController::class, 'editProduct']);
+        Route::delete('/deleteProduct/{id}', [AdminController::class, 'deleteProduct']);
+
+        Route::get('/orders', [AdminController::class, 'showOrderList']);
+        Route::prefix('bookReg')->group(function () {
+            Route::get('/', [AdminController::class, 'bookReg'])->name('bookReg');
+            Route::get('/confirm', [AdminController::class, 'manageBookReg'])->name('bookConfirm');
+            Route::post('/confirm', [AdminController::class, 'bookRegConfirm']);
+        });
+        Route::get('/editProd/{id}', [AdminController::class, 'showEditProd']);
+        Route::get('/addProd', [AdminController::class, 'showAddProd']);
+        Route::get('/userManage', [AdminController::class, 'userManage'])->name('admin.userManage');
+        Route::post('/userManage/userDelete', [AdminController::class, 'userDelete']);
+        Route::post('/handler/editProduct/{id}', [AdminController::class, 'editProduct']);
+        Route::post('/handler/addProduct', [AdminController::class, 'addProduct']);
+
+        Route::get('/solvedOrder', [AdminController::class, 'showSolvedOrder'])->name('admin.solvedOrder');
+    });
+
+
+Route::prefix('cart')->group(function () {
+    Route::get('/', [CartController::class, 'show'])->name('cart');
+    Route::delete('/delete-cart-item/{id}', [CartController::class, 'deleteCartItem'])->name('cart.delete');
+    Route::post('/update', [CartController::class, 'updateCart'])->name('cart.update');
+});
+
+
+Route::prefix('collection')->group(function () {
+    Route::get('/{title}', [CollectionController::class, 'showNewBooks'])->name('product');
+    Route::get('/', [CollectionController::class, 'show'])->name('product');
+});
+
 Route::get('/sort-products', [CollectionController::class, 'sortProduct']);
 Route::get('/filter-products',  [CollectionController::class, 'filterByType']);
 
-Route::prefix('admin')->group(function () {
-  Route::get('/', function () {
-    return view('admin.dashboard');
-  });
-  Route::get('/products', function () {
-    return view('admin.product');
-  });
-  Route::get('/orders', function () {
-    return view('admin.order');
-  });
-});
+
+
+
+
 
 Route::get('/checkout', [CheckoutController::class, 'show']);
 
-//show login form
-// Route::get('/login', [UserController::class, 'showLogin'])->name('login');
-
-
-// // //show register form
-// Route::get('/', [UserController::class, 'showRegister'])->name('register');
-
-//create users
-// Route::post('/users', [UserController::class, 'createUser']);
-
+//handle checkout
+Route::post('/handle/checkout', [CheckoutController::class, 'handleCheckout']);
 
 //logout
 Route::post('/logout', [UserController::class, 'logout']);
@@ -64,15 +111,26 @@ Route::get('/login', [UserController::class, 'showLogin'])->name('login');
 //handle login
 Route::post('/handler/login', [UserController::class, 'handleLogin']);
 
-
-
 //delete file
 Route::post('/file/delete/{id}', [FileController::class, 'delete']);
 
-//update file
-Route::post('/file/edit/{id}', [FileController::class, 'update']);
+Route::post('/handler/reset-password', [UserController::class, 'handleResetPassword'])
+    ->middleware('guest')
+    ->name('password.update');
+Route::post('/handler/forgot-password', [UserController::class, 'handleForgotPassword'])
+    ->middleware('guest')
+    ->name('password.email');
+Route::get('/forgot-password', [UserController::class, 'showResetPasswordForm'])
+    ->name('showResetPasswordForm')
+    ->middleware('guest')
+    ->name('password.request');
+Route::get('/reset-password/{token}', function (string $token) {
+    return view('auth.reset_password', ['token' => $token]);
+})
+    ->middleware('guest')
+    ->name('password.reset');
 
-//product Detail 
+//product Detail
 Route::get('/productDetail/{name}', [ProductDetailController::class, 'index'])->name('/productDetail/{name}');
 Route::post('/productDetail/{name}', [ProductDetailController::class, 'addCart']);
 

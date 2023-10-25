@@ -38,8 +38,8 @@
                             {{ $order->created_at }}
                         </td>
                         <td>
-                            <button type="button" class="btn btn-warning orderStatus" data-bs-toggle="modal"
-                                data-bs-target="#orderStatus">Chờ xác nhận</button>
+                            <button type="button" class="btn btn-success orderStatus" data-bs-toggle="modal"
+                                data-bs-target="#orderStatus">Đã duyệt</button>
                             <div class="modal fade" id="orderStatus" tabindex="-1" aria-labelledby="orderStatusLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog">
@@ -113,7 +113,7 @@
                         <img src="https://i.pinimg.com/originals/ae/bc/8c/aebc8c60e30c83f3ab34c978733dab26.png"
                             width="500" height="400" class="img-fluid mb-4 mr-3">
                     </div>
-                    <h3><strong>Danh sách đặt hàng trống</strong></h3>
+                    <h3><strong>Danh sách đơn hàng đã duyệt hàng trống</strong></h3>
                 </div>
             @endif
 
