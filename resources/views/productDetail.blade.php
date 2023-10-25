@@ -17,6 +17,7 @@
         <div class="w-8/12 mx-auto my-0">
             @if (count($productDetails) > 0)
                 @foreach ($productDetails as $productDetail)
+                    @section('title', $productDetail->name)
                     <div class="mt-10">
                         <div class="flex ">
                             <a href="{{ route('home') }}" class="no-underline text-base text-slate-900">Trang chủ</a>
@@ -26,7 +27,8 @@
                         </div>
                     </div>
                     <div class="xl:flex lg:flex md:block mt-6">
-                        <img src="{{ $productDetail->image }}" class="lg:w-2/5 lg:h-2/4 xl:h-[600px] xl:w-[500px] md:w-full" alt="">
+                        <img src="{{ $productDetail->image }}" class="lg:w-2/5 lg:h-2/4 xl:h-[600px] xl:w-[500px] md:w-full"
+                            alt="">
                         <div class="lg:ml-10 xl:ml-10 md:ml-0 lg:w-3/5 xl:w-3/5 md:w-full">
                             <div class="border-b pt-3 pb-3 ">
                                 <h4 class="">{{ $productDetail->name }}</h4>
@@ -56,14 +58,17 @@
                                     <div class="bg-red-700">
                                         <form action="" method="post">
                                             @csrf
-                                            <button type="submit" class="text-white xl:text-base lg:text-sm lg:px-2 xl:px-5 py-1 md:px-2">
+                                            <button type="submit"
+                                                class="text-white xl:text-base lg:text-sm lg:px-2 xl:px-5 py-1 md:px-2">
                                                 THÊM VÀO GIỎ HÀNG
                                             </button>
                                         </form>
 
                                     </div>
                                     <div class="bg-red-700 w-24 mt-2 text-center">
-                                        <button class="text-white xl:py-2 xl:px-1 xl:text-base lg:text-sm lg:py-2 lg:px-1 md:py-2">MUA NGAY
+                                        <button
+                                            class="text-white xl:py-2 xl:px-1 xl:text-base lg:text-sm lg:py-2 lg:px-1 md:py-2">MUA
+                                            NGAY
                                         </button>
                                     </div>
                                 </div>
@@ -121,17 +126,18 @@
             arrow: true,
             focusOnSelect: true,
             responsive: [{
-                breakpoint: 1030,
-                settings: {
-                    slidesToShow: 4,
-                }
-            }, 
-            {
-                breakpoint: 770,
-                settings: {
-                    slidesToShow: 3,
-                }
-            },]
+                    breakpoint: 1030,
+                    settings: {
+                        slidesToShow: 4,
+                    }
+                },
+                {
+                    breakpoint: 770,
+                    settings: {
+                        slidesToShow: 3,
+                    }
+                },
+            ]
         });
     </script>
 @endsection

@@ -1,4 +1,5 @@
 @extends('admin.adminLayout')
+@section('title', 'Danh sách đặt hàng')
 @section('adminBody')
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="{{ asset('/css/admin/order.css') }}">

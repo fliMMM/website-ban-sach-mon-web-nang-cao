@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
-    <title>Document</title>
+    <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('/css/buttontop.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/clients/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
@@ -61,7 +61,7 @@
             <i class="fa-brands fa-youtube mr-6" style="color: #ffffff;"></i>
             <i class="fa fa-rss ml-40 mr-2" style="color: #ffffff;"></i>
             <marquee behavior="scroll" direction="left" class="w-96 text-white">
-                Chào mừng bạn đến với NXB KIM ĐỒNG. Nếu bạn cần giúp đỡ, hãy liên hệ với chúng tôi qua hotline: (+84)
+                Chào mừng bạn đến với NXB BookAM. Nếu bạn cần giúp đỡ, hãy liên hệ với chúng tôi qua hotline: (+84)
                 1900571595 hoặc email: cskh_online@nxbkimdong.com.vn.
             </marquee>
         </div>
@@ -81,26 +81,26 @@
             </div>
 
 
-            <a href="{{ route('home') }}"><img src="https://theme.hstatic.net/200000343865/1001052087/14/logo.png?v=320"
+            <a class="py-2" href="{{ route('home') }}"><img width="160px" src="{{ asset('assets/logo.png') }}"
                     alt="" class=""></a>
 
             <div class="flex justify-center items-center">
                 @auth
-                @if (auth()->user()->isAdmin == 1)
-                    <a href="/admin" class="no-underline text-black border p-2 bg-red-500">Admin</a>
-                @endif
+                    @if (auth()->user()->isAdmin == 1)
+                        <a href="/admin" class="no-underline text-black border p-2 bg-red-500">Admin</a>
+                    @endif
                 @endauth
                 <ul class="flex w-100vw justify-between items-center space-x-4 mt-2 mb-2">
                     <a href="{{ route('cart') }}" class="text-black flex items-center"><i
                             class="fa-solid fa-bag-shopping fa-xl ml-3" style="color:red"></i></a>
-                <div id="countCartItem" style="margin-left: 0"> </div>
+                    <div id="countCartItem" style="margin-left: 0"> </div>
                     @auth
                         <div class="dropdown ">
                             <a class="btn d-flex border-0 items-center bg-white " href="#" role="button"
                                 id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="flex items-center">
-                                    <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
-                                        alt="" class="w-10 h-10 rounded-circle">
+                                    <img src="{{ asset('assets/user.png') }}" alt=""
+                                        class="w-10 h-10 rounded-circle">
                                     <p class="mt-1 mb-0 text-black font-normal">
                                         {{ auth()->user()->email }}
                                     </p>
@@ -270,7 +270,9 @@
             success: function(response) {
                 if (response.countCartItem > 0) {
                     // $('#countCartItem').text(response.countCartItem);
-                    $('#countCartItem').html('<p class="text-white border rounded-full w-6 text-center bg-red-500" style="margin-left: 0" id ="count"></p>')
+                    $('#countCartItem').html(
+                        '<p class="text-white border rounded-full w-6 text-center bg-red-500" style="margin-left: 0" id ="count"></p>'
+                    )
                     $('#count').text(response.countCartItem)
                 }
             }

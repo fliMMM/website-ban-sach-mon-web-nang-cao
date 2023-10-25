@@ -1,4 +1,5 @@
 @extends('admin.adminLayout')
+@section('title', 'Tổng quan')
 @section('adminBody')
     <link rel="stylesheet" href="{{ asset('/css/admin/dashboard.css') }}">
     <div class="container mt-5">

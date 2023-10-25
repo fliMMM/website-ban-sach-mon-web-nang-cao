@@ -1,4 +1,5 @@
 @extends('admin.adminLayout')
+@section('title', 'Yêu cầu sách')
 @section('adminBody')
     <p class="text-center mt-4 text-4xl font-bold">Sách đăng ký chờ duyệt</p>
     @if (Session::has('message'))
