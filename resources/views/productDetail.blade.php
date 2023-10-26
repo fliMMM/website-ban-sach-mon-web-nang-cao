@@ -33,7 +33,7 @@
                         <div class="flex ">
                             <a href="{{ route('home') }}" class="no-underline text-base text-slate-900">Trang chủ</a>
                             <p class="text-base ">
-                                /{{ $productDetail->name }}
+                                / {{ $productDetail->name }}
                             </p>
                         </div>
                     </div>
@@ -43,6 +43,11 @@
                         <div class="lg:ml-10 xl:ml-10 md:ml-0 lg:w-3/5 xl:w-3/5 md:w-full">
                             <div class="border-b pt-3 pb-3 ">
                                 <h4 class="">{{ $productDetail->name }}</h4>
+                                <?php
+                                $categories = explode(',', $productDetail->categories);
+                                $firstCategory = array_shift($categories);
+                                ?>
+                                <input type="hidden" name="productName" value="{{ $firstCategory }}">
                             </div>
                             <div class="border-b pt-3 pb-3">
                                 <?php
