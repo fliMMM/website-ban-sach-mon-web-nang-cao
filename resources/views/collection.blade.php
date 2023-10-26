@@ -73,8 +73,7 @@
                 </div>
                 <div class="col-lg-9 order-lg-2 order-md-1 order-sm-1">
                     <div class="collection-head row mb-3">
-                        <h1 class="col-lg-6">Đón trung thu tới - Khuyến mãi 70%</h1>
-                        <div class="text-right col-lg-6 sortBy">
+                        <div class="text-right sortBy">
                             <label for="SortBy">Sắp xếp</label>
                             <form action="/sort-products" method="GET">
                                 <select name="SortBy" id="SortBy">
@@ -204,7 +203,7 @@
                             filteredProducts.append(`                      
                             <div class="product-item col-lg-3 col-md-4 col-sm-4">
                                 <div class="product-img">
-                                    <a href="" class="text-center">
+                                    <a href="/productDetail/${product.name}" class="text-center">
                                         <img id="1045175926" src="${product.image}">    
                                     </a>
                                    

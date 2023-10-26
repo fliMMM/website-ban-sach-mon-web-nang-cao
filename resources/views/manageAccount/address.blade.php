@@ -1,4 +1,5 @@
 @extends('layout')
+@section('title', 'Địa chỉ')
 @section('body')
     @push('css')
         <link href="{{ asset('/css/input.css') }}" rel="stylesheet" />

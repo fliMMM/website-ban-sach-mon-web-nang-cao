@@ -1,4 +1,5 @@
 @extends('layout')
+@section('title', 'ĐTheo dõi đơn hàng')
 @section('body')
     <div class="">
         @if (Session::has('success'))
@@ -101,9 +102,11 @@
                                         </div>
                                     </div>
                                     <p class="text-lg text-red-600">Danh sách sản phẩm</p>
+
                                     @foreach ($order->products as $product)
                                         <p>{{ $product->name }} x {{ $product->quantity }}</p>
                                     @endforeach
+
 
                                     <p>Tổng tiền: {{ number_format($order->total) }} đ </p>
                                 </div>

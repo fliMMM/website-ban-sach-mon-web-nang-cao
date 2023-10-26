@@ -1,4 +1,5 @@
 @extends('layout')
+@section('title', 'Hồ sơ')
 @section('body')
     <div class="">
         <div class="m-4">

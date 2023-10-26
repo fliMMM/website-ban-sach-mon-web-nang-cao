@@ -88,7 +88,7 @@ Route::prefix('cart')->group(function () {
 
 
 Route::prefix('collection')->group(function () {
-    Route::get('/{title}', [CollectionController::class, 'showNewBooks'])->name('product');
+    Route::get('/{title}', [CollectionController::class, 'showCollection'])->name('product');
     Route::get('/', [CollectionController::class, 'show'])->name('product');
 });
 
