@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Product;
 
@@ -54,18 +55,33 @@ class CollectionController extends Controller
 
         return response()->json($products);
     }
-    public function showNewBooks($title)
+    public function showCollection(Request $request, $title)
     {
-        if ($title == "SÁCH MỚI") {
-            $products = Product::orderBy('ngayPhatHanh', 'desc')->paginate(16);
-        } elseif ($title == "SÁCH BÁN CHẠY") {
-            $products = Product::orderBy('inStock', 'asc')->paginate(16);
-        } elseif ($title == "HỌC ĐƯỜNG") {
-            $products = Product::where('categories', 'LIKE', '%SchoolLife%')->paginate(16);
-        } elseif ($title == "HÀI HƯỚC") {
-            $products = Product::where('categories', 'LIKE', '%Comedy%')->paginate(16);
-        } elseif ($title == "VIỄN TƯỞNG") {
-            $products = Product::where('categories', 'LIKE', '%Fantasy%')->paginate(16);
+        switch ($title) {
+            case $title == "SÁCH MỚI":
+                $products = Product::orderBy('ngayPhatHanh', 'desc')->paginate(16);
+                break;
+            case $title == "SÁCH BÁN CHẠY":
+                $products = Product::orderBy('inStock', 'asc')->paginate(16);
+                break;
+            case $title == "HỌC ĐƯỜNG":
+                $products = Product::where('categories', 'LIKE', '%SchoolLife%')->paginate(16);
+                break;
+            case $title == "HÀI HƯỚC":
+                $products = Product::where('categories', 'LIKE', '%Comedy%')->paginate(16);
+                break;
+            case $title == "VIỄN TƯỞNG":
+                $products = Product::where('categories', 'LIKE', '%Fantasy%')->paginate(16);
+                break;
+            case $title == "SÁCH CÙNG THỂ LOẠI":
+                $productName = $request->input('productName');
+                $products = Product::where('categories', 'LIKE', $productName)->paginate(16);
+                break;
+            case $title == "SẢN PHẨM ĐÃ XEM":
+                $products = Product::paginate(16);
+                break;
+            default:
+                echo "Invalid";
         }
         return view('collection', compact('products'));
     }
